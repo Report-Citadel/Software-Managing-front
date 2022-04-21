@@ -91,71 +91,7 @@ export default {
       console.log("路有参数" + this.userAccount.id);
     },
 
-    getInfo() {
-      if (this.userAccount.role == 1) {
-        var jsonS = {
-          s_id: this.userAccount.id,
-        };
-        axios
-          .post("/api/getUserInfo/Student/", JSON.stringify(jsonS))
-          .then((response) => {
-            console.log("getInfo", response);
-            this.userAccount.name = response.data.data[0].name;
-            this.userAccount.gender = response.data.data[0].gender;
-            this.userAccount.phone_number = response.data.data[0].phone_number;
-            this.userAccount.email = response.data.data[0].email;
-            //this.userAccount.is_active = response.data[0].is_active;
-            //this.role = response.data[0].role;
-            //this.userAccount.department = response.data[0].department;
-            //this.major_id;
-          })
-          .catch(function (error) {
-            console(error);
-          });
-      } else if (this.userAccount.role == 2) {
-        axios
-          .get("/api/getUserInfo/Teacher/", {
-            params: {
-              t_id: this.userAccount.id,
-            },
-          })
-          .then((response) => {
-            console.log("拿到的信息" + JSON.stringify(response.data));
-            this.userAccount.name = response.data[0].name;
-            this.userAccount.gender = response.data[0].gender;
-            this.userAccount.phone_number = response.data[0].phone_number;
-            this.userAccount.email = response.data[0].email;
-            //this.userAccount.is_active = response.data[0].is_active;
-            //this.role = response.data[0].role;
-            //this.userAccount.department = response.data[0].department;
-            //this.major_id;
-          })
-          .catch(function (error) {
-            console(error);
-          });
-      } else if (this.userAccount.role == 3) {
-        axios
-          .get("/api/getUserInfo/TA/", {
-            params: {
-              ta_id: this.userAccount.id,
-            },
-          })
-          .then((response) => {
-            console.log("拿到的信息" + JSON.stringify(response.data));
-            this.userAccount.name = response.data[0].name;
-            this.userAccount.gender = response.data[0].gender;
-            this.userAccount.phone_number = response.data[0].phone_number;
-            this.userAccount.email = response.data[0].email;
-            //this.userAccount.is_active = response.data[0].is_active;
-            //this.role = response.data[0].role;
-            //this.userAccount.department = response.data[0].department;
-            //this.major_id;
-          })
-          .catch(function (error) {
-            console(error);
-          });
-      }
-    },
+    getInfo() {},
 
     checkResponse(response) {
       if (response == "Success") this.$message("修改成功");
@@ -164,61 +100,6 @@ export default {
 
     save() {
       //保存修改
-      if (this.userAccount.role == 1) {
-        var jsons = {
-          name: this.userAccount.name,
-          s_id: this.userAccount.id,
-          gender: this.userAccount.gender,
-          phone_number: this.userAccount.phone_number,
-          email: this.userAccount.email,
-          token: sessionStorage.getItem("token"),
-        };
-      } else if (this.userAccount.role == 2) {
-        jsons = {
-          name: this.userAccount.name,
-          t_id: this.userAccount.id,
-          gender: this.userAccount.gender,
-          phone_number: this.userAccount.phone_number,
-          email: this.userAccount.email,
-          token: sessionStorage.getItem("token"),
-        };
-      } else if (this.userAccount.role == 3) {
-        jsons = {
-          name: this.userAccount.name,
-          ta_id: this.userAccount.id,
-          email: this.userAccount.email,
-          token: sessionStorage.getItem("token"),
-        };
-      }
-
-      if (this.userAccount.role == 1) {
-        this.axios
-          .post("/api/editInfo/Student/", JSON.stringify(jsons))
-          .then((response) => {
-            console.log("save");
-            console.log(response);
-            this.checkResponse(response.data); //请求成功返回的数据
-            this.getInfo();
-          });
-      } else if (this.userAccount.role == 2) {
-        this.axios
-          .post("/api/editInfo/Teacher/", JSON.stringify(jsons))
-          .then((response) => {
-            console.log("save");
-            console.log(response);
-            this.checkResponse(response.data); //请求成功返回的数据
-            this.getInfo();
-          });
-      } else if (this.userAccount.role == 3) {
-        this.axios
-          .post("/api/editInfo/TA/", JSON.stringify(jsons))
-          .then((response) => {
-            console.log("save");
-            console.log(response);
-            this.checkResponse(response.data); //请求成功返回的数据
-            this.getInfo();
-          });
-      }
     },
 
     back() {

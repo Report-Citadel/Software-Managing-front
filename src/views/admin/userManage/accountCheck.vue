@@ -132,14 +132,6 @@ export default {
   },
   mounted() {
     //获取所有用户所有信息
-    axios
-      .get("/api/getUserInfo/allUser/", {
-        crossDomain: true,
-      })
-      .then((response) => (this.tableData = response.data))
-      .catch(function () {});
-
-    //console.log(this.userData);
   },
 };
 </script>

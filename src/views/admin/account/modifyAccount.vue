@@ -61,53 +61,9 @@ export default {
 
       console.log("路有参数" + this.id);
     },
-    getAdminInfo() {
-      this.axios
-        .get("/api/getAdminInfo/admin/", {
-          params: { admin_id: this.id, token: sessionStorage.getItem("token") },
-          crossDomain: true,
-        })
-        .then((response) => {
-          console.log("getAdminInfo");
-          console.log(response);
-          this.userAccount = response.data[0];
-        })
-        .catch(function (error) {
-          console(error);
-        });
-    },
+    getAdminInfo() {},
 
-    save() {
-      if (this.userAccount.phone_number.length != 11) {
-        this.$message.warning("请输入11位的手机号！");
-        return;
-      }
-
-      var jsons = {
-        name: this.userAccount.name,
-        admin_id: this.userAccount.admin_id,
-        phone_number: this.userAccount.phone_number,
-        email: this.userAccount.email,
-        token: sessionStorage.getItem("token"),
-      };
-      this.axios
-        .post("/api/editInfo/Admin/", JSON.stringify(jsons))
-        .then((response) => {
-          console.log("save");
-          console.log(response);
-
-          if (response.data == "Success")
-            this.$message({
-              message: "修改成功",
-              type: "success",
-            });
-          else this.$message.error("错误");
-        })
-        .catch((error) => {
-          this.$message("网络错误！");
-          console.log(error);
-        });
-    },
+    save() {},
     back() {
       this.$router.go(-1);
     },

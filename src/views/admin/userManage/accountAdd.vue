@@ -353,45 +353,9 @@ export default {
   },
   methods: {
     //重新手动激活用户
-    handleActive(is_active, id, usertype) {
-      if (is_active === 1) {
-        this.$message("该用户已被激活，不可重新激活");
-      } else {
-        var jsons = {
-          id: id,
-          role: usertype - 1,
-        };
-        axios
-          .post("/api/users/reActive", jsons)
-          .then((response) => {
-            console.log(response);
-          })
-          .catch(function (error) {
-            console(error);
-          });
-        this.$message({
-          message: "已发送激活邮件",
-          type: "success",
-        });
-      }
-    },
-
+    handleActive(is_active, id, usertype) {},
     //获取所有用户所有信息
-    getUserData() {
-      axios
-        .get("/api/getUserInfo/allUser/", {
-          //params: { userData: "value" },
-          crossDomain: true,
-        })
-        .then((response) => {
-          console.log("getUserData", response);
-          this.userData = response.data;
-          //location.reload();
-        })
-        .catch(function (error) {
-          console(error);
-        });
-    },
+    getUserData() {},
     handleDetailS() {
       this.dialogFormVisibleS = true;
     },
@@ -472,172 +436,23 @@ export default {
 
     addFromDetailS() {
       //手动增加学生
-      if (
-        this.formS.name != "" &&
-        this.formS.id != "" &&
-        this.formS.email.indexOf("@") >= 0
-      ) {
-        var jsons = {
-          email: this.formS.email,
-          id: this.formS.id,
-          name: this.formS.name,
-          token: sessionStorage.getItem("token"),
-        };
-        axios
-          .post("/api/Register/addSM/", JSON.stringify(jsons))
-          .then((response) => {
-            console.log(" addFromDetailS", response);
-            this.checkData(response.data);
-            //location.reload();
-          });
-        this.dialogFormVisibleS = false;
-        this.formS.name = "";
-        this.formS.id = "";
-        this.formS.email = "";
-        this.getUserData();
-      } else {
-        this.$message({
-          message: "请输入正确信息",
-          type: "error",
-        });
-      }
       //location.reload();
     },
 
     addFromDetailT() {
       //手动增加教师
-
-      if (
-        this.formT.name != "" &&
-        this.formT.id != "" &&
-        this.formT.email.indexOf("@") >= 0
-      ) {
-        var jsons = {
-          email: this.formT.email,
-          id: this.formT.id,
-          name: this.formT.name,
-          token: sessionStorage.getItem("token"),
-        };
-        this.axios
-          .post("/api/Register/addTeacherManually/", JSON.stringify(jsons))
-          .then((response) => {
-            this.checkData(response.data);
-          });
-        this.dialogFormVisibleT = false;
-        this.formT.name = "";
-        this.formT.id = "";
-        this.formT.email = "";
-        this.getUserData();
-        //location.reload();
-      } else {
-        this.$message({
-          message: "请输入正确信息",
-          type: "error",
-        });
-      }
     },
 
     addFromDetailA() {
       //手动增加助教
-      if (
-        this.formA.name != "" &&
-        this.formA.ta_id != "" &&
-        this.formA.email.indexOf("@") >= 0
-      ) {
-        var jsons = {
-          name: this.formA.name,
-          ta_id: this.formA.ta_id,
-          email: this.formA.email,
-          token: sessionStorage.getItem("token"),
-        };
-
-        this.axios
-          .post("/api/Register/addTAManually", JSON.stringify(jsons))
-          .then((response) => {
-            this.checkData(response.data);
-          });
-        this.dialogFormVisibleA = false;
-        this.formA.name = "";
-        this.formA.ta_id = "";
-        this.formA.email = "";
-        this.getUserData();
-      } else {
-        this.$message({
-          message: "请输入正确信息",
-          type: "error",
-        });
-      }
       //location.reload();
     },
 
-    addFromExcelS() {
-      let fdParams = new FormData();
-      this.fileListS.forEach((file) => {
-        //console.log(file);
-        fdParams.append("file", file.raw);
-      });
-      //fdParams.append("userID", "123");
+    addFromExcelS() {},
 
-      this.axios
-        .post("/api/Register/addStudent/", fdParams, {
-          headers: { "Content-Type": "multipart/form-data" }, //定义内容格式,很重要
-          //timeout: 20000,
-        })
-        .then((response) => {
-          console.log("addFromExcelS", response);
-          this.$message.success("添加成功!");
-          this.fileListS = [];
-          this.getUserData();
-          this.dialogExcelVisibleS = false;
-        })
-        .catch({});
-    },
+    addFromExcelT() {},
 
-    addFromExcelT() {
-      let fdParams = new FormData();
-      this.fileListT.forEach((file) => {
-        console.log(file);
-        fdParams.append("file", file.raw);
-      });
-      //fdParams.append("userID", "123");
-      console.log("addFromExcelTjson", this.fileListT);
-      this.axios
-        .post("/api/Register/addTeacher/", fdParams, {
-          headers: { "Content-Type": "multipart/form-data" }, //定义内容格式,很重要
-          //timeout: 20000,
-        })
-        .then((response) => {
-          console.log("addFromExcelT", response);
-          this.$message.success("添加成功!");
-          this.fileListT = [];
-          this.getUserData();
-          this.dialogExcelVisibleT = false;
-        })
-        .catch({});
-    },
-
-    addFromExcelA() {
-      let fdParams = new FormData();
-      this.fileListA.forEach((file) => {
-        console.log(file);
-        fdParams.append("file", file.raw);
-      });
-      //fdParams.append("userID", "123");
-
-      this.axios
-        .post("/api/Register/addTA/", fdParams, {
-          headers: { "Content-Type": "multipart/form-data" }, //定义内容格式,很重要
-          //timeout: 20000,
-        })
-        .then((response) => {
-          console.log(response);
-          this.$message.success("添加成功!");
-          this.fileListA = [];
-          this.getUserData();
-          this.dialogExcelVisibleA = false;
-        })
-        .catch({});
-    },
+    addFromExcelA() {},
 
     handleSizeChange: function (val) {
       this.pagesize = val;

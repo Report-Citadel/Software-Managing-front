@@ -86,36 +86,7 @@ export default {
     handleAdd() {
       this.courseAddDialog = true;
     },
-    addCourse() {
-      console.log("form==" + JSON.stringify(this.form));
-      if (this.form.name == "" || this.form.prefix == "") {
-        this.$message({
-          type: "warning",
-          message: "课程名称和id不能为空!",
-        });
-      } else if (this.isExist()) {
-        this.$message({
-          type: "warning",
-          message: "该课程已存在!",
-        });
-      } else {
-        var jsons = {
-          name: this.form.name,
-          prefix: this.form.prefix,
-          token: sessionStorage.getItem("token"),
-        };
-        axios
-          .post("/api/course/addType/", JSON.stringify(jsons))
-          .then((response) => {
-            console.log(response);
-            this.courseAddDialog = false;
-            this.getCourseType();
-          })
-          .catch(function (error) {
-            console.log(error);
-          });
-      }
-    },
+    addCourse() {},
     isExist() {
       //课程是否存在
       var ret =

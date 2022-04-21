@@ -47,7 +47,7 @@
     <el-dialog title="头像设置" :visible.sync="avatarDialog" center width="20%">
       <el-upload
         class="avatar-uploader"
-        action="/api/editInfo/uploadAvatar"
+        action=""
         :show-file-list="false"
         :on-success="handleAvatarSuccess"
         :on-remove="handleRemove"
@@ -139,54 +139,8 @@ export default {
     },
     getAvatar() {
       //获取头像
-      let formData = new FormData();
-      formData.append("s_id", this.id);
-      let url = "/api/getUserInfo/Student/showAvatar";
-
-      formData.forEach((value, key) => {
-        console.log("key %s: value %s", key, value);
-      });
-      axios
-        .post(url, formData, {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        })
-        .then((response) => {
-          console.log("getAvaatar", response);
-          if (response.data.url != "")
-            this.imageUrl = "/api" + response.data.url;
-        })
-        .catch({});
-
-      this.dialogExcelVisibleS = false;
-
-      /*axios({
-        method: "post",
-        url: "/api/getUserInfo/Student/showAvatar",
-        data: {
-          s_id: this.id,
-        },
-        transformRequest: [
-          function (data) {
-            let ret = "";
-            for (let it in data) {
-              ret +=
-                encodeURIComponent(it) +
-                "=" +
-                encodeURIComponent(data[it]) +
-                "&";
-            }
-            ret = ret.substring(0, ret.lastIndexOf("&"));
-            return ret;
-          },
-        ],
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
-        },
-      });*/
-      this.dialogFormVisibleS = false;
-      //location.reload();
+     
+     
     },
     Logout() {
       sessionStorage.removeItem("role");

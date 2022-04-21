@@ -143,68 +143,11 @@ export default {
           });
         });
     },
-    addAnn() {
-      if (this.form.title == "") {
-        this.$message({
-          type: "warning",
-          message: "公告标题不能为空!",
-        });
-      } else {
-        var jsons = {
-          content: this.form.content,
-          title: this.form.title,
-          token: sessionStorage.getItem("token"),
-        };
-        axios
-          .post("/api//sys/addAnn/", JSON.stringify(jsons))
-          .then((response) => {
-            console.log("addAnn");
-            console.log(response);
-            this.annAddDialog = false;
-            this.getAnn();
-          })
-          .catch((error) => {
-            this.$message("网络错误！");
-            console.log(error);
-          });
-      }
-    },
+    addAnn() {},
     handleCheck() {},
     checkAnnounce() {},
-    getAnn() {
-      axios
-        .get("/api/sys/getAnn/", {
-          //params: { userData: "value" },
-          crossDomain: true,
-        })
-        .then((response) => {
-          console.log("getAnn");
-          console.log(response);
-          this.announceData = response.data;
-        })
-        .catch((error) => {
-          this.$message("网络错误！");
-          console.log(error);
-        });
-    },
-    deleteAnn(row) {
-      console.log("删除公告");
-      console.log(row);
-      var jsons = {
-        annoucement_id: row.annoucement_id,
-        token: sessionStorage.getItem("token"),
-      };
-      axios
-        .post("/api/sys/delAnn/", JSON.stringify(jsons))
-        .then((response) => {
-          console.log(response);
-          this.getAnn();
-        })
-        .catch((error) => {
-          this.$message("网络错误！");
-          console.log(error);
-        });
-    },
+    getAnn() {},
+    deleteAnn(row) {},
     formatImag(content) {
       return content.replace(
         /<img/g,

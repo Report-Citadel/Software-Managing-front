@@ -62,28 +62,7 @@ export default {
       this.id = sessionStorage.getItem("id");
     },
 
-    getAdminInfo() {
-      this.axios
-        .get("/api/getAdminInfo/admin/", {
-          params: { admin_id: this.id, token: sessionStorage.getItem("token") },
-          crossDomain: true,
-        })
-        .then((response) => {
-          console.log("getAdminInfo", response);
-          this.name = response.data[0].name;
-          //this.gender = response.data[0].gender;
-          this.phone_number = response.data[0].phone_number;
-          this.email = response.data[0].email;
-          //this.is_active = response.data[0].is_active;
-          //this.role = response.data[0].role;
-          //this.department = response.data[0].department;
-          //this.major_id;
-        })
-        .catch((error) => {
-          this.$message("网络错误！");
-          console.log(error);
-        });
-    },
+    getAdminInfo() {},
 
     modifyAccount() {
       this.$router.push({

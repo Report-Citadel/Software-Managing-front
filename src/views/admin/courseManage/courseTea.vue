@@ -154,29 +154,6 @@ export default {
     },
     updateTea() {
       //更改责任教师
-      var jsons = {
-        c_id: this.c_id,
-        semester: this.semester,
-        year: this.year,
-        prefix: this.prefix,
-        t_id: this.t_id,
-        token: sessionStorage.getItem("token"),
-      };
-      axios
-        .post("/api/course/setDuty/", JSON.stringify(jsons))
-        .then((response) => {
-          console.log(response);
-          this.updataTeaDialog = false;
-          this.c_id = "";
-          this.prefix = "";
-          this.year = "";
-          this.semester = "";
-          this.t_id = "";
-          this.getAllDutyTea();
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
     },
     handleDelete(row) {
       this.$confirm("确认删除该课程吗?", "提示", {
@@ -200,65 +177,15 @@ export default {
     },
     deleteCourse(row) {
       //删除课程
-      console.log(row);
-      var jsons = {
-        c_id: row.c_id,
-        token: sessionStorage.getItem("token"),
-      };
-      axios
-        .post("/api/course/delCourse/", JSON.stringify(jsons))
-        .then((response) => {
-          console.log(response);
-          this.getAllDutyTea();
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
     },
     getAllCourse() {
       //获得所有课程
-      axios
-        .get("/api/course/getType/", {
-          params: { token: sessionStorage.getItem("token") },
-          crossDomain: true,
-        })
-        .then((response) => {
-          console.log("getAllCourse", response);
-          this.courseList = response.data.data;
-        })
-        .catch(function (error) {
-          console(error);
-        });
     },
     getAllDutyTea() {
       //已经设置的责任教师
-      axios
-        .get("/api/course/getDuty/", {
-          params: { token: sessionStorage.getItem("token") },
-        })
-        .then((response) => {
-          console.log("所有责任教师");
-
-          this.dutyTeaList = response.data.data;
-          console.log(this.dutyTeaList);
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
     },
     getAllTea() {
       //获得所有教师
-      axios
-        .get("/api/course/getAllTeacher/", {
-          params: { token: sessionStorage.getItem("token") },
-          crossDomain: true,
-        })
-        .then((response) => {
-          this.teaList = response.data.data;
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
     },
     handleAdd() {
       this.c_id = "";
@@ -271,34 +198,6 @@ export default {
 
     addCourse() {
       //开课
-      var jsons = {
-        semester: this.semester,
-        year: this.year,
-        prefix: this.prefix,
-        t_id: this.t_id,
-        token: sessionStorage.getItem("token"),
-      };
-      axios
-        .post("/api/course/addCourse/", JSON.stringify(jsons))
-        .then((response) => {
-          if (response.data === "CourseExist") {
-            this.$message({
-              message: "该课程已存在",
-              type: "error",
-            });
-          } else {
-            this.addCourseDialog = false;
-            this.prefix = "";
-            this.year = "";
-            this.semester = "";
-            this.t_id = "";
-            this.getAllDutyTea();
-          }
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
-      //location.reload();
     },
   },
 
