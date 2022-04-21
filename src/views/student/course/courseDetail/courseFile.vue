@@ -49,127 +49,42 @@ export default {
       currentPage: 1,
       pagesize: 6,
       dialog: false,
-      class_id: "",
-      tableData: [],
+      class_id: 12,
+      tableData: [
+        {
+          filename:"课本教材实例",
+          date:"2021-12-12 12:30:21"
+        },
+        {
+          filename:"实验报告案例",
+          date:"2021-12-12 12:30:21"
+        }
+      ],
     };
   },
   methods: {
-    toFile() {
-      this.$router.push("/studentHome/concreteCourse/concreteFile");
-    },
+
     handleSizeChange: function (val) {
       this.pagesize = val;
     },
     handleCurrentChange: function (currentPage) {
       this.currentPage = currentPage;
     },
-    handleCheck(row) {
-      this.axios
-        .post(
-          "/api/manageClassFileRoute/download/",
-          JSON.stringify({
-            id: row.id,
-            class_id: this.class_id,
-            token: sessionStorage.getItem("token"),
-          }),
-          {
-            responseType: "blob",
-            headers: {
-              "Content-Type": "multipart/form-data",
-            },
-          }
-        )
-        .then((response) => {
-          if (response.data["code"] === 301) {
-            this.$message("验证过期");
-            this.$router.push({ path: "/login" });
-          } else if (response.data["code"] === 404) {
-            this.$message("找不到页面");
-            this.$router.push({ path: "/404" });
-          } else {
-            //const title = fileName && (fileName.indexOf('filename=') !== -1) ? fileName.split('=')[1] : 'download';
+    handleCheck() {
 
-            const blob = new Blob([response.data], {
-              type: "application/pdf",
-            });
-            var href = window.URL.createObjectURL(blob);
-            window.open(href);
-          }
-        });
     },
-    handleDown(row) {
-      this.axios
-        .post(
-          "/api/manageClassFileRoute/download/",
-          JSON.stringify({
-            id: row.id,
-            class_id: this.class_id,
-            token: sessionStorage.getItem("token"),
-          }),
-          {
-            responseType: "blob",
-          }
-        )
-        .then((response) => {
-          console.log(response);
-          if (response.data["code"] === 301) {
-            this.$message("验证过期");
-            this.$router.push({ path: "/login" });
-          } else if (response.data["code"] === 404) {
-            this.$message("找不到页面");
-            this.$router.push({ path: "/404" });
-          } else {
-            var fname = row.filename;
-            fname = decodeURIComponent(fname);
-            //const title = fileName && (fileName.indexOf('filename=') !== -1) ? fileName.split('=')[1] : 'download';
+    handleDown() {
 
-            const blob = new Blob([response.data], {
-              type: "application/pdf",
-            });
-            var downloadElement = document.createElement("a");
-            var href = window.URL.createObjectURL(blob);
-            downloadElement.href = href;
-
-            downloadElement.download = fname;
-            document.body.appendChild(downloadElement);
-            downloadElement.click();
-            document.body.removeChild(downloadElement);
-            window.URL.revokeObjectURL(href);
-          }
-        });
     },
     getFileList() {
-      this.axios
-        .post(
-          "/api/manageClassFileRoute/getClassFile",
-          JSON.stringify({
-            class_id: this.class_id,
-            token: sessionStorage.getItem("token"),
-          })
-        )
-        .then((response) => {
-          //这里使用了ES6的语法
-          //this.tableData = response.data
-          if (response.data["code"] === 301) {
-            this.$message("验证过期");
-            this.$router.push({ path: "/login" });
-          } else if (response.data["code"] === 404) {
-            this.$message("找不到页面");
-            this.$router.push({ path: "/404" });
-          } else {
-            this.tableData = response.data.data;
-          } //请求成功返回的数据
-        });
+
     },
     getParams: function () {
-      this.class_id = JSON.parse(this.$Base64.decode(this.$route.query.info))[
-        "class_id"
-      ];
+
     },
   },
   mounted() {
-    this.getParams();
-    this.getFileList();
+
   },
 };
 </script>

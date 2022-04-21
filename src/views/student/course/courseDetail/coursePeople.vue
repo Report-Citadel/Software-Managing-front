@@ -60,40 +60,14 @@ export default {
       return row[property] === value;
     },
     getStuList() {
-      this.axios
-        .post(
-          "/api/manageClass/IDGetClassStudent",
-          JSON.stringify({
-            class_id: this.class_id,
-            token: sessionStorage.getItem("token"),
-          })
-        )
-        .then((response) => {
-          console.log("getStu");
-          console.log(response);
 
-          if (response.data["code"] === 301) {
-            this.$message("验证过期");
-            this.$router.push({ path: "/login" });
-          } else if (response.data["code"] === 404) {
-            this.$message("找不到页面");
-            this.$router.push({ path: "/404" });
-          } else {
-            this.stuList = response.data.data["data"];
-          }
-        });
     },
     getParams: function () {
-      this.id = sessionStorage.getItem("id");
-      this.class_id = JSON.parse(this.$Base64.decode(this.$route.query.info))[
-        "class_id"
-      ];
-      console.log("cid===" + this.class_id);
+
     },
   },
   mounted() {
-    this.getParams();
-    this.getStuList();
+
   },
 };
 </script>
