@@ -4,16 +4,16 @@
     <el-aside width="200px"></el-aside>
 
     <el-main class="back">
-      <div class="circle" @click.stop="uploadHeadImg">
-        <div class="circle0" v-html="avatar"></div>
-        <div class="circle1">修改头像</div>
-      </div>
-      <input
-        type="file"
-        accept="image/*"
-        @change="handleFile"
-        class="hiddenInput"
-      />
+<!--      <div class="circle" @click.stop="uploadHeadImg">-->
+<!--        <div class="circle0" v-html="avatar"></div>-->
+<!--        <div class="circle1">修改头像</div>-->
+<!--      </div>-->
+<!--      <input-->
+<!--        type="file"-->
+<!--        accept="image/*"-->
+<!--        @change="handleFile"-->
+<!--        class="hiddenInput"-->
+<!--      />-->
       <div style="margin-top: 25px">
         <el-card style="box-shadow: 7px 7px 7px rgba(0, 0, 0, 0.15)">
           <el-descriptions
@@ -79,102 +79,25 @@
 export default {
   data() {
     return {
-      name: "",
-      id: "",
-      gender: "",
-      phone_number: "",
-      email: "",
-      is_active: "",
+      name: "梁潇怡",
+      id: "1951567",
+      gender: "女",
+      phone_number: "18868629263",
+      email: "2870375520@qq.com",
+      is_active: 1,
       //role: "",
-      department: "",
-      major_id: "",
+      department: "软件学院",
+      major_id: "软件工程",
       avatar: "",
     };
   },
   methods: {
-    getUserAvatar: function () {
-      let param = new FormData(); // 创建form对象
-      param.append("s_id", sessionStorage.getItem("id"));
-      this.axios
-        .post("/api/getUserInfo/Student/showAvatar", param)
-        .then((response) => {
-          var address = "http://39.107.51.181:5000";
-          var url = response.data.url;
-          var imgHtml = "<img src=" + address + url + "></img>";
-          console.log(imgHtml);
-          this.avatar = imgHtml;
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
-    },
-    getParams: function () {
-      this.id = sessionStorage.getItem("id");
-    },
+
+
     // 打开图片上传
-    uploadHeadImg: function () {
-      this.$el.querySelector(".hiddenInput").click();
-    },
-    // 将头像显示
-    handleFile: function (e) {
-      let $target = e.target || e.srcElement;
-      let file = $target.files[0];
-      let param = new FormData(); // 创建form对象
-      param.append("avatar", file); // 将文件存入file下面
-      param.append("token", sessionStorage.getItem("token"));
-      param.append("id", sessionStorage.getItem("id"));
-      let config = { headers: { "Content-Type": "multipart/form-data" } };
-      this.axios
-        .post("/api/editInfo/uploadAvatar", param, config)
-        .then((response) => {
-          var msg = response.data.message;
-          this.$message(msg);
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
 
-      var reader = new FileReader();
-      // reader.onload = (data) => {
-      //   let res = data.target || data.srcElement
-      //   // this.userInfo.avatar = res.result
-      // }
 
-      reader.readAsDataURL(file);
-    },
 
-    getStuInfo() {
-      this.axios
-        .post(
-          "/api/getUserInfo/Student/",
-          JSON.stringify({
-            s_id: this.id,
-            token: sessionStorage.getItem("token"),
-          })
-        )
-        .then((response) => {
-          console.log("getStuInfo", response);
-          if (response.data["code"] === 301) {
-            this.$message("验证过期");
-            this.$router.push({ path: "/login" });
-          } else if (response.data["code"] === 404) {
-            this.$message("找不到页面");
-            this.$router.push({ path: "/404" });
-          } else {
-            this.name = response.data["data"][0].name;
-            this.gender = response.data["data"][0].gender;
-            this.phone_number = response.data["data"][0].phone_number;
-            this.email = response.data["data"][0].email;
-            this.is_active = response.data["data"][0].is_active;
-            //this.role = response.data[0].role;
-            this.department = response.data["data"][0].department;
-            //this.major_id;
-          }
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
-    },
 
     modifyAccount() {
       this.$router.push({
@@ -183,9 +106,7 @@ export default {
     },
   },
   mounted() {
-    this.getParams();
-    this.getStuInfo();
-    this.getUserAvatar();
+
   },
 };
 </script>

@@ -5,9 +5,7 @@
       <el-table
         ref="filterTable"
         row-key="deadline"
-        :data="
-          tableData.slice((currentPage - 1) * pagesize, currentPage * pagesize)
-        "
+        :data="tableData"
         style="width: 100%"
       >
         <el-table-column prop="experiment_title" label="实验名称">
@@ -120,7 +118,32 @@ export default {
       ex_id: "",
       currentPage: 1,
       pagesize: 7,
-      tableData: [],
+      tableData: [
+        {
+          ex_id:1,
+          end_time: "2021-12-2 12:30:21",
+          experiment_title:"这是一个实验",
+          is_submit:false,
+          status:"已过期",
+          score:98
+        },
+        {
+          ex_id:1,
+          end_time: "2021-12-2 12:30:21",
+          experiment_title:"这是一个实验",
+          is_submit:false,
+          status:"已过期",
+          score:98
+        },
+        {
+          ex_id:1,
+          end_time: "2021-12-2 12:30:21",
+          experiment_title:"这是一个实验",
+          is_submit:false,
+          status:"已过期",
+          score:98
+        }
+      ],
       fileList: [],
       fileDialog: false,
     };
@@ -133,14 +156,8 @@ export default {
       this.currentPage = currentPage;
     },
     goToOnline(ex_id, end_time) {
-      this.$router.push({
-        path: "/studentHome/concreteCourse/onlineExp",
-        query: {
-          sid: this.sid,
-          ex_id: ex_id,
-          stop_time: end_time,
-        },
-      });
+
+      console.log(ex_id,end_time)
     },
     handlePreview(file) {
       console.log(file);

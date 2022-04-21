@@ -46,7 +46,14 @@ export default {
   data() {
     return {
       show: false,
-      courseData: [],
+      courseData: [
+        {
+          class_id: 401902,
+          course_name: "软件工程",
+          year: 2021,
+          semester: "春季"
+        }
+      ],
     };
   },
   methods: {
@@ -61,19 +68,7 @@ export default {
       });
     },
     getCourse() {
-      this.axios
-        .post(
-          "/api/studentGetClass",
-          JSON.stringify({
-            s_id: sessionStorage.getItem("id"),
-            token: sessionStorage.getItem("token"),
-          })
-        )
-        .then((response) => {
-          //这里使用了ES6的语法
-          console.log(response.data);
-          this.checkResponse(response.data); //请求成功返回的数据
-        });
+
     },
     checkResponse(response) {
       if (response["code"] === 404) {
