@@ -304,7 +304,7 @@
 </template>
 
 <script >
-import axios from "axios";
+// import axios from "axios";
 
 export default {
   data() {
@@ -353,7 +353,9 @@ export default {
   },
   methods: {
     //重新手动激活用户
-    handleActive(is_active, id, usertype) {},
+    handleActive(is_active, id, usertype) {
+      console.log(is_active, id, usertype);
+    },
     //获取所有用户所有信息
     getUserData() {},
     handleDetailS() {

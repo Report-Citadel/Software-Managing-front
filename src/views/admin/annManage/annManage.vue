@@ -89,7 +89,7 @@
 </template>
 
 <script>
-import axios from "axios";
+// import axios from "axios";
 export default {
   data() {
     return {
@@ -100,7 +100,13 @@ export default {
       pagesize: 10,
       title: "",
       content: "",
-      announceData: [],
+      announceData: [
+        {
+          date:"2022-04-01",
+          title:"Announce1",
+          content:"This is an announce test.",
+        }
+      ],
       form: {
         title: "输入标题",
         content: "请输入内容",
@@ -147,7 +153,9 @@ export default {
     handleCheck() {},
     checkAnnounce() {},
     getAnn() {},
-    deleteAnn(row) {},
+    deleteAnn(row) {
+      console.log(row);
+    },
     formatImag(content) {
       return content.replace(
         /<img/g,

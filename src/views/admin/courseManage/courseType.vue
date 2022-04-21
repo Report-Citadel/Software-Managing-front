@@ -57,7 +57,20 @@ export default {
   data() {
     return {
       courseAddDialog: false,
-      courseTypeData: [],
+      courseTypeData: [
+        {
+          prefix:"001",
+          name:"Course1"
+        },
+        {
+          prefix:"003",
+          name:"Course2"
+        },
+        {
+          prefix:"003",
+          name:"Course3"
+        },
+      ],
       form: { name: "", prefix: "" },
     };
   },

@@ -82,14 +82,33 @@
 </template>
 
 <script >
-import axios from "axios";
+// import axios from "axios";
 export default {
   data() {
     return {
       currentPage: 1,
       pagesize: 6,
       multipleSelection: [],
-      userData: [],
+      userData: [
+        {
+          name:"001",
+          id:"001",
+          role:1,
+          is_active:0,
+        },
+        {
+          name:"002",
+          id:"002",
+          role:2,
+          is_active:0,
+        },
+        {
+          name:"003",
+          id:"003",
+          role:3,
+          is_active:0,
+        },
+      ],
     };
   },
   methods: {
@@ -129,6 +148,7 @@ export default {
 
     cancelOneAccount(row) {
       //注销单个账户
+      console.log(row)
     },
 
     handleCheckCancelO(row) {

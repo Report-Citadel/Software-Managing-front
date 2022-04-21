@@ -72,7 +72,9 @@ export default {
   },
   methods: {
     validateCaptcha() {},
-    save(captchaSuccess, old_password, new_password) {},
+    save(captchaSuccess, old_password, new_password) {
+      console.log(captchaSuccess, old_password, new_password);
+    },
     back() {
       this.$router.push("/studentHome");
     },

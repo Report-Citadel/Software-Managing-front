@@ -122,7 +122,7 @@
 </template>
 
 <script scoped>
-import axios from "axios";
+// import axios from "axios";
 export default {
   data() {
     return {
@@ -140,7 +140,16 @@ export default {
       year: "",
       semester: "",
       t_id: "",
-      dutyTeaList: [],
+      dutyTeaList: [
+        {
+          prefix:"001",
+          name:"Course1",
+          year:2022,
+          semester:"1",
+          t_id:"001",
+          t_name:"Name1",
+        }
+      ],
     };
   },
   methods: {
@@ -177,6 +186,7 @@ export default {
     },
     deleteCourse(row) {
       //删除课程
+      console.log(row);
     },
     getAllCourse() {
       //获得所有课程
