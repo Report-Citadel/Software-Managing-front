@@ -145,31 +145,6 @@ export default {
     handleFile() {
       this.dialogVisible = true;
     },
-
-    getCourseEx() {
-      var classID = this.c_id.toString();
-      this.axios
-        .post(
-          "/api/course/getEx/",
-          JSON.stringify({
-            c_id: classID.substring(0, 12),
-            token: sessionStorage.getItem("token"),
-          })
-        )
-        .then((response) => {
-          //这里使用了ES6的语法
-          console.log(response);
-          if (response.data["code"] === 301) {
-            this.$message("验证过期");
-            this.$router.push({ path: "/login" });
-          } else if (response.data["code"] === 404) {
-            this.$message("找不到页面");
-            this.$router.push({ path: "/404" });
-          } else {
-            this.experimentList = response.data.data;
-          }
-        });
-    },
     getParams: function () {
       this.c_id = JSON.parse(this.$Base64.decode(this.$route.query.info))[
         "class_id"
@@ -179,7 +154,6 @@ export default {
   },
   mounted() {
     this.getParams();
-    this.getCourseEx();
   },
 };
 </script>

@@ -135,6 +135,7 @@
 <script>
 export default {
   data() {
+    // 实验的一些信息可以填写在里面
     return {
       id: "",
       ex_id: "",
@@ -192,63 +193,11 @@ export default {
     back() {
       this.$router.go(-1);
     },
-    getExInfo() {
-      var jsons = {
-        ex_id: this.ex_id,
-      };
-      this.axios
-        .post("/api/course/getExById/", JSON.stringify(jsons))
-        .then((response) => {
-          //这里使用了ES6的语法
-          //this.tableData = response.data
-          console.log("getExInfo");
-          console.log(response);
-          if (response.data.data.status == 0) {
-            response.data.data.status = "未发布";
-            this.readOnly = false;
-          }
-          if (response.data.data.status == 1)
-            response.data.data.status = "未截止";
-          if (response.data.data.status == 3)
-            response.data.data.status = "已截止";
-          this.ex_info = response.data.data;
-        });
-    },
-    editExper() {
-      //修改实验信息
-      var jsons = {
-        title: this.ex_info.title,
-        brief: this.ex_info.brief,
-        end_time:this.ex_info.end_time,
-        ex_id: this.ex_info.ex_id,
-        status: this.ex_info.status,
-        weight: this.ex_info.weight,
-        token: sessionStorage.getItem("token"),
-      };
 
-      this.axios
-        .post("/api/course/editEx/", JSON.stringify(jsons))
-        .then((response) => {
-          if (response.data["code"] === 301) {
-            this.$message("验证过期");
-            this.$router.push({ path: "/login" });
-          } else if (response.data["code"] === 404) {
-            this.$message("找不到页面");
-            this.$router.push({ path: "/404" });
-          } else {
-            this.$message("修改成功");
-            this.$router.go(0);
-            this.proDialog = false;
-          }
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
-    },
   },
   mounted() {
     this.getParams();
-    this.getExInfo();
+    //this.getExInfo();
   },
 };
 </script>

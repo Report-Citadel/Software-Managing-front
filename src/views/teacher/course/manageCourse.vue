@@ -111,32 +111,10 @@ export default {
       });
     },
 
-    getCourse() {
-      this.axios
-        .post(
-          "/api/course/myDuty/",
-          JSON.stringify({
-            t_id: this.id,
-            token: sessionStorage.getItem("token"),
-          })
-        )
-        .then((response) => {
-          if (response.data["code"] === 404) {
-            this.$message("找不到页面");
-            this.$router.push({ path: "/404" });
-          } else if (response.data["code"] === 301) {
-            this.$message("验证过期");
-            this.$router.push({ path: "/login" });
-          } else {
-            this.tableData = response.data["data"]; //请求成功返回的数据
-          }
-        });
-    },
   },
 
   mounted() {
     this.getParams();
-    this.getCourse();
   },
 };
 </script>

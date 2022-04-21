@@ -49,6 +49,7 @@
 export default {
   data() {
     return {
+      // 加一下假的老师信息！
       userAccount: {},
     };
   },
@@ -62,52 +63,13 @@ export default {
         return;
       }
 
-      var jsons = {
-        name: this.userAccount.name,
-        t_id: this.userAccount.t_id,
-        gender: this.userAccount.gender,
-        phone_number: this.userAccount.phone_number,
-        email: this.userAccount.email,
-        token: sessionStorage.getItem("token"),
-      };
-      this.axios
-        .post("/api/editInfo/Teacher/", JSON.stringify(jsons))
-        .then((response) => {
-          console.log("save");
-          console.log(response);
-
-          if (response.data == "Success")
-            this.$message({
-              message: "修改成功",
-              type: "success",
-            });
-          else this.$message.error("错误");
-          this.getTeaInfo();
-        });
     },
     back() {
       this.$router.push("/teacherHome/account");
     },
-    getTeaInfo() {
-      this.axios
-        .get("api//getUserInfo/Teacher/", {
-          params: { t_id: this.id, token: sessionStorage.getItem("token") },
-          crossDomain: true,
-        })
-        .then((response) => {
-          console.log("老师信息");
-          console.log(response);
-
-          this.userAccount = response.data[0];
-        })
-        .catch(function (error) {
-          console(error);
-        });
-    },
   },
   mounted() {
     this.getParams();
-    this.getTeaInfo();
   },
 };
 </script>
