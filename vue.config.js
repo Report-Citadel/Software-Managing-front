@@ -1,4 +1,5 @@
 module.exports = {
+    transpileDependencies: [],
     // 配置跨域代理
     devServer: {
         // Paths
@@ -16,6 +17,7 @@ module.exports = {
             },
 
         },
+        
         /*
         headers: {
             'Access-Control-Allow-Origin': '*',
