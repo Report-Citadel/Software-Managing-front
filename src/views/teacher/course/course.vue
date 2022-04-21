@@ -45,30 +45,17 @@ export default {
   data() {
     return {
       show: false,
-      courseData: [],
-      id:""
+            courseData: [
+        {
+          class_id: 401902,
+          course_name: "软件工程",
+          year: 2021,
+          semester: "春季"
+        }
+      ],
     };
   },
   methods: {
-    getParams: function () {
-      this.id = sessionStorage.getItem('id');
-    },
-    getCourse(){
-      this.axios.post('/api/manageClass/teacherGetClass',JSON.stringify({
-        t_id : sessionStorage.getItem('id'),
-        token : sessionStorage.getItem('token')
-      })).then((response) => {
-        if(response.data['code'] == 404){
-          this.$message("找不到页面")
-          this.$router.push({path:"/404"})
-        }
-        else if(response.data['code'] == 301){
-          this.$message("验证过期")
-          this.$router.push({path:"/login"})
-        }
-        this.courseData = response.data['data'] //请求成功返回的数据
-      });
-    },
 
     toCourse(index) {
       this.$router.push({path:"/teacherHome/concreteCourse",
@@ -77,9 +64,6 @@ export default {
       });
     },
   },
-  mounted() {
-    this.getParams();
-    this.getCourse();
-  },
+
 };
 </script>

@@ -30,41 +30,25 @@ export default {
   data() {
     return {
       show: false,
-      classData: [],
+      // 获得的课程信息可以放在这个classData里面，格式可以按照这样来，要显示什么，直接在上面的地方修改即可
+      classData: [
+        {
+          class_id: 401902,
+          course_name: "软件工程",
+          year: 2021,
+          semester: "春季"
+        }
+      ],
       id: "",
     };
   },
   methods: {
-    getParams: function () {
-      this.id = sessionStorage.getItem("id");
-    },
-    getClass() {
-      var jsons = {
-        t_id: this.id,
-        token: sessionStorage.getItem("token"),
-      };
-      console.log("获得班级");
-      console.log(jsons);
-      this.axios
-        .post("/api/manageClass/teacherGetClass", JSON.stringify(jsons))
-        .then((response) => {
-          console.log(response);
-          if (response.data["code"] == 404) {
-            this.$message("找不到页面");
-            this.$router.push({ path: "/404" });
-          } else if (response.data["code"] == 301) {
-            this.$message("验证过期");
-            this.$router.push({ path: "/login" });
-          }
-          this.classData = response.data.data;
-        });
-    },
 
     toClass(index) {
       console.log(index);
       this.$router.push({
         path: "/teacherHome/concreteCourse/Ann",
-        //query: { c_id: this.$Base64.encode(index.class_id) },
+        // 在这里放一下班级号，传到另一个页面的参数
         query: {
           info: this.$Base64.encode(
             JSON.stringify({ class_id: index.class_id })
@@ -73,9 +57,6 @@ export default {
       });
     },
   },
-  mounted() {
-    this.getParams();
-    this.getClass();
-  },
+
 };
 </script>

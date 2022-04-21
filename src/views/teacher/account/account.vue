@@ -82,77 +82,16 @@ export default {
     getParams: function () {
       this.id = sessionStorage.getItem("id");
     },
-    getUserAvatar: function () {
-      let param = new FormData(); // 创建form对象
-      param.append("t_id", sessionStorage.getItem("id"));
-      this.axios
-        .post("/api/getUserInfo/Teacher/showAvatar", param)
-        .then((response) => {
-          var address = "http://39.107.51.181:5000";
-          var url = response.data.url;
-          var imgHtml = "<img src=" + address + url + "></img>";
-          console.log(imgHtml);
-          this.avatar = imgHtml;
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
-    },
-    getTeaInfo() {
-      this.axios
-        .get("/api/getUserInfo/Teacher/", {
-          params: { t_id: this.id, token: sessionStorage.getItem("token") },
-          crossDomain: true,
-        })
-        .then((response) => {
-          console.log(response);
-
-          this.name = response.data[0].name;
-          this.gender = response.data[0].gender;
-          this.phone_number = response.data[0].phone_number;
-          this.email = response.data[0].email;
-          this.is_active = response.data[0].is_active;
-          //this.role = response.data[0].role;
-          this.department = response.data[0].department;
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
-    },
 
     modifyAccount() {
       this.$router.push({
         path: "/teacherHome/modifyAccount",
       });
     },
-        // 打开图片上传
-    uploadHeadImg: function () {
-      this.$el.querySelector(".hiddenInput").click();
-    },
-    // 将头像显示
-    handleFile: function (e) {
-      let $target = e.target || e.srcElement;
-      let file = $target.files[0];
-      let param = new FormData(); // 创建form对象
-      param.append("avatar", file); // 将文件存入file下面
-      param.append("token", sessionStorage.getItem("token"));
-      param.append("id", sessionStorage.getItem("id"));
-      let config = { headers: { "Content-Type": "multipart/form-data" } };
-      this.axios
-        .post("/api/editInfo/uploadAvatar", param, config)
-        .then((response) => {
-          var msg = response.data.message;
-          this.$message(msg);
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
-    },
   },
   mounted() {
-    this.getParams();
-    this.getTeaInfo();
-    this.getUserAvatar();
+    // this.getParams();
+    // this.getTeaInfo();
   },
 };
 </script>

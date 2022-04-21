@@ -71,29 +71,6 @@ export default {
         "class_id"
       ];
     },
-    getClassInfo() {
-      var jsons = {
-        class_id: this.c_id,
-        token: sessionStorage.getItem("token"),
-      };
-      this.axios
-        .post("/api/manageClass/IDGetClass", JSON.stringify(jsons))
-        .then((response) => {
-          console.log(response);
-          if (response.data["code"] === 301) {
-            this.$message("验证过期");
-            this.$router.push({ path: "/login" });
-          } else if (response.data["code"] === 404) {
-            this.$message("找不到页面");
-            this.$router.push({ path: "/404" });
-          } else {
-            this.course_name = response.data.data.course_name;
-          }
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
-    },
     handleSelect(index) {
       this.$router.push({
         path: index,
@@ -105,7 +82,6 @@ export default {
   },
   mounted() {
     this.getParams();
-    this.getClassInfo();
   },
 };
 </script>
