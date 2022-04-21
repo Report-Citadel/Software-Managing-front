@@ -40,13 +40,18 @@ export default {
       dialogVisible: false,
       dialog: false,
       fileList: [],
-      ex_id: "",
-      ex_info: {},
+      ex_id: "ex_id",
+      ex_info: {
+        title: "title",
+        end_time: "end_time",
+        weight: "weight",
+        brief: "brief",
+      },
     };
   },
   methods: {
     getParams: function () {
-      this.ex_id = JSON.parse(this.$Base64.decode(this.$route.query.info));
+      this.ex_id = this.$route.query.info;
     },
 
     back() {
@@ -75,26 +80,7 @@ export default {
       return this.$confirm(`确定移除 ${file.name}？`);
     },
 
-    getExInfo() {
-      var jsons = {
-        ex_id: this.ex_id,
-      };
-      this.axios
-        .post("/api/course/getExById/", JSON.stringify(jsons))
-        .then((response) => {
-          //这里使用了ES6的语法
-          //this.tableData = response.data
-          console.log("getExInfo");
-          console.log(response);
-          if (response.data.data.status == 0)
-            response.data.data.status = "未发布";
-          if (response.data.data.status == 1)
-            response.data.data.status = "未截止";
-          if (response.data.data.status == 3)
-            response.data.data.status = "已截止";
-          this.ex_info = response.data.data;
-        });
-    },
+    getExInfo() {},
   },
   mounted() {
     this.getParams();

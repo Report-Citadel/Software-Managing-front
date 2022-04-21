@@ -59,9 +59,15 @@ export default {
       currentPage: 1,
       pagesize: 6,
 
-      c_id: "",
+      c_id: "42034501",
 
-      fileData: [],
+      fileData: [
+        {
+          id: 1,
+          filename: "filename",
+          date: "2022-01-01 00:00:00",
+        },
+      ],
     };
   },
   methods: {
@@ -72,109 +78,12 @@ export default {
       this.currentPage = currentPage;
     },
 
-    handleCheck(row) {
-      this.axios
-        .post(
-          "/api/manageClassFileRoute/download/",
-          JSON.stringify({
-            id: row.id,
-            class_id: this.c_id,
-            token: sessionStorage.getItem("token"),
-          }),
-          {
-            responseType: "blob",
-            headers: {
-              "Content-Type": "multipart/form-data",
-            },
-          }
-        )
-        .then((response) => {
-          if (response.data["code"] === 301) {
-            this.$message("验证过期");
-            this.$router.push({ path: "/login" });
-          } else if (response.data["code"] === 404) {
-            this.$message("找不到页面");
-            this.$router.push({ path: "/404" });
-          } else {
-            //const title = fileName && (fileName.indexOf('filename=') !== -1) ? fileName.split('=')[1] : 'download';
+    handleCheck() {},
+    handleDown() {},
 
-            const blob = new Blob([response.data], {
-              type: "application/pdf",
-            });
-            var href = window.URL.createObjectURL(blob);
-            window.open(href);
-          }
-        });
-    },
-    handleDown(row) {
-      this.axios
-        .post(
-          "/api/manageClassFileRoute/download/",
-          JSON.stringify({
-            id: row.id,
-            class_id: this.c_id,
-            token: sessionStorage.getItem("token"),
-          }),
-          {
-            responseType: "blob",
-          }
-        )
-        .then((response) => {
-          console.log(response);
-          if (response.data["code"] === 301) {
-            this.$message("验证过期");
-            this.$router.push({ path: "/login" });
-          } else if (response.data["code"] === 404) {
-            this.$message("找不到页面");
-            this.$router.push({ path: "/404" });
-          } else {
-            var fname = row.filename;
-            fname = decodeURIComponent(fname);
-            //const title = fileName && (fileName.indexOf('filename=') !== -1) ? fileName.split('=')[1] : 'download';
-
-            const blob = new Blob([response.data], {
-              type: "application/pdf",
-            });
-            var downloadElement = document.createElement("a");
-            var href = window.URL.createObjectURL(blob);
-            downloadElement.href = href;
-
-            downloadElement.download = fname;
-            document.body.appendChild(downloadElement);
-            downloadElement.click();
-            document.body.removeChild(downloadElement);
-            window.URL.revokeObjectURL(href);
-          }
-        });
-    },
-
-    getFileList() {
-      this.axios
-        .post(
-          "/api/manageClassFileRoute/getClassFile",
-          JSON.stringify({
-            class_id: this.c_id,
-            token: sessionStorage.getItem("token"),
-          })
-        )
-        .then((response) => {
-          console.log(response);
-          if (response.data["code"] === 301) {
-            this.$message("验证过期");
-            this.$router.push({ path: "/login" });
-          } else if (response.data["code"] === 404) {
-            this.$message("找不到页面");
-            this.$router.push({ path: "/404" });
-          } else {
-            this.fileData = response.data.data;
-          }
-        });
-    },
+    getFileList() {},
     getParams: function () {
-      this.c_id = JSON.parse(this.$Base64.decode(this.$route.query.info))[
-        "class_id"
-      ];
-      console.log("cid===" + this.c_id);
+      this.c_id = this.$route.query.info.class_id;
     },
   },
   mounted() {

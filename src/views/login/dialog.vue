@@ -96,42 +96,21 @@ export default {
   methods: {
     destroyed() {
       var vm = this;
-      vm._isDestroyed = true
-      },
-    sendCaptcha() {
-      console.log(this.email);
-      this.axios
-        .post(
-          //"/api/users/sendCaptcha"
-          "/api/users/sendCaptcha",
-          JSON.stringify({
-            email: this.email,
-          })
-        )
-        .then(
-          function (response) {
-            //这里使用了ES6的语法
-            // this.checkResponse(response.data); //请求成功返回的数据
-            // alert("发送验证码成功");
-            console.log(response);
-          },
-          function (err) {
-            console.log(err);
-          }
-        );
+      vm._isDestroyed = true;
     },
+    sendCaptcha() {},
     closeMask() {
       this.showMask = false;
     },
     closeBtn() {
       this.$emit("cancel");
       this.closeMask();
-      this.id="";
-      this.newPsw= "";
-      this.confirmNewPsw= "";
-      this.email= "";
-      this.captcha="";
-      this.role= "student";
+      this.id = "";
+      this.newPsw = "";
+      this.confirmNewPsw = "";
+      this.email = "";
+      this.captcha = "";
+      this.role = "student";
     },
     //在这里修改
     dangerBtn() {
@@ -157,12 +136,12 @@ export default {
   },
   mounted() {
     this.showMask = this.value;
-    this.id="";
-    this.newPsw= "";
-    this.confirmNewPsw= "";
-    this.email= "";
-    this.captcha="";
-    this.role= "student";
+    this.id = "";
+    this.newPsw = "";
+    this.confirmNewPsw = "";
+    this.email = "";
+    this.captcha = "";
+    this.role = "student";
   },
   watch: {
     value(newVal) {

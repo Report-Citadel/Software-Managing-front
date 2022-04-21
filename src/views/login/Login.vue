@@ -60,7 +60,7 @@
                   ></el-input>
                 </el-form-item>
                 <el-form-item>
-                  <el-button type="primary" @click="submitFormTest()"
+                  <el-button type="primary" @click="submitForm()"
                     >登陆</el-button
                   >
                   <el-button @click="openMask" style="margin-left: 10%"
@@ -257,76 +257,7 @@ export default {
       this.$store.state.data = "";
       this.sendVal = true;
     },
-    /*clickCancel() {
-      console.log("点击了取消");
-    },
-    clickDanger() {
-      console.log("这里是danger回调");
-    },
-    clickConfirm() {
-      console.log("点击了confirm");
-    },*/
-    // AdminLogin() {
-    //   this.$router.push("/AdminLogin");
-    // },
-    checkResponse(response) {
-      console.log("checkResponse", response);
-      sessionStorage.setItem("id", this.ruleForm.id);
-      sessionStorage.setItem("token", response["token"]);
 
-      if (response["status"] === "TSuccess") {
-        if (response["is_active"] === 1) {
-          this.$message({
-            message: "登陆成功",
-            type: "success",
-          });
-          sessionStorage.setItem("role", 2);
-          this.$router.push("/teacherHome/control");
-        } else {
-          this.$message.warning(
-            "请先激活您的账户，如果未收到激活邮件请联系管理员！"
-          );
-        }
-      } else if (response["status"] === "SSuccess") {
-        if (response["is_active"] === 1) {
-          this.$message({
-            message: "登陆成功",
-            type: "success",
-          });
-          sessionStorage.setItem("role", 1);
-          this.$router.push("/studentHome/control");
-        } else {
-          this.$message.warning(
-            "请先激活您的账户，如果未收到激活邮件请联系管理员！！"
-          );
-        }
-      } else if (response["status"] === "TASuccess") {
-        if (response["is_active"] === 1) {
-          this.$message({
-            message: "登陆成功",
-            type: "success",
-          });
-          sessionStorage.setItem("role", 3);
-          //助教先导引到学生页面
-          this.$router.push("/assistHome/control");
-        } else {
-          this.$message.warning(
-            "请先激活您的账户，如果未收到激活邮件请联系管理员！！"
-          );
-        }
-      } else if (response["status"] === "Login") {
-        this.$message({
-          message: "登陆成功",
-          type: "success",
-        });
-        sessionStorage.setItem("role", 0);
-        this.$router.push("/adminHome");
-      } else if (response["status"] === "PasswordWrong") {
-        this.$message.error("密码错误！");
-      } else if (response["status"] === "UserNotExist") {
-        this.$message.error("用户不存在！");
-      }
-    },
     submitForm() {
       if (this.ruleForm.id === "" && this.ruleForm.password === "") {
         this.$message("账户和密码不能为空！");
@@ -340,97 +271,45 @@ export default {
         };
         */
         //学生登录
+        sessionStorage.setItem("id", this.ruleForm.id);
         if (this.role == "student") {
-          this.axios
-            .post(
-              "/api/studentLogin/",
-              JSON.stringify({
-                id: this.ruleForm.id,
-                password: this.ruleForm.password,
-              })
-            )
-            .then((response) => {
-              //这里使用了ES6的语法
-              this.checkResponse(response.data); //请求成功返回的数据
-            });
+          sessionStorage.setItem("role", 1);
+          this.$message({
+            message: "登陆成功",
+            type: "success",
+          });
+
+          this.$router.push("/studentHome/control");
         }
         //老师登录
         else if (this.role == "teacher") {
-          this.axios
-            .post(
-              "/api/teacherLogin/",
-              JSON.stringify({
-                id: this.ruleForm.id,
-                password: this.ruleForm.password,
-              })
-            )
-            .then((response) => {
-              //这里使用了ES6的语法
-              this.checkResponse(response.data); //请求成功返回的数据
-            });
+          sessionStorage.setItem("role", 2);
+          this.$message({
+            message: "登陆成功",
+            type: "success",
+          });
+          this.$router.push("/teacherHome/control");
         }
         //助教登录
         else if (this.role == "teachingAssistant") {
-          this.axios
-            .post(
-              "/api/TALogin/",
-              JSON.stringify({
-                id: this.ruleForm.id,
-                password: this.ruleForm.password,
-              })
-            )
-            .then((response) => {
-              //这里使用了ES6的语法
-              this.checkResponse(response.data); //请求成功返回的数据
-            });
+          sessionStorage.setItem("role", 3);
+          this.$message({
+            message: "登陆成功",
+            type: "success",
+          });
+          //助教先导引到学生页面
+          this.$router.push("/assistHome/myClass");
         }
         //管理员登录
         else {
-          this.axios
-            .post(
-              "/api/adminLogin/",
-              JSON.stringify({
-                id: this.ruleForm.id,
-                password: this.ruleForm.password,
-              })
-            )
-            .then((response) => {
-              this.checkResponse(response.data);
-            })
-            .catch((error) => {
-              this.$message("网络错误！");
-              console.log(error);
-            });
+          sessionStorage.setItem("role", 0);
+          this.$message({
+            message: "登陆成功",
+            type: "success",
+          });
+          this.$router.push("/adminHome");
         }
       }
-    },
-    submitFormTest() {
-      sessionStorage.setItem("id", this.ruleForm.id);
-
-      //学生登录
-      if (this.role == "student") {
-        sessionStorage.setItem("role", 1);
-        this.$router.push("/studentHome/control");
-      }
-      //老师登录
-      else if (this.role == "teacher") {
-        sessionStorage.setItem("role", 2);
-        this.$router.push("/teacherHome/control");
-      }
-      //助教登录
-      else if (this.role == "teachingAssistant") {
-        sessionStorage.setItem("role", 3);
-        //助教先导引到学生页面
-        this.$router.push("/assistHome/control");
-      }
-      //管理员登录
-      else {
-        sessionStorage.setItem("role", 0);
-        this.$router.push("/adminHome");
-      }
-    },
-    toRegister() {
-      this.$router.push("/register");
     },
   },
 };

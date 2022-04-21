@@ -8,7 +8,6 @@ import AssistHome from '../views/assist/assistHome.vue'
 
 import Login from '../views/login/Login.vue'
 import AdminLogin from '../views/login/AdminLogin.vue'
-import Register from '../views/login/Register.vue'
 
 
 import StuConcreteCourse from '../views/student/course/concreteCourse.vue'
@@ -30,11 +29,7 @@ const routes = [
     name: '/AdminLogin',
     component: AdminLogin,
   },
-  {
-    path: '/register',
-    name: 'Register',
-    component: Register,
-  },
+
 
   {
     //学生界面
@@ -160,7 +155,7 @@ const routes = [
     name: 'AssistHome',
     component: AssistHome,
     children: [
-      { path: '/assistHome/control', component: () => import('../views/assist/Control') },
+
       //账户
       { path: '/assistHome/account', component: () => import('../views/assist/account/account.vue') },
       { path: '/assistHome/modifyAccount', component: () => import('../views/assist/account/modifyAccount.vue') },

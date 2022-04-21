@@ -36,8 +36,16 @@ export default {
       title: "",
       content: "",
       dialogVisible: false,
-      annList: [],
-      class_id: "",
+      annList: [
+        {
+          ann_id: 1,
+          date: "2022-01-01 00:00:00",
+          title: "title",
+          content: "content",
+          name: "name",
+        },
+      ],
+      class_id: "42034501",
     };
   },
   methods: {
@@ -46,36 +54,10 @@ export default {
       this.content = data.content;
       this.dialogVisible = true;
     },
-    getAnnList() {
-      this.axios
-        .post(
-          "/api/course/getAnn/",
-          JSON.stringify({
-            class_id: this.class_id,
-            token: sessionStorage.getItem("token"),
-          })
-        )
-        .then((response) => {
-          //console.log(response.data["data"]);
-          if (response.data["code"] === 301) {
-            this.$message("验证过期");
-            this.$router.push({ path: "/login" });
-          } else if (response.data["code"] === 404) {
-            this.$message("找不到页面");
-            this.$router.push({ path: "/404" });
-          } else {
-            //这里使用了ES6的语法
-            this.annList = response.data.data;
-            // console.log(this.annList);
-          }
-        });
-    },
+    getAnnList() {},
     getParams: function () {
       this.id = sessionStorage.getItem("id");
-      this.class_id = JSON.parse(this.$Base64.decode(this.$route.query.info))[
-        "class_id"
-      ];
-      console.log("cid===" + this.class_id);
+      this.class_id = this.$route.query.info;
     },
   },
   mounted() {

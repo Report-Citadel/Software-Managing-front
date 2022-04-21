@@ -79,7 +79,7 @@
     >
       <el-input v-model="stuScore"></el-input>
       <div slot="footer" class="dialog-footer">
-        <el-button @click="proDialog = false">取消</el-button>
+        <el-button @click="scoreDialog = false">取消</el-button>
         <el-button type="primary" @click="giveScoreDown()">确定</el-button>
       </div>
     </el-dialog>
@@ -96,13 +96,19 @@ export default {
       currentPage: 1,
       scoreDialog: false,
       stuScore: "",
-      s_id: "",
+      s_id: "1001",
 
       pagesize: 6,
       multipleSelection: [],
 
       stuExData: [
-        { sid: "1", name: "1", submit: "2021.11.1", score: "2022.2.2" },
+        {
+          s_id: "1",
+          s_name: "name",
+          status: "是",
+          submitTime: "2021.11.1",
+          score: "100",
+        },
       ],
     };
   },
@@ -121,159 +127,27 @@ export default {
       this.s_id = row.s_id;
     },
     giveScoreDown() {
-      var jsons = {
-        s_id: this.s_id,
-        ex_id: this.ex_id,
-        score: this.stuScore,
-        ta_id: sessionStorage.getItem("id"),
-        token: sessionStorage.getItem("token"),
-      };
-      console.log(jsons);
-      this.axios
-        .post("/api/tea/Ex/taScoreReport/", JSON.stringify(jsons))
-        .then((response) => {
-          console.log(response);
-          if (response.data["code"] === 301) {
-            this.$message("验证过期");
-            this.$router.push({ path: "/login" });
-          } else if (response.data["code"] === 404) {
-            this.$message("找不到页面");
-            this.$router.push({ path: "/404" });
-          } else {
-            this.$message.success("成功打分！");
-            this.scoreDialog = false;
-            this.stuScore = "";
-            this.getStuEx();
-          }
-        });
+      this.scoreDialog = false;
     },
 
     giveScoreOnline(row) {
       this.$router.push({
         path: "/assistHome/concreteCourse/stuExper",
         query: {
-          info: this.$Base64.encode(
-            JSON.stringify({
-              s_id: row.s_id,
-              ex_id: this.ex_id,
-              score: row.score,
-            })
-          ),
+          s_id: row.s_id,
+          ex_id: this.ex_id,
+          score: row.score,
         },
       });
     },
 
-    check(row) {
+    check() {
       //console.log("checkjson", row, this.ex_id);
-      this.axios
-        .post(
-          "/api/Ex/showUpload/",
-          JSON.stringify({
-            s_id: row.s_id,
-            ex_id: this.ex_id.toString(),
-          }),
-          {
-            responseType: "blob",
-            headers: {
-              "Content-Type": "multipart/form-data",
-            },
-          }
-        )
-        .then((response) => {
-          //var fname = row.filename
-          //fname = decodeURIComponent(fname)
-          //const title = fileName && (fileName.indexOf('filename=') !== -1) ? fileName.split('=')[1] : 'download';
-
-          if (response.data["code"] === 301) {
-            this.$message("验证过期");
-            this.$router.push({ path: "/login" });
-          } else if (response.data["code"] === 404) {
-            this.$message("找不到页面");
-            this.$router.push({ path: "/404" });
-          } else {
-            console.log("查看文件", response);
-            //const fileName = response.headers["content-disposition"];
-            //var fname = fileName.split("filename=")[1];
-            //fname = decodeURIComponent(fname);
-            const blob = new Blob([response.data], {
-              type: "application/pdf",
-            });
-            //var downloadElement = document.createElement("a");
-            var href = window.URL.createObjectURL(blob);
-            window.open(href);
-          }
-        });
     },
-    download(row) {
-      //console.log(row);
-      let formData = new FormData();
-      formData.append("s_id", row.s_id);
-      formData.append("ex_id", this.ex_id);
-
-      this.axios
-        .post("/api/tea/Ex/getReport/", formData, {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-          responseType: "blob",
-        })
-        .then((response) => {
-          console.log("download", response);
-
-          const fileName = response.headers["content-disposition"];
-          var fname = fileName.split("filename=")[1];
-          fname = decodeURIComponent(fname);
-          //const title = fileName && (fileName.indexOf('filename=') !== -1) ? fileName.split('=')[1] : 'download';
-
-          const blob = new Blob([response.data], {
-            type: "application/pdf",
-          });
-          var downloadElement = document.createElement("a");
-          var href = window.URL.createObjectURL(blob);
-          downloadElement.href = href;
-
-          downloadElement.download = fname;
-          document.body.appendChild(downloadElement);
-          downloadElement.click();
-          document.body.removeChild(downloadElement);
-          window.URL.revokeObjectURL(href);
-          /*
-        href.href = window.URL.createObjectURL(blob);
-        href.target = "_blank";
-        href.click();
-          */
-          //console.log(response)
-        });
-    },
-    getStuEx() {
-      this.axios
-        .post(
-          "/api/tea/Ex/getReportList/",
-          JSON.stringify({
-            ex_id: this.ex_id,
-            token: sessionStorage.getItem("token"),
-          })
-        )
-        .then((response) => {
-          console.log("stuEx", response);
-          if (response.data["code"] === 301) {
-            this.$message("验证过期");
-            this.$router.push({ path: "/login" });
-          } else if (response.data["code"] === 404) {
-            this.$message("找不到页面");
-            this.$router.push({ path: "/404" });
-          } else {
-            this.stuExData = response.data.data;
-          }
-        });
-    },
+    download() {},
     getParams: function () {
-      this.ex_id = JSON.parse(this.$Base64.decode(this.$route.query.info))[
-        "ex_id"
-      ];
-      this.ex_type = JSON.parse(this.$Base64.decode(this.$route.query.info))[
-        "ex_type"
-      ];
+      this.ex_id = this.$route.query.ex_id;
+      this.ex_type = this.$route.query.ex_type;
     },
   },
   mounted() {

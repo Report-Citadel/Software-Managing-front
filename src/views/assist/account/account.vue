@@ -65,24 +65,7 @@ export default {
       this.id = sessionStorage.getItem("id");
     },
 
-    getTaInfo() {
-      this.axios
-        .get("/api/getUserInfo/TA/", {
-          params: { ta_id: this.id },
-          crossDomain: true,
-        })
-        .then((response) => {
-          console.log("getTaInfo", response);
-
-          this.name = response.data[0].name;
-
-          this.email = response.data[0].email;
-          this.is_active = response.data[0].is_active;
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
-    },
+    getTaInfo() {},
 
     modifyAccount() {
       this.$router.push({

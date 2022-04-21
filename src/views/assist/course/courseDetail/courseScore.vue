@@ -93,8 +93,8 @@
 export default {
   data() {
     return {
-      id: "",
-      c_id: "",
+      id: 1,
+      c_id: "42034501",
       scoreDialog: false,
       score: "",
       s_id: "",
@@ -103,18 +103,34 @@ export default {
       activeName: "first",
       currentPage: 1,
       pagesize: 10,
-      scoreData: [],
-      headers: [],
-      reportData: [],
+      scoreData: [
+        {
+          id: 1,
+          name: "name",
+        },
+      ],
+      headers: [
+        {
+          key: 1,
+          label: "实验1",
+        },
+        {
+          key: 2,
+          label: "实验2",
+        },
+      ],
+      reportData: [
+        {
+          id: 1,
+          name: "name",
+        },
+      ],
     };
   },
   methods: {
     getParams: function () {
       this.id = sessionStorage.getItem("id");
-      this.c_id = JSON.parse(this.$Base64.decode(this.$route.query.info))[
-        "class_id"
-      ];
-      console.log("cid", this.c_id);
+      this.c_id = this.$route.query.info.class_id;
     },
     handleScore(score, sid, ex_id) {
       console.log("handleScore", score, sid, ex_id);
@@ -123,152 +139,16 @@ export default {
       this.s_id = sid;
       this.ex_id = ex_id.substring(ex_id.indexOf("_") + 1);
     },
-    getScoreData() {
-      var jsons = {
-        class_id: this.c_id,
-        token: sessionStorage.getItem("token"),
-      };
-      //console.log("getDatajsons", jsons);
-      this.axios
-        .post("/api/manageClass/GetClassStudentScore", JSON.stringify(jsons))
-        .then((response) => {
-          console.log("getScoreData", response);
-          if (response.data["code"] === 301) {
-            this.$message("验证过期");
-            this.$router.push({ path: "/login" });
-          } else if (response.data["code"] === 404) {
-            this.$message("找不到页面");
-            this.$router.push({ path: "/404" });
-          } else {
-            console.log("getScoreData", response.data.data);
-            this.headers = response.data.data.experiment;
-            this.scoreData = response.data.data.score;
-          }
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
-    },
+    getScoreData() {},
     setScore() {
       if (this.score > 100 || this.score < 0) {
         this.$message.warning("分数必须在0-100之间！");
         return;
       }
-      var jsons = {
-        s_id: this.s_id,
-        ex_id: this.ex_id,
-        score: this.score,
-        ta_id: this.id,
-        token: sessionStorage.getItem("token"),
-      };
-
-      this.axios
-        .post("/api/tea/Ex/taScoreReport/", JSON.stringify(jsons))
-        .then((response) => {
-          console.log("setScore", response);
-          if (response.data["code"] === 301) {
-            this.$message("验证过期");
-            this.$router.push({ path: "/login" });
-          } else if (response.data["code"] === 404) {
-            this.$message("找不到页面");
-            this.$router.push({ path: "/404" });
-          } else {
-            this.$message.success("打分成功！");
-            this.getScoreData();
-            this.scoreDialog = false;
-          }
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
     },
-    toReportOnline(row) {
-      console.log("toReportOnline", row);
-      const { href } = this.$router.resolve({
-        path: "/assistHome/concreteCourse/stuExperOnline",
-        query: {
-          info: this.$Base64.encode(
-            JSON.stringify({
-              s_id: row.row.id,
-              ex_id: row.column.property.replace("ex_", ""),
-              score: row.row[row.column.property],
-            })
-          ),
-        },
-      });
-      window.open(href, "_blank");
-    },
-    checkReport(row) {
-      this.axios
-        .post(
-          "/api/Ex/showUpload/",
-          JSON.stringify({
-            s_id: row.row.id,
-            ex_id: row.column.property.replace("ex_", ""),
-          }),
-          {
-            responseType: "blob",
-            headers: {
-              "Content-Type": "multipart/form-data",
-            },
-          }
-        )
-        .then((response) => {
-          //var fname = row.filename
-          //fname = decodeURIComponent(fname)
-          //const title = fileName && (fileName.indexOf('filename=') !== -1) ? fileName.split('=')[1] : 'download';
-          console.log("查看文件", response);
-          if (response.data["type"] === "application/json") {
-            this.$message.warning("该学生没有上传实验报告！");
-          } else {
-            const blob = new Blob([response.data], {
-              type: "application/pdf",
-            });
-            //var downloadElement = document.createElement("a");
-            var href = window.URL.createObjectURL(blob);
-            window.open(href);
-          }
-        });
-    },
-    downReport(row) {
-      console.log("downReport", row);
-
-      let formData = new FormData();
-      formData.append("s_id", row.row.id);
-      formData.append("ex_id", row.column.property.replace("ex_", ""));
-
-      this.axios
-        .post("/api/tea/Ex/getReport/", formData, {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-          responseType: "blob",
-        })
-        .then((response) => {
-          console.log("downReport", response);
-          if (response.data["type"] === "application/json") {
-            this.$message.warning("该学生没有上传实验报告！");
-          } else {
-            const fileName = response.headers["content-disposition"];
-            var fname = fileName.split("filename=")[1];
-            fname = decodeURIComponent(fname);
-            //const title = fileName && (fileName.indexOf('filename=') !== -1) ? fileName.split('=')[1] : 'download';
-
-            const blob = new Blob([response.data], {
-              type: "application/pdf",
-            });
-            var downloadElement = document.createElement("a");
-            var href = window.URL.createObjectURL(blob);
-            downloadElement.href = href;
-
-            downloadElement.download = fname;
-            document.body.appendChild(downloadElement);
-            downloadElement.click();
-            document.body.removeChild(downloadElement);
-            window.URL.revokeObjectURL(href);
-          }
-        });
-    },
+    toReportOnline() {},
+    checkReport() {},
+    downReport() {},
   },
   mounted() {
     this.getParams();

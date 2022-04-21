@@ -24,7 +24,7 @@
         :column="1"
         border
         size="medium"
-        :title="s_id"
+        :title="s_id + '  ' + name"
       >
         <el-descriptions-item label="实验名称">{{
           exReport.title
@@ -56,7 +56,7 @@ export default {
     return {
       s_id: "",
       ex_id: "",
-      name: "",
+      name: "name",
       score: "",
       exReport: {
         title: "",
@@ -72,19 +72,10 @@ export default {
     getParams: function () {
       // 取到路由带过来的参数
 
-      this.s_id = JSON.parse(this.$Base64.decode(this.$route.query.info))[
-        "s_id"
-      ];
-      this.ex_id = JSON.parse(this.$Base64.decode(this.$route.query.info))[
-        "ex_id"
-      ];
-      this.score = JSON.parse(this.$Base64.decode(this.$route.query.info))[
-        "score"
-      ];
-      console.log(
-        "getParams",
-        JSON.parse(this.$Base64.decode(this.$route.query.info))
-      );
+      this.s_id = this.$route.query.s_id;
+
+      this.ex_id = this.$route.query.ex_id;
+      this.score = this.$route.query.score;
     },
 
     confirm() {
@@ -92,67 +83,13 @@ export default {
         this.$message.warning("分数必须在0-100之间！");
         return;
       }
-      this.axios
-        .post(
-          "/api/tea/Ex/taScoreReport/",
-          JSON.stringify({
-            s_id: this.s_id,
-            ex_id: this.ex_id,
-            score: this.score,
-            ta_id: sessionStorage.getItem("id"),
-            token: sessionStorage.getItem("token"),
-          })
-        )
-        .then((response) => {
-          console.log("confirm", response);
-          if (response.data["code"] === 301) {
-            this.$message("验证过期");
-            this.$router.push({ path: "/login" });
-          } else if (response.data["code"] === 404) {
-            this.$message("找不到页面");
-            this.$router.push({ path: "/404" });
-          } else {
-            this.$message.success("成功打分！");
-          }
-        });
     },
 
     back() {
       this.$router.go(-1);
     },
 
-    getExReport() {
-      var jsons = {
-        ex_id: this.ex_id,
-        s_id: this.s_id,
-      };
-
-      this.axios
-        .post("/api/Ex/checkFilled", JSON.stringify(jsons))
-        .then((response) => {
-          //这里使用了ES6的语法
-          //this.tableData = response.data
-
-          console.log("getExReport", response);
-
-          this.exReport.title = response.data.data.title;
-          this.exReport.goal = response.data.data.goal
-            .replace("<p>", "")
-            .replace("</p>", "");
-          this.exReport.device = response.data.data.device
-            .replace("<p>", "")
-            .replace("</p>", "");
-          this.exReport.step = response.data.data.step
-            .replace("<p>", "")
-            .replace("</p>", "");
-          this.exReport.process = response.data.data.process
-            .replace("<p>", "")
-            .replace("</p>", "");
-          this.exReport.result = response.data.data.result
-            .replace("<p>", "")
-            .replace("</p>", "");
-        });
-    },
+    getExReport() {},
   },
   mounted() {
     this.getParams();
