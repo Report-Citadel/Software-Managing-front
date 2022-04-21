@@ -124,16 +124,18 @@ export default {
           end_time: "2021-12-2 12:30:21",
           experiment_title:"这是一个实验",
           is_submit:false,
-          status:"已过期",
-          score:98
+          status:"未过期",
+          score:null,
+          type:"在线提交"
         },
         {
           ex_id:1,
           end_time: "2021-12-2 12:30:21",
           experiment_title:"这是一个实验",
           is_submit:false,
-          status:"已过期",
-          score:98
+          status:"未过期",
+          score:null,
+          type:"提交文件"
         },
         {
           ex_id:1,
@@ -204,82 +206,13 @@ export default {
       });
     },
     uploadFile() {
-      console.log("uploadFile", this.fileList);
-      let param = new FormData();
-      this.fileList.forEach((file) => {
-        param.append("report", file.raw);
-      });
-      param.append("s_id", this.sid);
-      param.append("ex_id", this.ex_id);
-      param.append("token", sessionStorage.getItem("token"));
 
-      this.axios
-        .post("/api/Ex/stuUpload/", param, {
-          headers: { "Content-Type": "multipart/form-data" }, //定义内容格式,很重要
-        })
-        .then((res) => {
-          console.log("uploadFile", res);
-          if (res.data["code"] === 301) {
-            this.$message("验证过期");
-            this.$router.push({ path: "/login" });
-          } else if (res.data["code"] === 404) {
-            this.$message("找不到页面");
-            this.$router.push({ path: "/404" });
-          } else {
-            if (res.data["code"] === 200) {
-              this.$message("上传成功");
-              this.fileList = [];
-              this.fileDialog = false;
-              this.getEx();
-            } else {
-              this.$message("上传失败");
-            }
-          }
-        });
     },
     getEx() {
-      //"/api/class/showEx/"
-      this.axios
-        .post(
-          "/api/class/showEx/",
-          JSON.stringify({
-            class_id: this.class_id,
-            s_id: sessionStorage.getItem("id"),
-            token: sessionStorage.getItem("token"),
-          })
-        )
-        .then((response) => {
-          //这里使用了ES6的语法
-          //this.tableData = response.data
-          //console.log("getEx");
-          this.checkResponse(response.data); //请求成功返回的数据
-        });
-    },
-    checkResponse(response) {
-      console.log("getEx", response);
-      if (response["code"] === 301) {
-        this.$message("验证过期");
-        this.$router.push({ path: "/login" });
-      } else if (response["code"] === 404) {
-        this.$message("找不到页面");
-        this.$router.push({ path: "/404" });
-      } else {
-        this.tableData = [];
-        for (var i = 0; i < response.data.length; i++) {
-          if (response.data[i].status === 1) {
-            response.data[i].status = "未过期";
-            this.tableData.push(response.data[i]);
-          } else if (response.data[i].status === 3) {
-            response.data[i].status = "已过期";
-            this.tableData.push(response.data[i]);
-          }
-          //this.tableData.push(response.data[i]);
 
-          //this.tableData = response.data;
-          //console.log();
-          //console.log("thisTable", this.tableData);
-        }
-      }
+    },
+    checkResponse() {
+
     },
     getParams: function () {
       this.class_id = JSON.parse(this.$Base64.decode(this.$route.query.info))[

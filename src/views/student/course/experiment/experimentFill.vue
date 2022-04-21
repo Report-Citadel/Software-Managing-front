@@ -81,73 +81,20 @@ export default {
       this.ex_title = this.$Base64.decode(this.$route.query.title);
     },
     getMyReport() {
-      var jsons = {
-        ex_id: this.ex_id,
-        s_id: sessionStorage.getItem('id')
-      };
-      this.axios
-        .post("/api/Ex/getFilledRort", JSON.stringify(jsons))
-        .then((response) => {
-          if(response.data.status === 200){
-            this.report_info = response.data.data
-          }
-          else{
-            this.$message("网络错误")
-          }
-        }).catch((err)=>{
-          this.$message("网络错误")
-        console.log(err)
-      });
+
     },
     back() {
       this.$router.go(-1);
     },
     cache(){
-      var jsons = this.report_info
-      jsons["ex_id"] = this.ex_id
-      jsons["s_id"] = sessionStorage.getItem('id')
-      console.log(jsons)
-      this.axios
-          .post("/api/Ex/cacheEx", JSON.stringify(jsons))
-          .then((response) => {
-            if(response.data.status === 200){
-              this.$message("缓存成功")
-            }
-            else{
-              this.$message("网络错误")
-            }
-          }).catch((error)=>{
-            this.$message("网络错误")
-            console.log(error)
-      });
+
     },
     submit(){
-      if(this.report_info.goal === "" || this.report_info.device === "" || this.report_info.step === "" || this.report_info.process === "" || this.report_info.result === ""){
-        this.$message("请填写完整！")
-        return;
-      }
-      var jsons = this.report_info
-      jsons["ex_id"] = this.ex_id
-      jsons["s_id"] = sessionStorage.getItem('id')
-      console.log(jsons)
-      this.axios
-          .post("/api/Ex/fillEx", JSON.stringify(jsons))
-          .then((response) => {
-            if(response.data.status === 200){
-              this.$message("提交成功")
-            }
-            else{
-              this.$message("网络错误")
-            }
-          }).catch((error)=>{
-        this.$message("网络错误")
-        console.log(error)
-      });
+
     }
   },
   mounted() {
-    this.getParams();
-    this.getMyReport();
+
   },
 };
 </script>

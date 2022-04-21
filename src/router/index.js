@@ -59,7 +59,6 @@ const routes = [
           { path: '/studentHome/concreteCourse/ConExper', component: () => import('../views/student/course/experiment/experiment.vue') },
           { path: '/studentHome/concreteCourse/FillExper', component: () => import('../views/student/course/experiment/experimentFill.vue') },
           { path: '/studentHome/concreteCourse/File', component: () => import('../views/student/course/courseDetail/courseFile.vue') },
-          { path: '/studentHome/concreteCourse/onlineExp', component: () => import('../views/student/course/experiment/onlineExperiment.vue') },
         ]
       },
       { path: '/studentHome/accounce', component: () => import('../views/announce/announce.vue') },

@@ -133,55 +133,10 @@ export default {
       });
     },
     getExInfo() {
-      var jsons = {
-        ex_id: this.ex_id,
-      };
-      this.axios
-        .post("/api/course/getExById/", JSON.stringify(jsons))
-        .then((response) => {
-          //这里使用了ES6的语法
-          //this.tableData = response.data
-          console.log("getExInfo");
-          console.log(response);
-          if (response.data.data.status == 0)
-            response.data.data.status = "未发布";
-          if (response.data.data.status == 1)
-            response.data.data.status = "未截止";
-          if (response.data.data.status == 3)
-            response.data.data.status = "已截止";
-          this.ex_info = response.data.data;
-        });
+
     },
     uploadMyEx() {
-      let param = new FormData();
-      this.fileList.forEach((file) => {
-        param.append("files", file.raw);
-      });
-      param.append("class_id", this.c_id);
-      param.append("token", sessionStorage.getItem("token"));
-      this.axios
-        .post("/api/manageClassFileRoute/addFile", param, {
-          headers: { "Content-Type": "multipart/form-data" }, //定义内容格式,很重要
-        })
-        .then((res) => {
-          console.log(res);
-          if (res.data["code"] === 301) {
-            this.$message("验证过期");
-            this.$router.push({ path: "/login" });
-          } else if (res.data["code"] === 404) {
-            this.$message("找不到页面");
-            this.$router.push({ path: "/404" });
-          } else {
-            if (res.data["status"] === 200) {
-              this.$message("上传成功");
-              this.fileList = [];
-              this.fileDialog = false;
-              this.getFileList();
-            } else {
-              this.$message("上传失败");
-            }
-          }
-        });
+
     },
   },
   mounted() {
