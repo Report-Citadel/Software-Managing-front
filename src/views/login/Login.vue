@@ -60,7 +60,7 @@
                   ></el-input>
                 </el-form-item>
                 <el-form-item>
-                  <el-button type="primary" @click="submitForm()"
+                  <el-button type="primary" @click="submitFormTest()"
                     >登陆</el-button
                   >
                   <el-button @click="openMask" style="margin-left: 10%"
@@ -402,6 +402,31 @@ export default {
               console.log(error);
             });
         }
+      }
+    },
+    submitFormTest() {
+      sessionStorage.setItem("id", this.ruleForm.id);
+
+      //学生登录
+      if (this.role == "student") {
+        sessionStorage.setItem("role", 1);
+        this.$router.push("/studentHome/control");
+      }
+      //老师登录
+      else if (this.role == "teacher") {
+        sessionStorage.setItem("role", 2);
+        this.$router.push("/teacherHome/control");
+      }
+      //助教登录
+      else if (this.role == "teachingAssistant") {
+        sessionStorage.setItem("role", 3);
+        //助教先导引到学生页面
+        this.$router.push("/assistHome/control");
+      }
+      //管理员登录
+      else {
+        sessionStorage.setItem("role", 0);
+        this.$router.push("/adminHome");
       }
     },
     toRegister() {

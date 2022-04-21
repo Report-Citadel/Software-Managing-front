@@ -80,7 +80,20 @@ export default {
       currentPage: 1,
       pagesize: 6,
       fileList: [],
-      experimentList: [],
+      experimentList: [
+        {
+          title: "第一次试验",
+          end_time: "2021-2-2",
+          ex_type: "在线提交",
+          weight: "0.3",
+        },
+        {
+          title: "第er次试验",
+          end_time: "2021-2-3",
+          ex_type: "提交文件",
+          weight: "0.3",
+        },
+      ],
     };
   },
   methods: {
@@ -179,7 +192,7 @@ export default {
   },
   mounted() {
     this.getParams();
-    this.getCourseEx();
+    //this.getCourseEx();
   },
 };
 </script>
