@@ -32,12 +32,12 @@ export default {
       show: false,
       classData: [
         {
-          class_id: 0,
-          class_number: 0,
-          course_name: "默认",
-          prefix: "0",
-          semester: "学期",
-          year: "year",
+          class_id: 42034501,
+
+          course_name: "软件工程",
+
+          semester: "春学期",
+          year: "2022",
         },
       ],
       id: "",
@@ -47,34 +47,14 @@ export default {
     getParams: function () {
       this.id = sessionStorage.getItem("id");
     },
-    getClass() {
-      var jsons = {
-        ta_id: this.id,
-        token: sessionStorage.getItem("token"),
-      };
-      this.axios
-        .post("/api/manageClass/TAGetClass", JSON.stringify(jsons))
-        .then((response) => {
-          console.log("获得班级", response);
-          if (response.data["code"] == 404) {
-            this.$message("找不到页面");
-            this.$router.push({ path: "/404" });
-          } else if (response.data["code"] == 301) {
-            this.$message("验证过期");
-            this.$router.push({ path: "/login" });
-          }
-          this.classData = response.data.data;
-        });
-    },
+    getClass() {},
 
     toClass(index) {
       console.log("toClass", index);
       this.$router.push({
         path: "/assistHome/concreteCourse/Ann",
         query: {
-          info: this.$Base64.encode(
-            JSON.stringify({ class_id: index.class_id })
-          ),
+          class_id: index.class_id,
         },
       });
     },

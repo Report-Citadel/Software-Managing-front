@@ -146,9 +146,6 @@ export default {
           });
       }
     },
-    toRegister() {
-      this.$router.push("/register");
-    },
   },
 };
 </script>

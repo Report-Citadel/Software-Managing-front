@@ -57,45 +57,22 @@
 export default {
   data() {
     return {
-      c_id: "",
-      course_name: "",
+      c_id: "42034501",
+      course_name: "软件工程",
     };
   },
   methods: {
     getParams: function () {
-      this.c_id = JSON.parse(this.$Base64.decode(this.$route.query.info))[
-        "class_id"
-      ];
+      this.c_id = this.$route.query.info.class_id;
+
       console.log("cid====" + this.c_id);
     },
-    getClassInfo() {
-      var jsons = {
-        class_id: this.c_id.toString(),
-        token: sessionStorage.getItem("token"),
-      };
-      this.axios
-        .post("/api/manageClass/IDGetClass", JSON.stringify(jsons))
-        .then((response) => {
-          console.log("getClassInfo", response);
-          if (response.data["code"] === 301) {
-            this.$message("验证过期");
-            this.$router.push({ path: "/login" });
-          } else if (response.data["code"] === 404) {
-            this.$message("找不到页面");
-            this.$router.push({ path: "/404" });
-          } else {
-            this.course_name = response.data.data.course_name;
-          }
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
-    },
+    getClassInfo() {},
     handleSelect(index) {
       this.$router.push({
         path: index,
         query: {
-          info: this.$Base64.encode(JSON.stringify({ class_id: this.c_id })),
+          class_id: this.c_id,
         },
       });
     },

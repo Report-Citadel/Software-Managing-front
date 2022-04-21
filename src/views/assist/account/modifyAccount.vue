@@ -45,47 +45,11 @@ export default {
     getParams: function () {
       this.id = sessionStorage.getItem("id");
     },
-    save() {
-      var jsons = {
-        name: this.userAccount.name,
-        ta_id: this.userAccount.ta_id,
-
-        email: this.userAccount.email,
-        token: sessionStorage.getItem("token"),
-      };
-      this.axios
-        .post("/api/editInfo/TA/", JSON.stringify(jsons))
-        .then((response) => {
-          console.log("save", response);
-
-          if (response.data == "Success")
-            this.$message({
-              message: "修改成功",
-              type: "success",
-            });
-          else this.$message.error("错误");
-          this.getTaInfo();
-        });
-    },
+    save() {},
     back() {
       this.$router.go(-1);
     },
-    getTaInfo() {
-      this.axios
-        .get("/api/getUserInfo/TA/", {
-          params: { ta_id: this.id },
-          crossDomain: true,
-        })
-        .then((response) => {
-          console.log();
-          console.log("助教信息", response);
-
-          this.userAccount = response.data[0];
-        })
-        .catch(function (error) {
-          console(error);
-        });
-    },
+    getTaInfo() {},
   },
   mounted() {
     this.getParams();
@@ -93,3 +57,9 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.el-button--primary {
+  color: white;
+}
+</style>

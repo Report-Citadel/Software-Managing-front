@@ -1,10 +1,5 @@
 <template>
   <div id="app">
-    <el-row>
-      <el-col :span="24"
-        ><div class="grid-content bg-purple-dark"></div
-      ></el-col>
-    </el-row>
     <div id="nav">
       <a href="/"><img src="@/assets/SystemLogo.png" /></a>
     </div>
@@ -21,7 +16,7 @@
 }
 
 #nav {
-  padding: 30px;
+  padding: 15px;
   background: -webkit-gradient(
     linear,
     left top,
@@ -40,5 +35,10 @@
 
 #nav a.router-link-exact-active {
   color: #f8f8f8;
+}
+
+.naviga {
+  color: white;
+  float: right;
 }
 </style>

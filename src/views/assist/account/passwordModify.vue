@@ -1,5 +1,5 @@
 <template>
-   <el-container style="margin-top:20px;">
+  <el-container style="margin-top: 20px">
     <el-main>
       <el-card
         style="
@@ -58,28 +58,7 @@ export default {
     back() {
       this.$router.push("/teacherHome");
     },
-        sendCaptcha() {
-      console.log(this.email);
-      this.axios
-        .post(
-          //"/api/users/sendCaptcha"
-          "/api/users/sendCaptcha",
-          JSON.stringify({
-            email: this.email,
-          })
-        )
-        .then(
-          function (response) {
-            //这里使用了ES6的语法
-            // this.checkResponse(response.data); //请求成功返回的数据
-            alert("发送验证码成功");
-            console.log(response);
-          },
-          function (err) {
-            console.log(err);
-          }
-        );
-    },
+    sendCaptcha() {},
   },
 };
 </script>
