@@ -123,6 +123,12 @@ const routes = [
           { path: '/teacherHome/concreteCourse/Score', component: () => import('../views/teacher/course/courseDetail/courseScore.vue') },
           { path: '/teacherHome/concreteCourse/File', component: () => import('../views/teacher/course/courseDetail/courseFile.vue') },
           { path: '/teacherHome/concreteCourse/Exper', component: () => import('../views/teacher/course/courseDetail/courseExperiment.vue') },
+          {         path: '/teacherHome/duty-course', component: () => import('../views/teacher/Exam/examHome.vue'), children: [
+            { path: '/teacherHome/duty-course/exam/checkExam', component: () => import('../views/teacher/Exam/checkExam.vue') },
+            { path: '/teacherHome/duty-course/exam/addExam', component: () => import('../views/teacher/Exam/AddExam.vue') },
+            { path: '/teacherHome/duty-course/exam/analysisExam', component: () => import('../views/teacher/Exam/AnalysisExam.vue') },
+  
+          ]},
 
           { path: '/teacherHome/concreteCourse/ConExper', component: () => import('../views/teacher/course/experiment/experiment.vue') },
           { path: '/teacherHome/concreteCourse/stuExper', component: () => import('../views/teacher/course/experiment/stuExper.vue') },
@@ -138,9 +144,9 @@ const routes = [
           { path: '/teacherHome/duty-course/exam/checkExam', component: () => import('../views/teacher/Exam/checkExam.vue') },
           { path: '/teacherHome/duty-course/exam/addExam', component: () => import('../views/teacher/Exam/AddExam.vue') },
           { path: '/teacherHome/duty-course/exam/analysisExam', component: () => import('../views/teacher/Exam/AnalysisExam.vue') },
-          { path: '/teacherHome/duty-course/courseInfo', component: () => import('../views/teacher/Exam/CourseInfo.vue') },
-          { path: '/teacherHome/duty-course/manageClass', component: () => import('../views/teacher/Exam/ManageClass.vue') },
-          { path: '/teacherHome/duty-course/manageEx', component: () => import('../views/teacher/Exam/experiment.vue') },
+          // { path: '/teacherHome/duty-course/courseInfo', component: () => import('../views/teacher/Exam/CourseInfo.vue') },
+          // { path: '/teacherHome/duty-course/manageClass', component: () => import('../views/teacher/Exam/ManageClass.vue') },
+          // { path: '/teacherHome/duty-course/manageEx', component: () => import('../views/teacher/Exam/experiment.vue') },
 
         ]
       },

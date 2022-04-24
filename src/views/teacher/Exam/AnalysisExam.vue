@@ -117,15 +117,6 @@ export default {
     };
   },
   methods: {
-    drawLine() {
-      // 基于准备好的dom，初始化echarts实例
-      var echarts = require("echarts");
-      let myChart = echarts.init(this.$refs.experiment);
-      // 绘制图表
-      let option = this.option;
-
-      myChart.setOption(option);
-    },
 
     getParams: function () {
       this.id = sessionStorage.getItem("id");
@@ -136,8 +127,6 @@ export default {
   },
   mounted() {
     this.getParams();
-
-    this.drawLine();
   },
 };
 </script>

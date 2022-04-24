@@ -91,131 +91,6 @@ export default {
     };
   },
   methods: {
-    getClasses() {
-      var jsons = {
-        courseID: this.course_id,
-        token: sessionStorage.getItem("token"),
-      };
-      this.axios
-        .post("/api/manageClass/showClass/", JSON.stringify(jsons))
-        .then((response) => {
-          if (response.data["code"] === 301) {
-            this.$message("验证过期");
-            this.$router.push({ path: "/login" });
-          } else if (response.data["code"] === 404) {
-            this.$message("找不到页面");
-            this.$router.push({ path: "/404" });
-          } else {
-            this.classList = response.data.data;
-            console.log(this.classList);
-          }
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
-    },
-    updateTea(row) {
-      var jsons = {
-        class_id: row.class_id,
-        t_id: row.t_id,
-        token: sessionStorage.getItem("token"),
-      };
-      console.log("更新教师");
-      console.log(jsons);
-      this.axios
-        .post("/api/manageClass/changeTeacher", JSON.stringify(jsons))
-        .then((response) => {
-          if (response.data["code"] === 301) {
-            this.$message("验证过期");
-            this.$router.push({ path: "/login" });
-          } else if (response.data["code"] === 404) {
-            this.$message("找不到页面");
-            this.$router.push({ path: "/404" });
-          } else {
-            this.getClasses();
-            this.teaDialog = false;
-          }
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
-    },
-    handleDeleteClass(row) {
-      this.$confirm("确认删除班级吗?", "提示", {
-        confirmButtonText: "确定",
-        cancelButtonText: "取消",
-        type: "warning",
-      })
-        .then(() => {
-          this.deleteClass(row);
-          this.$message({
-            type: "success",
-            message: "删除成功!",
-          });
-          document.execCommand("Refresh");
-        })
-        .catch(() => {
-          this.$message({
-            type: "info",
-            message: "取消删除操作",
-          });
-        });
-    },
-    handleAddClass() {
-      this.classDialog = true;
-    },
-    handleTea(item) {
-      this.changeTemp = item;
-      this.teaDialog = true;
-    },
-
-    createClass() {
-      console.log("createClass", this.course_id);
-      this.axios
-        .post(
-          "/api/manageClass/addClass",
-          JSON.stringify({
-            courseID: this.course_id,
-            t_id: this.tid,
-            token: sessionStorage.getItem("token"),
-          })
-        )
-        .then((response) => {
-          if (response.data["code"] === 301) {
-            this.$message("验证过期");
-            this.$router.push({ path: "/login" });
-          } else if (response.data["code"] === 404) {
-            this.$message("找不到页面");
-            this.$router.push({ path: "/404" });
-          } else {
-            this.classDialog = false;
-            this.tid = "";
-            this.getClasses();
-          }
-        });
-    },
-    deleteClass(row) {
-      var jsons = {
-        classID: row.class_id,
-        token: sessionStorage.getItem("token"),
-      };
-      this.axios
-        .post("/api/manageClass/deleteClass", JSON.stringify(jsons))
-        .then((response) => {
-          if (response.data["code"] === 301) {
-            this.$message("验证过期");
-            this.$router.push({ path: "/login" });
-          } else if (response.data["code"] === 404) {
-            this.$message("找不到页面");
-            this.$router.push({ path: "/404" });
-          } else {
-            this.getClasses();
-          }
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
-    },
     getParams: function () {
       this.course_id = JSON.parse(
         this.$Base64.decode(this.$route.query.info)
@@ -228,34 +103,11 @@ export default {
       this.id = sessionStorage.getItem("id");
       console.log(this.course_id);
     },
-    getTeaList() {
-      //获得所有教师
-      this.axios
-        .get("/api/course/getAllTeacher/", {
-          params: { token: sessionStorage.getItem("token") },
-          crossDomain: true,
-        })
-        .then((response) => {
-          console.log("getTeaList", response);
-          if (response.data["code"] === 301) {
-            this.$message("验证过期");
-            this.$router.push({ path: "/login" });
-          } else if (response.data["code"] === 404) {
-            this.$message("找不到页面");
-            this.$router.push({ path: "/404" });
-          } else {
-            this.teaList = response.data.data;
-          }
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
-    },
   },
   mounted() {
     this.getParams();
-    this.getClasses();
-    this.getTeaList();
+    // this.getClasses();
+    // this.getTeaList();
   },
 };
 </script>

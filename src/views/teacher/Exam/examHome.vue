@@ -2,7 +2,7 @@
   <el-container style="margin-top: 20px">
     <el-header>
       <el-menu @select="handleSelect" mode="horizontal">
-        <el-menu-item index="/teacherHome/duty-course/courseInfo">
+        <!-- <el-menu-item index="/teacherHome/duty-course/courseInfo">
           <span slot="title">课程信息管理</span>
         </el-menu-item>
         <el-menu-item index="/teacherHome/duty-course/manageEx">
@@ -10,7 +10,7 @@
         </el-menu-item>
         <el-menu-item index="/teacherHome/duty-course/manageClass">
           <span slot="title">班级管理</span>
-        </el-menu-item>
+        </el-menu-item> -->
         <el-menu-item index="/teacherHome/duty-course/exam/checkExam">
           <span slot="title">查看测验</span>
         </el-menu-item>

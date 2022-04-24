@@ -98,60 +98,10 @@ export default {
       this.id = sessionStorage.getItem("id");
       //console.log("test"+JSON.parse(this.$Base64.decode(this.$route.query.info)))
     },
-    handleScore() {
-      this.scoreDialog = true;
-    },
-    getPercent() {
-      var json = {
-        course_id: this.course_id,
-      };
-      this.axios
-        .post("/api/weight/get", JSON.stringify(json))
-        .then((response) => {
-          console.log("getPercent", response);
-          this.eachScore.exam = response.data.data.exam_weight;
-          this.eachScore.report = response.data.data.experiment_weight;
-          this.eachScore.attendance = response.data.data.attendence_weight;
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
-    },
-    setPercent() {
-      //设置成绩占比
-      var exam = this.eachScore.exam * 1;
-      var report = this.eachScore.report * 1;
-      var attendance = this.eachScore.attendance * 1;
-      console.log("percent", exam + report + attendance);
-      if (
-        exam + report + attendance < 0.9999999999999999 ||
-        exam + report + attendance > 1
-      ) {
-        this.$message.warning("所有成绩占比加合不为1，请重新输入！");
-      } else {
-        var json = {
-          course_id: this.course_id,
-          exam_weight: this.eachScore.exam,
-          experiment_weight: this.eachScore.report,
-          attendence_weight: this.eachScore.attendance,
-        };
-        this.axios
-          .post("/api/weight/set", JSON.stringify(json))
-          .then((response) => {
-            console.log("setPercent", response);
-            this.$message.success("修改成功！");
-            this.scoreDialog = false;
-            this.getPercent();
-          })
-          .catch(function (error) {
-            console.log(error);
-          });
-      }
-    },
+
   },
   mounted() {
     this.getParams();
-    this.getPercent();
   },
 };
 </script>
