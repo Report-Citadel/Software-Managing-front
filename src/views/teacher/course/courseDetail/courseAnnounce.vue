@@ -1,23 +1,7 @@
 <template>
   <div>
     <el-container style="margin-top: 20px">
-      <el-main>
 
-        <el-timeline>
-          <el-timeline-item
-            v-for="data in annList"
-            :key="data.ann_id"
-            center
-            placement="top"
-            :timestamp="data.date"
-          >
-            <el-card>
-
-            </el-card>
-          </el-timeline-item>
-        </el-timeline>
-
-      </el-main>
       <el-aside></el-aside>
     </el-container>
   </div>
@@ -30,15 +14,6 @@ export default {
       id: "",
       c_id: "",
       title: "",
-      content: "",
-      contentRe: "",
-      dialogVisible: false,
-      dialogAddVisible: false,
-      annList: [],
-      formAnn: {
-        title: "",
-        content: "",
-      },
     };
   },
   methods: {

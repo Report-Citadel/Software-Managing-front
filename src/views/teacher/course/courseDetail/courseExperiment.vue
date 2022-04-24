@@ -22,43 +22,13 @@
           prop="ex_type"
           label="提交方式"
           sortable
-          :filters="[
-            { text: '在线提交', value: '在线提交' },
-            { text: '提交文件', value: '提交文件' },
-          ]"
-          :filter-method="filterTag"
-          filter-placement="bottom-end"
         >
-          <template slot-scope="scope">
-            <el-tag
-              :type="scope.row.ex_type === '在线提交' ? 'primary' : 'success'"
-              disable-transitions
-              >{{ scope.row.ex_type }}</el-tag
-            >
-          </template>
         </el-table-column>
         <el-table-column prop="weight" label="权重" sortable />
 
-        <el-table-column>
-          <template #header>
-            <el-input v-model="search" placeholder="请输入实验名称" />
-          </template>
-          <template #default="scope">
-            <v-row>
-              <v-col cols="4">
-                <v-btn small dark @click="handleCheck(scope.row)">查看</v-btn>
-              </v-col>
-              <v-col cols="3">
-                <v-btn small dark @click="handleGrade(scope.row)">批改</v-btn>
-              </v-col>
-            </v-row>
-          </template>
-        </el-table-column>
       </el-table>
 
       <el-pagination
-        @size-change="handleSizeChange"
-        @current-change="handleCurrentChange"
         :current-page="currentPage"
         :page-size="pagesize"
         layout="total,  prev, pager, next, jumper"
@@ -84,67 +54,6 @@ export default {
     };
   },
   methods: {
-    handleSizeChange: function (val) {
-      this.pagesize = val;
-    },
-    handleCurrentChange: function (currentPage) {
-      this.currentPage = currentPage;
-    },
-    resetDateFilter() {
-      this.$refs.filterTable.clearFilter("date");
-    },
-    clearFilter() {
-      this.$refs.filterTable.clearFilter();
-    },
-    filterTag(value, row) {
-      return row.ex_type === value;
-    },
-    filterHandler(value, row, column) {
-      const property = column["property"];
-      return row[property] === value;
-    },
-
-    handlePreview(file) {
-      console.log(file);
-    },
-
-    handleRemove(file, fileListS) {
-      console.log(file, fileListS);
-    },
-
-    handleChange(file) {
-      console.log(file);
-      this.fileListS.push(file);
-      console.log(this.fileListS);
-    },
-
-    beforeRemove(file) {
-      return this.$confirm(`确定移除 ${file.name}？`);
-    },
-
-    handleCheck(row) {
-      this.$router.push({
-        path: "/teacherHome/concreteCourse/ConExper",
-        query: {
-          info: this.$Base64.encode(JSON.stringify(row.ex_id)),
-        },
-      });
-    },
-
-    handleGrade(row) {
-      this.$router.push({
-        path: "/teacherHome/concreteCourse/stuExperList",
-        query: {
-          info: this.$Base64.encode(
-            JSON.stringify({ ex_id: row.ex_id, ex_type: row.ex_type })
-          ),
-        },
-      });
-    },
-
-    handleFile() {
-      this.dialogVisible = true;
-    },
     getParams: function () {
       this.c_id = JSON.parse(this.$Base64.decode(this.$route.query.info))[
         "class_id"
