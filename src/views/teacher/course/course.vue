@@ -1,6 +1,9 @@
 
 <template>
+
+
   <v-row>
+
     <v-col v-for="index in courseData" :key="index">
       <v-card class="mx-auto" max-width="344">
         <v-img
@@ -37,6 +40,7 @@
       </v-card>
     </v-col>
   </v-row>
+  
 </template>
 
 <script>
@@ -67,3 +71,29 @@ export default {
 
 };
 </script>
+
+<style scoped>
+.back {
+  background: rgb(255, 255, 255);
+  border-radius: 15px;
+  height: 700px;
+  margin-top: 20px;
+}
+.hBack {
+  padding: 20px;
+  text-align: left;
+  font: 20px Microsoft YaHei;
+}
+.lBack {
+  padding: 20px;
+  border-radius: 15px;
+}
+.mBack {
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 7px 7px 7px rgba(0, 0, 0, 0.15);
+}
+.rBack {
+  padding: 20px;
+}
+</style>
