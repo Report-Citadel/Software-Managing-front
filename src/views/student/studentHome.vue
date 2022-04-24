@@ -1,18 +1,17 @@
 <template>
   <div>
     <el-container class="back">
-      <el-aside width="15%">
+      <el-aside style="width: 15%">
         <div>
-          <el-menu class="admin-aside-menu" router>
+          <el-menu class="admin-aside-menu" router :collapse="true">
             <img ref="stuAvatar" class="admin-aside-menu-head" />
             <el-menu-item index="/studentHome/control">
-              <i class="el-icon-reading"></i>
-              <span slot="title">控制面板</span>
+              <i class="el-icon-reading"></i>控制面板
             </el-menu-item>
             <el-submenu index="1">
               <template slot="title">
                 <i class="el-icon-edit"></i>
-                <span>个人信息</span>
+                个人信息
               </template>
               <el-menu-item-group>
                 <el-menu-item index="/studentHome/account"
@@ -25,15 +24,15 @@
             </el-submenu>
             <el-menu-item index="/studentHome/course">
               <i class="el-icon-user"></i>
-              <span slot="title">我的课程</span>
+              我的课程
             </el-menu-item>
             <el-menu-item index="/studentHome/accounce">
               <i class="el-icon-reading"></i>
-              <span slot="title">系统公告</span>
+              系统公告
             </el-menu-item>
             <el-menu-item index="/" @click="Logout()">
               <i class="el-icon-reading"></i>
-              <span slot="title">退出登录</span>
+              退出登录
             </el-menu-item>
           </el-menu>
         </div>
@@ -105,9 +104,10 @@ export default {
 .admin-aside-menu {
   box-shadow: 3px 3px 10px #d3d3d3;
   background: #f0f8ff;
-  border-radius: 10%;
-  height: 800px;
-  margin-top: 20px;
+  border-radius: 3%;
+  width: 60%;
+  height: 550px;
+  margin-top: 20%;
 }
 .admin-aside-menu-head {
   margin: 20px auto;

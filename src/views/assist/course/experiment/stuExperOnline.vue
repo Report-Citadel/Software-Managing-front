@@ -70,7 +70,7 @@ export default {
     getExReport() {},
   },
   mounted() {
-    //this.getParams();
+    this.getParams();
     this.getExReport();
   },
 };
