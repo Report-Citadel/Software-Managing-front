@@ -67,8 +67,8 @@
               plain
               size="small"
               @click="goToOnline(scope.row.ex_id, scope.row.end_time)"
-              v-if="scope.row.online === 1 && scope.row.status === '未过期'"
-              >在线模拟</el-button
+              v-if="scope.row.status === '未过期'"
+              >模拟</el-button
             >
           </template>
         </el-table-column>
@@ -120,31 +120,31 @@ export default {
       pagesize: 7,
       tableData: [
         {
-          ex_id:1,
+          ex_id: 1,
           end_time: "2021-12-2 12:30:21",
-          experiment_title:"这是一个实验",
-          is_submit:false,
-          status:"未过期",
-          score:null,
-          type:"在线提交"
+          experiment_title: "这是一个实验",
+          is_submit: false,
+          status: "未过期",
+          score: null,
+          type: "在线提交",
         },
         {
-          ex_id:1,
+          ex_id: 1,
           end_time: "2021-12-2 12:30:21",
-          experiment_title:"这是一个实验",
-          is_submit:false,
-          status:"未过期",
-          score:null,
-          type:"提交文件"
+          experiment_title: "这是一个实验",
+          is_submit: false,
+          status: "未过期",
+          score: null,
+          type: "提交文件",
         },
         {
-          ex_id:1,
+          ex_id: 1,
           end_time: "2021-12-2 12:30:21",
-          experiment_title:"这是一个实验",
-          is_submit:false,
-          status:"已过期",
-          score:98
-        }
+          experiment_title: "这是一个实验",
+          is_submit: false,
+          status: "已过期",
+          score: 98,
+        },
       ],
       fileList: [],
       fileDialog: false,
@@ -158,8 +158,7 @@ export default {
       this.currentPage = currentPage;
     },
     goToOnline(ex_id, end_time) {
-
-      console.log(ex_id,end_time)
+      console.log(ex_id, end_time);
     },
     handlePreview(file) {
       console.log(file);
@@ -205,15 +204,9 @@ export default {
         },
       });
     },
-    uploadFile() {
-
-    },
-    getEx() {
-
-    },
-    checkResponse() {
-
-    },
+    uploadFile() {},
+    getEx() {},
+    checkResponse() {},
     getParams: function () {
       this.class_id = JSON.parse(this.$Base64.decode(this.$route.query.info))[
         "class_id"
