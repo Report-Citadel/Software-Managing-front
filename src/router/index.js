@@ -7,7 +7,6 @@ import TeacherHome from '../views/teacher/teacherHome.vue'
 import AssistHome from '../views/assist/assistHome.vue'
 
 import Login from '../views/login/Login.vue'
-import AdminLogin from '../views/login/AdminLogin.vue'
 
 
 import StuConcreteCourse from '../views/student/course/concreteCourse.vue'
@@ -24,11 +23,7 @@ const routes = [
     name: 'Login',
     component: Login,
   },
-  {
-    path: '/AdminLogin',
-    name: '/AdminLogin',
-    component: AdminLogin,
-  },
+
 
 
   {
