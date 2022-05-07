@@ -332,7 +332,6 @@ body > .el-container {
   height: 560px;
   padding-right: 30px;
   padding-top: 20px;
-
   background: rgba(27, 41, 58, 0.85);
 }
 
