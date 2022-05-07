@@ -327,6 +327,7 @@ body > .el-container {
 
 .loginForm {
   text-align: center;
+
   line-height: 570px;
   height: 560px;
   padding-right: 30px;
