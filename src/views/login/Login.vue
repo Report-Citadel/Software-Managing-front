@@ -331,7 +331,7 @@ body > .el-container {
   height: 560px;
   padding-right: 30px;
   padding-top: 20px;
-  background-image: "@/assets/login_back.jpg";
+  background: rgba(27, 41, 58, 0.85);
 }
 
 .text-button {
