@@ -38,7 +38,7 @@ const routes = [
       { path: '/studentHome/modifyPassword', component: () => import('../views/student/account/passwordModify.vue') },
 
       //课程
-      { path: '/studentHome/course', component: () => import('../views/student/course/course.vue') },
+      { path: '/studentHome/course', component: () => import('../views/student/course/myClass.vue') },
       {
         path: '/studentHome/concreteCourse', component: StuConcreteCourse, children: [
           { path: '/studentHome/concreteCourse/Ann', component: () => import('../views/student/course/courseDetail/courseAnnounce.vue') },
