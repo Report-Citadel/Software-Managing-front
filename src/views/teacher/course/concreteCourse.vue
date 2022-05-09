@@ -4,9 +4,7 @@
     <el-container>
       <el-aside width="120px" class="lBack">
         <el-menu @select="handleSelect">
-          <el-menu-item index="/teacherHome/concreteCourse/Ann">
-            <span slot="title">公告</span>
-          </el-menu-item>
+
           <el-menu-item index="/teacherHome/concreteCourse/Exper">
             <span slot="title">实验</span>
           </el-menu-item>
@@ -23,9 +21,7 @@
           <el-menu-item index="/teacherHome/concreteCourse/File">
             <span slot="title">文件</span>
           </el-menu-item>
-           <el-menu-item index="/teacherHome/duty-course">
-            <span slot="title">测验</span>
-          </el-menu-item>
+
         </el-menu>
       </el-aside>
       <el-main class="mBack"> <router-view></router-view></el-main>
