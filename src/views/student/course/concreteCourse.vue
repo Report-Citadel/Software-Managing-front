@@ -19,9 +19,6 @@
           <el-menu-item index="/studentHome/concreteCourse/File">
             <span slot="title">文件</span>
           </el-menu-item>
-          <el-menu-item index="/studentHome/concreteCourse/examHome/checkExam">
-            <span slot="title">测验</span>
-          </el-menu-item>
         </el-menu>
       </el-aside>
       <el-main class="mBack"> <router-view></router-view></el-main>

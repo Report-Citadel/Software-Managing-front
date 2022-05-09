@@ -27,7 +27,7 @@
           </template>
           <template #default="scope">
             <v-row>
-              <v-col cols="3" v-if="ex_type == '在线提交'">
+              <v-col cols="4" v-if="ex_type == '在线提交'">
                 <v-btn small dark @click="giveScoreOnline(scope.row)"
                   >查看</v-btn
                 >
@@ -50,7 +50,7 @@
                   >下载</v-btn
                 >
               </v-col>
-              <v-col cols="4" v-if="ex_type == '提交文件'">
+              <v-col cols="4">
                 <v-btn small dark @click="handleScoreDown(scope.row)"
                   >打分</v-btn
                 >
