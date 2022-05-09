@@ -106,9 +106,7 @@ const routes = [
 
       //课程
       { path: '/teacherHome/myClass', component: () => import('../views/teacher/course/myClass.vue') },
-      { path: '/teacherHome/manageCourse', component: () => import('../views/teacher/course/manageCourse.vue') },
-      { path: '/teacherHome/courseClass', component: () => import('../views/teacher/course/courseManage/courseClass.vue') },
-      { path: '/teacherHome/manageExperiment', component: () => import('../views/teacher/course/courseManage/manageExperiment.vue') },
+      { path: '/teacherHome/manageCourse', component: () => import('../views/teacher/course/courseManage/manageCourse.vue') },
       {
         path: '/teacherHome/concreteCourse', component: TeaConcreteCourse, children: [
           { path: '/teacherHome/concreteCourse/Ann', component: () => import('../views/teacher/course/courseDetail/courseAnnounce.vue') },

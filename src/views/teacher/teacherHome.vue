@@ -48,7 +48,11 @@
             </el-submenu> -->
             <el-menu-item index="/teacherHome/myClass">
               <i class="el-icon-reading"></i>
-              <span slot="title">课程</span>
+              <span slot="title">我的班级</span>
+            </el-menu-item>
+            <el-menu-item index="/teacherHome/manageCourse">
+              <i class="el-icon-reading"></i>
+              <span slot="title">课程管理</span>
             </el-menu-item>
             <el-menu-item index="/" >
               <i class="el-icon-s-tools"></i>
