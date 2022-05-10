@@ -13,11 +13,11 @@
               <i class="el-icon-reading"></i>
               <span slot="title">公告</span>
             </el-menu-item>
-            <el-menu-item index="/teacherHome/account">
+            <!-- <el-menu-item index="/teacherHome/account">
               <i class="el-icon-edit"></i>
               <span slot="title">个人信息</span>
-            </el-menu-item>
-            <!-- <el-submenu index="1">
+            </el-menu-item> -->
+            <el-submenu index="1">
               <template slot="title">
                 <i class="el-icon-edit"></i>
                 <span>个人信息</span>
@@ -30,9 +30,9 @@
                   >修改密码</el-menu-item
                 >
               </el-menu-item-group>
-            </el-submenu> -->
+            </el-submenu>
 
-            <!-- <el-submenu index="2">
+             <el-submenu index="2">
               <template slot="title">
                 <i class="el-icon-user"></i>
                 <span>课程</span>
@@ -45,15 +45,11 @@
                   >我的课程</el-menu-item
                 >
               </el-menu-item-group>
-            </el-submenu> -->
-            <el-menu-item index="/teacherHome/myClass">
+            </el-submenu>
+            <!-- <el-menu-item index="/teacherHome/myClass">
               <i class="el-icon-reading"></i>
-              <span slot="title">我的班级</span>
-            </el-menu-item>
-            <el-menu-item index="/teacherHome/manageCourse">
-              <i class="el-icon-reading"></i>
-              <span slot="title">课程管理</span>
-            </el-menu-item>
+              <span slot="title">课程</span>
+            </el-menu-item> -->
             <el-menu-item index="/" >
               <i class="el-icon-s-tools"></i>
               <span slot="title">退出登录</span>
