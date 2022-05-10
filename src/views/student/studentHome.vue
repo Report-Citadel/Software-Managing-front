@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-container class="back">
-      <el-aside style="width: 15%">
+      <el-aside width="15%">
         <div>
           <el-menu class="admin-aside-menu" router :collapse="true">
             <img ref="stuAvatar" class="admin-aside-menu-head" />
@@ -85,7 +85,7 @@ export default {
   box-shadow: 3px 3px 10px #d3d3d3;
   background: #f0f8ff;
   border-radius: 3%;
-  width: 60%;
+  width: 100%;
   height: 550px;
   margin-top: 20%;
 }

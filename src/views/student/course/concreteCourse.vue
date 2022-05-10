@@ -4,9 +4,7 @@
     <el-container>
       <el-aside width="120px" class="lBack">
         <el-menu @select="handleSelect">
-          <el-menu-item index="/studentHome/concreteCourse/Ann">
-            <span slot="title">公告</span>
-          </el-menu-item>
+
           <el-menu-item index="/studentHome/concreteCourse/Exper">
             <span slot="title">实验</span>
           </el-menu-item>

@@ -3,6 +3,8 @@
     <el-table :data="studentData" style="width: 100%">
       <el-table-column prop="s_id" label="学号" sortable />
       <el-table-column prop="name" label="姓名" sortable />
+      <el-table-column prop="role" label="身份" sortable />
+
     </el-table>
   </div>
 </template>

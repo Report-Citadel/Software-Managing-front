@@ -38,7 +38,7 @@ const routes = [
       { path: '/studentHome/modifyPassword', component: () => import('../views/student/account/passwordModify.vue') },
 
       //课程
-      { path: '/studentHome/course', component: () => import('../views/student/course/course.vue') },
+      { path: '/studentHome/course', component: () => import('../views/student/course/myClass.vue') },
       {
         path: '/studentHome/concreteCourse', component: StuConcreteCourse, children: [
           { path: '/studentHome/concreteCourse/Ann', component: () => import('../views/student/course/courseDetail/courseAnnounce.vue') },
@@ -106,9 +106,7 @@ const routes = [
 
       //课程
       { path: '/teacherHome/myClass', component: () => import('../views/teacher/course/myClass.vue') },
-      { path: '/teacherHome/manageCourse', component: () => import('../views/teacher/course/manageCourse.vue') },
-      { path: '/teacherHome/courseClass', component: () => import('../views/teacher/course/courseManage/courseClass.vue') },
-      { path: '/teacherHome/manageExperiment', component: () => import('../views/teacher/course/courseManage/manageExperiment.vue') },
+      { path: '/teacherHome/manageCourse', component: () => import('../views/teacher/course/courseManage/manageCourse.vue') },
       {
         path: '/teacherHome/concreteCourse', component: TeaConcreteCourse, children: [
           { path: '/teacherHome/concreteCourse/Ann', component: () => import('../views/teacher/course/courseDetail/courseAnnounce.vue') },
