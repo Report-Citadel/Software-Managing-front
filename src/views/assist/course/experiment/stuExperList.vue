@@ -130,16 +130,7 @@ export default {
       this.scoreDialog = false;
     },
 
-    giveScoreOnline(row) {
-      this.$router.push({
-        path: "/assistHome/concreteCourse/stuExper",
-        query: {
-          s_id: row.s_id,
-          ex_id: this.ex_id,
-          score: row.score,
-        },
-      });
-    },
+    giveScoreOnline() {},
 
     check() {
       //console.log("checkjson", row, this.ex_id);

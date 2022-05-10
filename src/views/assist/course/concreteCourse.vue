@@ -10,9 +10,7 @@
           <el-menu-item index="/assistHome/concreteCourse/Exper">
             <span slot="title">实验</span>
           </el-menu-item>
-          <el-menu-item index="/assistHome/concreteCourse/Score">
-            <span slot="title">批改</span>
-          </el-menu-item>
+
           <el-menu-item index="/assistHome/concreteCourse/Peo">
             <span slot="title">人员</span>
           </el-menu-item>

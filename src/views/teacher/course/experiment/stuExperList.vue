@@ -15,7 +15,6 @@
         "
         style="width: 100%"
       >
-        <el-table-column type="selection" width="55" />
         <el-table-column prop="s_id" label="学号" sortable />
         <el-table-column prop="s_name" label="姓名" sortable />
         <el-table-column prop="status" label="是否提交" sortable />
@@ -103,7 +102,20 @@ export default {
       multipleSelection: [],
 
       stuExData: [
-        { sid: "1", name: "1", submit: "2021.11.1", score: "2022.2.2" },
+        {
+          s_id: "1",
+          s_name: "1",
+          status: "是",
+          submitTime: "2021.11.1",
+          score: "2022",
+        },
+        {
+          s_id: "2",
+          s_name: "2",
+          status: "是",
+          submitTime: "2021.11.1",
+          score: "2022",
+        },
       ],
     };
   },
@@ -121,89 +133,12 @@ export default {
       this.scoreDialog = true;
       this.s_id = row.s_id;
     },
-    giveScoreDown() {
-      var jsons = {
-        s_id: this.s_id,
-        ex_id: this.ex_id,
-        score: this.stuScore,
+    giveScoreDown() {},
 
-        token: sessionStorage.getItem("token"),
-      };
-      console.log(jsons);
-      this.axios
-        .post("/api/tea/Ex/scoreReport/", JSON.stringify(jsons))
-        .then((response) => {
-          console.log(response);
-          if (response.data["code"] === 301) {
-            this.$message("验证过期");
-            this.$router.push({ path: "/login" });
-          } else if (response.data["code"] === 404) {
-            this.$message("找不到页面");
-            this.$router.push({ path: "/404" });
-          } else {
-            this.$message.success("成功打分！");
-            this.scoreDialog = false;
-            this.stuScore = "";
-            this.getStuEx();
-          }
-        });
-    },
+    giveScoreOnline() {},
 
-    giveScoreOnline(row) {
-      this.$router.push({
-        path: "/teacherHome/concreteCourse/stuExper",
-        query: {
-          info: this.$Base64.encode(
-            JSON.stringify({
-              s_id: row.s_id,
-              ex_id: this.ex_id,
-              score: row.score,
-            })
-          ),
-        },
-      });
-    },
-
-    check(row) {
+    check() {
       //console.log("checkjson", row, this.ex_id);
-      this.axios
-        .post(
-          "/api/Ex/showUpload/",
-          JSON.stringify({
-            s_id: row.s_id,
-            ex_id: this.ex_id.toString(),
-          }),
-          {
-            responseType: "blob",
-            headers: {
-              "Content-Type": "multipart/form-data",
-            },
-          }
-        )
-        .then((response) => {
-          //var fname = row.filename
-          //fname = decodeURIComponent(fname)
-          //const title = fileName && (fileName.indexOf('filename=') !== -1) ? fileName.split('=')[1] : 'download';
-
-          if (response.data["code"] === 301) {
-            this.$message("验证过期");
-            this.$router.push({ path: "/login" });
-          } else if (response.data["code"] === 404) {
-            this.$message("找不到页面");
-            this.$router.push({ path: "/404" });
-          } else {
-            console.log("查看文件", response);
-            //const fileName = response.headers["content-disposition"];
-            //var fname = fileName.split("filename=")[1];
-            //fname = decodeURIComponent(fname);
-            const blob = new Blob([response.data], {
-              type: "application/pdf",
-            });
-            //var downloadElement = document.createElement("a");
-            var href = window.URL.createObjectURL(blob);
-            window.open(href);
-          }
-        });
     },
     download(row) {
       //console.log(row);
@@ -246,36 +181,10 @@ export default {
           //console.log(response)
         });
     },
-    getStuEx() {
-      this.axios
-        .post(
-          "/api/tea/Ex/getReportList/",
-          JSON.stringify({
-            ex_id: this.ex_id,
-            token: sessionStorage.getItem("token"),
-          })
-        )
-        .then((response) => {
-          console.log("stuEx");
-          console.log(response);
-          if (response.data["code"] === 301) {
-            this.$message("验证过期");
-            this.$router.push({ path: "/login" });
-          } else if (response.data["code"] === 404) {
-            this.$message("找不到页面");
-            this.$router.push({ path: "/404" });
-          } else {
-            this.stuExData = response.data.data;
-          }
-        });
-    },
+    getStuEx() {},
     getParams: function () {
-      this.ex_id = JSON.parse(this.$Base64.decode(this.$route.query.info))[
-        "ex_id"
-      ];
-      this.ex_type = JSON.parse(this.$Base64.decode(this.$route.query.info))[
-        "ex_type"
-      ];
+      this.ex_id = this.$route.query.ex_id;
+      this.ex_type = this.$route.query.ex_type;
     },
   },
   mounted() {

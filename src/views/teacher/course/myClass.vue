@@ -36,27 +36,23 @@ export default {
           class_id: 401902,
           course_name: "软件工程",
           year: 2021,
-          semester: "春季"
-        }
+          semester: "春季",
+        },
       ],
       id: "",
     };
   },
   methods: {
-
     toClass(index) {
       console.log(index);
       this.$router.push({
         path: "/teacherHome/concreteCourse/Ann",
         // 在这里放一下班级号，传到另一个页面的参数
         query: {
-          info: this.$Base64.encode(
-            JSON.stringify({ class_id: index.class_id })
-          ),
+          info: index.class_id,
         },
       });
     },
   },
-
 };
 </script>

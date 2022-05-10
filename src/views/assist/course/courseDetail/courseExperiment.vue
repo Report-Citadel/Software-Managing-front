@@ -45,9 +45,6 @@
           </template>
           <template #default="scope">
             <v-row>
-              <v-col cols="4">
-                <v-btn small dark @click="handleCheck(scope.row)">查看</v-btn>
-              </v-col>
               <v-col cols="3">
                 <v-btn small dark @click="handleGrade(scope.row)">批改</v-btn>
               </v-col>
@@ -133,13 +130,6 @@ export default {
 
     beforeRemove(file) {
       return this.$confirm(`确定移除 ${file.name}？`);
-    },
-
-    handleCheck(row) {
-      this.$router.push({
-        path: "/assistHome/concreteCourse/ConExper",
-        query: row.ex_id,
-      });
     },
 
     handleGrade(row) {

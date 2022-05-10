@@ -4,7 +4,9 @@
     <el-container>
       <el-aside width="120px" class="lBack">
         <el-menu @select="handleSelect">
-
+          <el-menu-item index="/teacherHome/concreteCourse/Ann">
+            <span slot="title">公告</span>
+          </el-menu-item>
           <el-menu-item index="/teacherHome/concreteCourse/Exper">
             <span slot="title">实验</span>
           </el-menu-item>
@@ -12,16 +14,13 @@
           <el-menu-item index="/teacherHome/concreteCourse/Perform">
             <span slot="title">成绩</span>
           </el-menu-item>
-          <el-menu-item index="/teacherHome/concreteCourse/Score">
-            <span slot="title">批改</span>
-          </el-menu-item>
+
           <el-menu-item index="/teacherHome/concreteCourse/Peo">
             <span slot="title">人员</span>
           </el-menu-item>
           <el-menu-item index="/teacherHome/concreteCourse/File">
             <span slot="title">文件</span>
           </el-menu-item>
-
         </el-menu>
       </el-aside>
       <el-main class="mBack"> <router-view></router-view></el-main>
@@ -61,20 +60,18 @@ export default {
   data() {
     return {
       c_id: "",
-      course_name: "",
+      course_name: "软件工程",
     };
   },
   methods: {
     getParams: function () {
-      this.c_id = JSON.parse(this.$Base64.decode(this.$route.query.info))[
-        "class_id"
-      ];
+      this.c_id = this.$route.query.info;
     },
     handleSelect(index) {
       this.$router.push({
         path: index,
         query: {
-          info: this.$Base64.encode(JSON.stringify({ class_id: this.c_id })),
+          info: this.c_id,
         },
       });
     },
