@@ -158,20 +158,24 @@ export default {
       currentPageR: 1,
       currentPageE: 1,
       pagesize: 6,
-      allScore: {},
+      allScore: {
+        attendence_score: 10,
+        ex_score: 60,
+        exam_score: 15,
+      },
       class_id: null,
       now_score: 0,
       attendData: [],
       reportData: [],
       examData: [],
       eachScore: {
-        exam: 0,
-        report: 0,
-        attendance: 0,
+        exam: 20,
+        report: 70,
+        attendance: 10,
       },
-      attendScore: 0,
-      examScore: 0,
-      reportScore: 0,
+      attendScore: 10,
+      examScore: 60,
+      reportScore: 15,
     };
   },
   methods: {
@@ -191,30 +195,7 @@ export default {
         "class_id"
       ];
     },
-    getAllScore() {
-      var json = {
-        course_id: this.class_id.substring(0, 12),
-        //class_id: this.class_id,
-        s_id: sessionStorage.getItem("id"),
-      };
-
-      this.axios
-        .post("/api/student/getCourseScore", JSON.stringify(json))
-        .then((response) => {
-          console.log("getAllScore", response);
-
-          var data = response.data["data"];
-          data.attendence_score = data.attendence_score.toFixed(2) * 1;
-          data.ex_score = data.ex_score.toFixed(2) * 1;
-          data.exam_score = data.exam_score.toFixed(2) * 1;
-
-          this.allScore = data;
-          //console.log("this.allScore", this.allScore);
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
-    },
+    getAllScore() {},
 
     exChart() {
       var echarts = require("echarts");
@@ -280,94 +261,10 @@ export default {
       this.getAttend();
       this.getAttend();
     },
-    getExam() {
-      var json = {
-        course_id: this.class_id.substring(0, 12),
-        //class_id: this.class_id,
-        s_id: sessionStorage.getItem("id"),
-      };
-
-      this.axios
-        .post("/api/student/getExamScore", JSON.stringify(json))
-        .then((response) => {
-          console.log("getEXam", response);
-          this.examData = response.data.data;
-
-          this.examScore = 0;
-          for (var i = 0; i < this.examData.length; i++) {
-            this.examScore +=
-              (this.examData[i].stu_score / this.examData[i].all_score) * 100;
-          }
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
-    },
-    getReport() {
-      var json = {
-        course_id: this.class_id.substring(0, 12),
-        //class_id: this.class_id,
-        s_id: sessionStorage.getItem("id"),
-      };
-
-      this.axios
-        .post("/api/student/getAllExScore", JSON.stringify(json))
-        .then((response) => {
-          console.log("getReport", response);
-
-          this.reportData = response.data.data;
-          this.reportScore = 0;
-          for (var i = 0; i < this.reportData.length; i++) {
-            this.reportScore +=
-              this.reportData[i].score * this.reportData[i].weight;
-          }
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
-    },
-    getAttend() {
-      var json = {
-        course_id: this.class_id.substring(0, 12),
-        //class_id: this.class_id,
-        s_id: sessionStorage.getItem("id"),
-      };
-
-      this.axios
-        .post("/api/student/getSubmitEx", JSON.stringify(json))
-        .then((response) => {
-          console.log("getAttend", response);
-
-          this.attendScore = 0;
-          this.attendData = response.data.data;
-          for (var i = 0; i < this.attendData.length; i++) {
-            if (this.attendData[i].is_submit == 1) {
-              this.attendData[i].is_submit = "是";
-              this.attendScore++;
-            } else this.attendData[i].is_submit = "否";
-          }
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
-    },
-    getPercent() {
-      var json = {
-        course_id: this.class_id.substring(0, 12),
-      };
-      this.axios
-        .post("/api/weight/get", JSON.stringify(json))
-        .then((response) => {
-          console.log("getPercent", response);
-          this.eachScore.exam = response.data.data.exam_weight * 100;
-          this.eachScore.report = response.data.data.experiment_weight * 100;
-          this.eachScore.attendance =
-            response.data.data.attendence_weight * 100;
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
-    },
+    getExam() {},
+    getReport() {},
+    getAttend() {},
+    getPercent() {},
   },
   mounted() {
     this.getParams();
