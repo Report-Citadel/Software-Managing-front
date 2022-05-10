@@ -1,13 +1,11 @@
 <template>
   <div>
     <el-container class="back">
-      <el-aside style="width: 15%">
+      <el-aside width="15%">
         <div>
           <el-menu class="admin-aside-menu" router :collapse="true">
             <img ref="stuAvatar" class="admin-aside-menu-head" />
-            <el-menu-item index="/studentHome/control">
-              <i class="el-icon-reading"></i>控制面板
-            </el-menu-item>
+
             <el-submenu index="1">
               <template slot="title">
                 <i class="el-icon-edit"></i>
@@ -57,25 +55,7 @@ export default {
       sessionStorage.removeItem("id");
       sessionStorage.removeItem("token");
     },
-    getUserAvatar: function () {
-      let param = new FormData(); // 创建form对象
-      param.append("s_id", sessionStorage.getItem("id"));
-      this.axios
-        .post("/api/getUserInfo/Student/showAvatar", param)
-        .then((response) => {
-          var address = "http://39.107.51.181:5000";
-          var url = response.data.url;
-          this.$refs.stuAvatar.src = address + url;
-          console.log(this.$refs.stuAvatar.src);
-          // var imgHtml = "<img src=" + address + url + "></img>";
-          // console.log(imgHtml);
-
-          // this.avatar = imgHtml;
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
-    },
+    getUserAvatar: function () {},
     handleOpen(key, keyPath) {
       console.log(key, keyPath);
     },
@@ -105,7 +85,7 @@ export default {
   box-shadow: 3px 3px 10px #d3d3d3;
   background: #f0f8ff;
   border-radius: 3%;
-  width: 60%;
+  width: 100%;
   height: 550px;
   margin-top: 20%;
 }

@@ -107,22 +107,26 @@ export default {
         {
           id: 1,
           name: "name",
+          ex_1: "100",
+          ex_2: "200",
+          ex_3: "300",
         },
       ],
       headers: [
         {
-          key: 1,
+          key: "ex_1",
           label: "实验1",
+          type: "在线提交",
         },
         {
-          key: 2,
+          key: "ex_2",
           label: "实验2",
+          type: "提交文件",
         },
-      ],
-      reportData: [
         {
-          id: 1,
-          name: "name",
+          key: "ex_3",
+          label: "实验3",
+          type: "提交文件",
         },
       ],
     };
@@ -146,7 +150,17 @@ export default {
         return;
       }
     },
-    toReportOnline() {},
+    toReportOnline(row) {
+      const { href } = this.$router.resolve({
+        path: "/assistHome/concreteCourse/stuExperOnline",
+        query: {
+          s_id: row.row.id,
+          ex_id: row.column.property.replace("ex_", ""),
+          score: row.row[row.column.property],
+        },
+      });
+      window.open(href, "_blank");
+    },
     checkReport() {},
     downReport() {},
   },

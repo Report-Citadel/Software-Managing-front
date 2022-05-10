@@ -75,38 +75,7 @@ export default {
       this.$router.go(-1);
     },
 
-    getExReport() {
-      var jsons = {
-        ex_id: this.ex_id,
-        s_id: this.s_id,
-      };
-      console.log("getExReportJsons", jsons);
-      this.axios
-        .post("/api/Ex/checkFilled", JSON.stringify(jsons))
-        .then((response) => {
-          //这里使用了ES6的语法
-          //this.tableData = response.data
-
-          console.log("getExReport", response);
-
-          this.exReport.title = response.data.data.title;
-          this.exReport.goal = response.data.data.goal
-            .replace("<p>", "")
-            .replace("</p>", "");
-          this.exReport.device = response.data.data.device
-            .replace("<p>", "")
-            .replace("</p>", "");
-          this.exReport.step = response.data.data.step
-            .replace("<p>", "")
-            .replace("</p>", "");
-          this.exReport.process = response.data.data.process
-            .replace("<p>", "")
-            .replace("</p>", "");
-          this.exReport.result = response.data.data.result
-            .replace("<p>", "")
-            .replace("</p>", "");
-        });
-    },
+    getExReport() {},
   },
   mounted() {
     this.getParams();

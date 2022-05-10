@@ -52,23 +52,22 @@
 </template>
 
 <script>
-import axios from "axios";
 export default {
   data() {
     return {
       courseAddDialog: false,
       courseTypeData: [
         {
-          prefix:"001",
-          name:"Course1"
+          prefix: "001",
+          name: "Course1",
         },
         {
-          prefix:"003",
-          name:"Course2"
+          prefix: "003",
+          name: "Course2",
         },
         {
-          prefix:"003",
-          name:"Course3"
+          prefix: "003",
+          name: "Course3",
         },
       ],
       form: { name: "", prefix: "" },
@@ -107,39 +106,8 @@ export default {
         this.courseTypeData.indexOf(this.form.name);
       return ret > 0;
     },
-    deleteCourse(item) {
-      var jsons = {
-        prefix: item.prefix,
-        token: sessionStorage.getItem("token"),
-      };
-      axios
-        .post("/api/course/delType/", JSON.stringify(jsons))
-        .then((response) => {
-          console.log(response);
-          this.getCourseType();
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
-    },
-    getCourseType() {
-      //获得所有课程
-      console.log("getCourseType");
-      axios
-        .get("/api/course/getType/", {
-          params: {
-            token: sessionStorage.getItem("token"),
-          },
-        })
-        .then((response) => {
-          console.log("getCourseType");
-          console.log(response);
-          this.courseTypeData = response.data.data;
-        })
-        .catch(function (error) {
-          console(error);
-        });
-    },
+    deleteCourse() {},
+    getCourseType() {},
   },
   mounted() {
     this.getCourseType();

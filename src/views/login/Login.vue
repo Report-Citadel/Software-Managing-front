@@ -1,6 +1,6 @@
 <template>
   <div style="margin: auto auto; height: 620px">
-    <div class="loginPart" style="height: 620px">
+    <div style="height: 620px">
       <el-container class="loginPage" style="mardin-top: 0px">
         <el-main
           style="padding:0px;filter:brightness(85%);width=100%;overflow:hidden;"
@@ -343,10 +343,6 @@ body > .el-container {
 }
 .text-button:hover {
   color: #bbdefb;
-}
-
-.login_back {
-  background-image: "@/assets/login_back.jpg";
 }
 
 .outFunction {

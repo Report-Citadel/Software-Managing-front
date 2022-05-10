@@ -1,6 +1,6 @@
 <template>
   <div>
-
+    <el-button type="primary">上传文件</el-button>
     <el-table
       ref="filterTable"
       row-key="id"
@@ -8,6 +8,8 @@
     >
       <el-table-column prop="filename" label="文件名" sortable />
       <el-table-column prop="date" label="上传时间" sortable />
+      <el-table-column prop="operation" label="操作" sortable />
+
 
     </el-table>
 
@@ -37,7 +39,7 @@ export default {
     };
   },
   methods: {
- 
+
     getParams: function () {
       this.c_id = JSON.parse(this.$Base64.decode(this.$route.query.info))[
         "class_id"
