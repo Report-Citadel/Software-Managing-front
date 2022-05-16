@@ -1,43 +1,59 @@
 <template>
-  <el-container>
-    <el-header>
-      <el-steps
-        :active="activeNum"
-        :space="400"
-        finish-status="success"
-        align-center
-      >
-        <el-step title="步骤1" description="分析实验数据"></el-step>
-        <el-step title="步骤2" description="生成图表并计算盈亏平衡点"></el-step>
-        <el-step title="步骤3" description="提交实验报告"></el-step>
-      </el-steps>
-    </el-header>
-    <el-main>
-      <BEEStep1
-        v-if="activeNum === 0"
-        v-bind:answerForm="answerForm"
-        @submit="confirm"
-      ></BEEStep1>
-      <BEEStep2
-        v-if="activeNum === 1"
-        v-bind:answerForm="answerForm"
-        @nextStep="nextStep"
-        @previousStep="previousStep"
-      ></BEEStep2>
-      <BEEStep3
-        v-if="activeNum === 2"
-        v-bind:answerForm="answerForm"
-        @submit="submit"
-        @previousStep="previousStep"
-      ></BEEStep3>
-    </el-main>
-  </el-container>
+  <div>
+    <div
+      style="
+        margin-bottom: 30px;
+        color: grey;
+        font: 32px Microsoft YaHei;
+        font-weigh: 900;
+        text-align: center;
+      "
+    >
+      {{ title }}
+    </div>
+    <el-container>
+      <el-header>
+        <el-steps
+          :active="activeNum"
+          :space="400"
+          finish-status="success"
+          align-center
+        >
+          <el-step title="步骤1" description="分析实验数据"></el-step>
+          <el-step
+            title="步骤2"
+            description="生成图表并计算盈亏平衡点"
+          ></el-step>
+          <el-step title="步骤3" description="提交实验报告"></el-step>
+        </el-steps>
+      </el-header>
+      <el-main>
+        <BEEStep1
+          v-if="activeNum === 0"
+          v-bind:answerForm="answerForm"
+          @submit="confirm"
+        ></BEEStep1>
+        <BEEStep2
+          v-if="activeNum === 1"
+          v-bind:answerForm="answerForm"
+          @nextStep="nextStep"
+          @previousStep="previousStep"
+        ></BEEStep2>
+        <BEEStep3
+          v-if="activeNum === 2"
+          v-bind:answerForm="answerForm"
+          @submit="submit"
+          @previousStep="previousStep"
+        ></BEEStep3>
+      </el-main>
+    </el-container>
+  </div>
 </template>
 
 <script>
-import BEEStep1 from "../components/cyh/BEEStep1.vue";
-import BEEStep2 from "../components/cyh/BEEStep2";
-import BEEStep3 from "../components/cyh/BEEStep3";
+import BEEStep1 from "./BEEStep1";
+import BEEStep2 from "./BEEStep2";
+import BEEStep3 from "./BEEStep3";
 
 export default {
   name: "BreakEventExp",
@@ -48,6 +64,8 @@ export default {
   },
   data() {
     return {
+      id: "",
+      title: "",
       activeNum: 0,
       question: "",
       answerForm: {
@@ -138,9 +156,14 @@ export default {
         });
       console.log(this.answerForm);
     },
+    getParams: function () {
+      this.id = this.$route.query.id;
+      this.title = this.$route.query.title;
+    },
   },
 
   mounted() {
+    this.getParams();
     let axios = require("axios");
 
     let config = {

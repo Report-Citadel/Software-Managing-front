@@ -51,25 +51,22 @@ export default {
           class_id: 401902,
           course_name: "软件工程",
           year: 2021,
-          semester: "春季"
-        }
+          semester: "春季",
+        },
       ],
     };
   },
   methods: {
     toCourse(index) {
       this.$router.push({
-        path: "/studentHome/concreteCourse/Ann",
+        path: "/studentHome/concreteCourse/Exper",
         query: {
-          info: this.$Base64.encode(
-            JSON.stringify({ class_id: index.class_id })
-          ),
+          class_id: index.class_id,
+          course_name: index.course_name,
         },
       });
     },
-    getCourse() {
-
-    },
+    getCourse() {},
     checkResponse(response) {
       if (response["code"] === 404) {
         this.$message("找不到页面");

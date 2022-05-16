@@ -1,15 +1,7 @@
 <template>
   <div>
-    <el-container style="margin-top: 20px">
+    <el-container>
       <el-main>
-        <v-btn
-          color="orange lighten-2"
-          dark
-          @click="handleAnn"
-          style="margin-bottom: 20px"
-        >
-          新增公告
-        </v-btn>
         <el-timeline>
           <el-timeline-item
             v-for="data in annList"

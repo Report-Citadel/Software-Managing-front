@@ -4,7 +4,9 @@
     <el-container>
       <el-aside width="120px" class="lBack">
         <el-menu @select="handleSelect">
-
+          <el-menu-item index="/studentHome/concreteCourse/Ann">
+            <span slot="title">公告</span>
+          </el-menu-item>
           <el-menu-item index="/studentHome/concreteCourse/Exper">
             <span slot="title">实验</span>
           </el-menu-item>
@@ -35,50 +37,21 @@ export default {
   },
   methods: {
     getParams: function () {
-      this.class_id = JSON.parse(this.$Base64.decode(this.$route.query.info))[
-        "class_id"
-      ];
+      this.class_id = this.$route.query.class_id;
+      this.course_name = this.$route.query.course_name;
     },
     handleSelect(index) {
       this.$router.push({
         path: index,
         query: {
-          info: this.$Base64.encode(
-            JSON.stringify({ class_id: this.class_id })
-          ),
+          class_id: this.class_id,
         },
       });
     },
-    getClassInfo() {
-      var jsons = {
-        class_id: this.class_id,
-        token: sessionStorage.getItem("token"),
-      };
-
-      this.axios
-        .post("/api/manageClass/IDGetClass", JSON.stringify(jsons))
-        .then((response) => {
-          console.log(this.response);
-          console.log(response.data["data"]);
-          if (response.data["code"] === 301) {
-            this.$message("验证过期");
-            this.$router.push({ path: "/login" });
-          } else if (response.data["code"] === 404) {
-            this.$message("找不到页面");
-            this.$router.push({ path: "/404" });
-          } else {
-            this.course_name = response.data.data.course_name;
-          }
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
-    },
+    getClassInfo() {},
   },
   mounted() {
     this.getParams();
-    this.getClassInfo();
-    console.log(this.class_id);
   },
 };
 </script>

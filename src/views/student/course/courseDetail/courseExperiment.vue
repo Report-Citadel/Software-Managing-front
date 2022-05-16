@@ -10,7 +10,7 @@
       >
         <el-table-column prop="experiment_title" label="实验名称">
           <template slot-scope="scope"
-            ><el-link @click="toExperiment(scope.row)">{{
+            ><el-link @click="goToExcise(scope.row)">{{
               scope.row.experiment_title
             }}</el-link>
           </template></el-table-column
@@ -42,33 +42,19 @@
 
         <el-table-column label="操作" min-width="120%">
           <template slot-scope="scope">
-            <el-button size="small" @click="toExperiment(scope.row)"
-              >查看</el-button
-            >
-
-            <el-button
-              size="small"
-              @click="toExFill(scope.row)"
-              v-if="
-                scope.row.type === '在线提交' && scope.row.status === '未过期'
-              "
-              >在线填写</el-button
-            >
-            <el-button
-              size="small"
-              @click="handleUpload(scope.row)"
-              v-if="
-                scope.row.type === '提交文件' && scope.row.status === '未过期'
-              "
-              >上传文件</el-button
-            >
             <el-button
               type="primary"
               plain
               size="small"
-              @click="goToOnline(scope.row.ex_id, scope.row.end_time)"
+              @click="goToExcise(scope.row)"
               v-if="scope.row.status === '未过期'"
               >模拟</el-button
+            >
+            <el-button
+              size="small"
+              @click="toExFill(scope.row)"
+              v-if="scope.row.ex_id != 4"
+              >在线填写</el-button
             >
           </template>
         </el-table-column>
@@ -85,27 +71,6 @@
       >
       </el-pagination>
     </el-card>
-    <el-dialog :visible.sync="fileDialog" title="上传实验报告" center>
-      <el-upload
-        class="upload-import"
-        ref="uploadImport"
-        action="https://baidu.com/"
-        :on-preview="handlePreview"
-        :on-remove="handleRemove"
-        :on-change="handleChange"
-        :before-remove="beforeRemove"
-        :file-list="fileList"
-        :multiple="true"
-        :auto-upload="false"
-        accept=""
-      >
-        <el-button type="primary">选取文件</el-button>
-      </el-upload>
-      <div slot="footer" class="dialog-footer">
-        <el-button @click="fileDialog = false">取消</el-button>
-        <el-button type="success" @click="uploadFile()">上传</el-button>
-      </div>
-    </el-dialog>
   </div>
 </template>
 
@@ -115,9 +80,10 @@ export default {
     return {
       sid: "",
       class_id: "",
+      course_name: "",
       ex_id: "",
       currentPage: 1,
-      pagesize: 7,
+      pagesize: 9,
       tableData: [
         {
           ex_id: 1,
@@ -126,7 +92,6 @@ export default {
           is_submit: false,
           status: "未过期",
           score: null,
-          type: "在线提交",
         },
         {
           ex_id: 2,
@@ -135,7 +100,6 @@ export default {
           is_submit: false,
           status: "未过期",
           score: null,
-          type: "提交文件",
         },
         {
           ex_id: 3,
@@ -144,7 +108,6 @@ export default {
           is_submit: false,
           status: "未过期",
           score: 98,
-          type: "提交文件",
         },
         {
           ex_id: 4,
@@ -153,7 +116,6 @@ export default {
           is_submit: false,
           status: "未过期",
           score: 98,
-          type: "提交文件",
         },
         {
           ex_id: 5,
@@ -162,7 +124,6 @@ export default {
           is_submit: false,
           status: "未过期",
           score: 98,
-          type: "提交文件",
         },
         {
           ex_id: 6,
@@ -171,7 +132,6 @@ export default {
           is_submit: false,
           status: "未过期",
           score: 98,
-          type: "提交文件",
         },
         {
           ex_id: 7,
@@ -180,7 +140,6 @@ export default {
           is_submit: false,
           status: "未过期",
           score: 98,
-          type: "提交文件",
         },
         {
           ex_id: 8,
@@ -189,7 +148,6 @@ export default {
           is_submit: false,
           status: "未过期",
           score: 98,
-          type: "提交文件",
         },
         {
           ex_id: 9,
@@ -198,7 +156,6 @@ export default {
           is_submit: false,
           status: "未过期",
           score: 98,
-          type: "提交文件",
         },
       ],
       fileList: [],
@@ -231,10 +188,6 @@ export default {
       return this.$confirm(`确定移除 ${file.name}？`);
     },
 
-    handleUpload(row) {
-      this.fileDialog = true;
-      this.ex_id = row.ex_id;
-    },
     handleExamine() {
       this.$router.push({
         path: "/studentHome/concreteCourse/FillExper",
@@ -242,36 +195,38 @@ export default {
       });
     },
 
-    toExperiment(row) {
-      this.$router.push({
-        path: "/studentHome/concreteCourse/ConExper",
-        query: {
-          info: this.$Base64.encode(JSON.stringify(row.ex_id)),
-        },
-      });
-    },
     toExFill(row) {
       this.$router.push({
         path: "/studentHome/concreteCourse/FillExper",
         query: {
-          info: this.$Base64.encode(row.ex_id),
-          title: this.$Base64.encode(row.experiment_title),
+          id: row.ex_id,
+          title: row.experiment_title,
         },
       });
     },
-    uploadFile() {},
-    getEx() {},
-    checkResponse() {},
+    goToExcise(row) {
+      switch (row.ex_id) {
+        case 4:
+          this.$router.push({
+            path: "/studentHome/concreteCourse/cyh",
+            query: {
+              id: row.ex_id,
+              title: row.experiment_title,
+            },
+          });
+          break;
+        default:
+          console.log("goToExcise", row);
+      }
+    },
     getParams: function () {
-      this.class_id = JSON.parse(this.$Base64.decode(this.$route.query.info))[
-        "class_id"
-      ];
+      this.class_id = this.$route.query.class_id;
+      this.course_name = this.$route.query.course_name;
       this.sid = sessionStorage.getItem("id");
     },
   },
   mounted() {
     this.getParams();
-    this.getEx();
   },
 };
 </script>
