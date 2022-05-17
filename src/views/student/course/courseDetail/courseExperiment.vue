@@ -136,6 +136,7 @@ export default {
           status: "未过期",
           score: null,
           type: "提交文件",
+          url:"/buquedingxinfen",
         },
         {
           ex_id: 3,
@@ -213,7 +214,7 @@ export default {
       this.currentPage = currentPage;
     },
     goToOnline(ex_id, end_time) {
-      console.log(ex_id, end_time);
+
     },
     handlePreview(file) {
       console.log(file);
