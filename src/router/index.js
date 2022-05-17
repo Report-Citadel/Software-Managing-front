@@ -23,7 +23,7 @@ const routes = [
     name: 'Login',
     component: Login,
   },
-
+  { path: '/test', component: () => import('../views/test.vue') },
 
   {
     //学生界面
@@ -33,6 +33,7 @@ const routes = [
     children: [
       //学生账户
       { path: '/studentHome/control', component: () => import('../views/student/Control.vue') },
+      { path: '/studentHome/accounce', component: () => import('../views/announce/announce.vue') },
       { path: '/studentHome/account', component: () => import('../views/student/account/account.vue') },
       { path: '/studentHome/modifyAccount', component: () => import('../views/student/account/modifyAccount.vue') },
       { path: '/studentHome/modifyPassword', component: () => import('../views/student/account/passwordModify.vue') },
@@ -45,12 +46,15 @@ const routes = [
           { path: '/studentHome/concreteCourse/Exper', component: () => import('../views/student/course/courseDetail/courseExperiment.vue') },
           { path: '/studentHome/concreteCourse/Peo', component: () => import('../views/student/course/courseDetail/coursePeople.vue') },
           { path: '/studentHome/concreteCourse/Perform', component: () => import('../views/student/course/courseDetail/coursePerformance.vue') },
-          { path: '/studentHome/concreteCourse/ConExper', component: () => import('../views/student/course/experiment/experiment.vue') },
+
           { path: '/studentHome/concreteCourse/FillExper', component: () => import('../views/student/course/experiment/experimentFill.vue') },
           { path: '/studentHome/concreteCourse/File', component: () => import('../views/student/course/courseDetail/courseFile.vue') },
+
+          //cyh盈亏平衡
+          { path: '/studentHome/concreteCourse/cyh', component: () => import('../components/cyh/BreakEventExp.vue') },
         ]
       },
-      { path: '/studentHome/accounce', component: () => import('../views/announce/announce.vue') },
+
     ]
   },
   {
@@ -104,28 +108,29 @@ const routes = [
       { path: '/teacherHome/modifyAccount', component: () => import('../views/teacher/account/modifyAccount.vue') },
       { path: '/teacherHome/modifyPassword', component: () => import('../views/teacher/account/passwordModify.vue') },
 
+
+      //责任课程
+      { path: '/teacherHome/manageCourse', component: () => import('../views/teacher/course/courseManage/manageCourse.vue') },
+      { path: '/teacherHome/manageCourse/Ann', component: () => import('../views/teacher/course/courseManage/announce/manageAnn.vue') },
+      { path: '/teacherHome/manageCourse/Perform', component: () => import('../views/teacher/course/courseManage/grade/managePerform.vue') },
+
+
       //课程
       { path: '/teacherHome/myClass', component: () => import('../views/teacher/course/myClass.vue') },
-      { path: '/teacherHome/manageCourse', component: () => import('../views/teacher/course/courseManage/manageCourse.vue') },
       {
         path: '/teacherHome/concreteCourse', component: TeaConcreteCourse, children: [
           { path: '/teacherHome/concreteCourse/Ann', component: () => import('../views/teacher/course/courseDetail/courseAnnounce.vue') },
           { path: '/teacherHome/concreteCourse/Peo', component: () => import('../views/teacher/course/courseDetail/coursePeople.vue') },
           { path: '/teacherHome/concreteCourse/Perform', component: () => import('../views/teacher/course/courseDetail/coursePerformance.vue') },
-          { path: '/teacherHome/concreteCourse/Score', component: () => import('../views/teacher/course/courseDetail/courseScore.vue') },
+
           { path: '/teacherHome/concreteCourse/File', component: () => import('../views/teacher/course/courseDetail/courseFile.vue') },
           { path: '/teacherHome/concreteCourse/Exper', component: () => import('../views/teacher/course/courseDetail/courseExperiment.vue') },
-
-
-          { path: '/teacherHome/concreteCourse/ConExper', component: () => import('../views/teacher/course/experiment/experiment.vue') },
-          { path: '/teacherHome/concreteCourse/stuExper', component: () => import('../views/teacher/course/experiment/stuExper.vue') },
 
           { path: '/teacherHome/concreteCourse/stuExperList', component: () => import('../views/teacher/course/experiment/stuExperList.vue') },
 
 
         ]
       },
-      { path: '/teacherHome/concreteCourse/stuExperOnline', component: () => import('../views/teacher/course/experiment/stuExperOnline.vue') },
 
       { path: '/teacherHome/accounce', component: () => import('../views/announce/announce.vue') },
     ]
@@ -149,17 +154,17 @@ const routes = [
         path: '/assistHome/concreteCourse', component: AssistConcreteCourse, children: [
           { path: '/assistHome/concreteCourse/Ann', component: () => import('../views/assist/course/courseDetail/courseAnnounce.vue') },
           { path: '/assistHome/concreteCourse/Exper', component: () => import('../views/assist/course/courseDetail/courseExperiment.vue') },
-          { path: '/assistHome/concreteCourse/ConExper', component: () => import('../views/assist/course/experiment/experiment.vue') },
+
           { path: '/assistHome/concreteCourse/stuExperList', component: () => import('../views/assist/course/experiment/stuExperList.vue') },
-          { path: '/assistHome/concreteCourse/stuExper', component: () => import('../views/assist/course/experiment/stuExper.vue') },
-          { path: '/assistHome/concreteCourse/Score', component: () => import('../views/assist/course/courseDetail/courseScore.vue') },
+
+
 
           { path: '/assistHome/concreteCourse/Peo', component: () => import('../views/assist/course/courseDetail/coursePeople.vue') },
           { path: '/assistHome/concreteCourse/File', component: () => import('../views/assist/course/courseDetail/courseFile.vue') },
 
         ]
       },
-      { path: '/assistHome/concreteCourse/stuExperOnline', component: () => import('../views/assist/course/experiment/stuExperOnline.vue') },
+
       { path: '/assistHome/accounce', component: () => import('../views/announce/announce.vue') },
     ]
   },

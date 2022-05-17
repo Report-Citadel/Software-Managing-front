@@ -13,11 +13,11 @@ export default {
       id: "",
       c_id: "",
 
-      experimentName: [],
+      experimentName: ["1"],
 
-      excellentList: [],
-      goodList: [],
-      middleList: [],
+      excellentList: [1, 2, 3],
+      goodList: [1, 2, 3],
+      middleList: [34, 5],
       passList: [],
       noPassList: [],
     };
@@ -193,7 +193,7 @@ export default {
   },
   mounted() {
     this.getParams();
-    this.getCourseScore();
+    //this.getCourseScore();
     this.drawLine();
   },
 };
