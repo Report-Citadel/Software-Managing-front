@@ -31,25 +31,19 @@
                 >
               </el-menu-item-group>
             </el-submenu>
+            <el-menu-item index="/teacherHome/myClass">我的班级</el-menu-item>
 
-             <el-submenu index="2">
+            <el-submenu index="3">
               <template slot="title">
-                <i class="el-icon-user"></i>
-                <span>课程</span>
+                <i class="el-icon-edit"></i>
+                <span>课程管理</span>
               </template>
               <el-menu-item-group>
-                <el-menu-item index="/teacherHome/myClass"
-                  >我的班级</el-menu-item
-                >
-                <el-menu-item index="/teacherHome/manageCourse"
-                  >我的课程</el-menu-item
-                >
+                <el-menu-item index="/teacherHome/manageCourse2">我的课程</el-menu-item>
+                <el-menu-item index="/teacherHome/manageCourse">课程管理</el-menu-item>
               </el-menu-item-group>
             </el-submenu>
-            <!-- <el-menu-item index="/teacherHome/myClass">
-              <i class="el-icon-reading"></i>
-              <span slot="title">课程</span>
-            </el-menu-item> -->
+
             <el-menu-item index="/" >
               <i class="el-icon-s-tools"></i>
               <span slot="title">退出登录</span>

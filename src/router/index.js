@@ -52,6 +52,9 @@ const routes = [
 
           //cyh盈亏平衡
           { path: '/studentHome/concreteCourse/cyh', component: () => import('../components/cyh/BreakEventExp.vue') },
+          // 不确定分析
+          // { path: '/experiment/uncertainty-analysis', component: () => import('../views/Experiments/UncertiantyAnalysis') },
+
         ]
       },
 
@@ -108,9 +111,10 @@ const routes = [
       { path: '/teacherHome/modifyAccount', component: () => import('../views/teacher/account/modifyAccount.vue') },
       { path: '/teacherHome/modifyPassword', component: () => import('../views/teacher/account/passwordModify.vue') },
 
+      { path: '/teacherHome/manageCourse', component: () => import('../views/teacher/course/ManageCourse.vue') },
 
       //责任课程
-      { path: '/teacherHome/manageCourse', component: () => import('../views/teacher/course/courseManage/manageCourse.vue') },
+      { path: '/teacherHome/manageCourse2', component: () => import('../views/teacher/course/courseManage/manageCourse.vue') },
       { path: '/teacherHome/manageCourse/Ann', component: () => import('../views/teacher/course/courseManage/announce/manageAnn.vue') },
       { path: '/teacherHome/manageCourse/Perform', component: () => import('../views/teacher/course/courseManage/grade/managePerform.vue') },
 
