@@ -101,7 +101,7 @@ export default {
               console.log(this.noticeInformation.courseId);
               this.list.push(this.noticeInformation);
             }
-            this.$axios
+            this.axios
               .post("http://139.196.181.186:8000/api/newNotice", this.list)
               .then((res) => {
                 console.log(res);

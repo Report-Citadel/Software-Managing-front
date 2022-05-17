@@ -18,7 +18,6 @@
         >
 
         <v-card-actions>
-          <v-btn color="orange lighten-2" @click="toClass(index)"> 查看 </v-btn>
           <v-btn
             color="orange lighten-2"
             @click="toAnn(index)"
@@ -57,9 +56,6 @@ export default {
     };
   },
   methods: {
-    toClass(index) {
-      console.log(index);
-    },
     toAnn(row) {
       this.$router.push({
         path: "/teacherHome/manageCourse/Ann",

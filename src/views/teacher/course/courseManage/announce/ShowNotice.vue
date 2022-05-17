@@ -108,7 +108,7 @@ export default {
         type: "warning",
       })
         .then(() => {
-          this.$axios
+          this.axios
             .delete("/deleteNotice", {
               data: {
                 id: this.noticeData[index].id,
