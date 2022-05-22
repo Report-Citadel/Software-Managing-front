@@ -27,31 +27,14 @@
           </template>
           <template #default="scope">
             <v-row>
-              <v-col cols="4" v-if="ex_type == '在线提交'">
-                <v-btn small dark @click="giveScoreOnline(scope.row)"
-                  >查看</v-btn
-                >
-              </v-col>
-              <v-col cols="4" v-if="ex_type == '提交文件'">
-                <v-btn
-                  small
-                  dark
-                  @click="check(scope.row)"
-                  v-if="scope.row.status == '是'"
-                  >查看</v-btn
-                >
-              </v-col>
-              <v-col cols="4" v-if="ex_type == '提交文件'">
-                <v-btn
-                  small
-                  dark
-                  @click="download(scope.row)"
-                  v-if="scope.row.status == '是'"
-                  >下载</v-btn
-                >
-              </v-col>
               <v-col cols="4">
-                <v-btn small dark @click="handleScoreDown(scope.row)"
+                <v-btn small dark @click="checkExperiment(scope.row)"
+                  >查看</v-btn
+                >
+              </v-col>
+
+              <v-col cols="4">
+                <v-btn small dark @click="gradeExperiment(scope.row)"
                   >打分</v-btn
                 >
               </v-col>
@@ -79,7 +62,7 @@
     >
       <el-input v-model="stuScore"></el-input>
       <div slot="footer" class="dialog-footer">
-        <el-button @click="scoreDialog = false">取消</el-button>
+        <el-button @click="proDialog = false">取消</el-button>
         <el-button type="primary" @click="giveScoreDown()">确定</el-button>
       </div>
     </el-dialog>
@@ -96,18 +79,25 @@ export default {
       currentPage: 1,
       scoreDialog: false,
       stuScore: "",
-      s_id: "1001",
+      s_id: "",
 
-      pagesize: 6,
+      pagesize: 10,
       multipleSelection: [],
 
       stuExData: [
         {
           s_id: "1",
-          s_name: "name",
+          s_name: "1",
           status: "是",
           submitTime: "2021.11.1",
-          score: "100",
+          score: "2022",
+        },
+        {
+          s_id: "2",
+          s_name: "2",
+          status: "是",
+          submitTime: "2021.11.1",
+          score: "2022",
         },
       ],
     };
@@ -122,20 +112,15 @@ export default {
     handleSelectionChange(val) {
       this.multipleSelection = val;
     },
-    handleScoreDown(row) {
+    gradeExperiment(row) {
       this.scoreDialog = true;
       this.s_id = row.s_id;
     },
-    giveScoreDown() {
-      this.scoreDialog = false;
-    },
+    giveScoreDown() {},
 
-    giveScoreOnline() {},
+    checkExperiment() {},
 
-    check() {
-      //console.log("checkjson", row, this.ex_id);
-    },
-    download() {},
+    getStuEx() {},
     getParams: function () {
       this.ex_id = this.$route.query.ex_id;
       this.ex_type = this.$route.query.ex_type;
