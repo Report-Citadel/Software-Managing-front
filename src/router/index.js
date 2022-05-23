@@ -50,6 +50,8 @@ const routes = [
           { path: '/studentHome/concreteCourse/FillExper', component: () => import('../views/student/course/experiment/experimentFill.vue') },
           { path: '/studentHome/concreteCourse/File', component: () => import('../views/student/course/courseDetail/courseFile.vue') },
 
+          //rzc拍卖
+          { path: '/studentHome/concreteCourse/rzc', component: () => import('../components/rzc/RZC.vue') },
           //cyh盈亏平衡
           { path: '/studentHome/concreteCourse/cyh', component: () => import('../components/cyh/BreakEventExp.vue') },
           // 不确定分析

@@ -2,86 +2,47 @@
   <div style="margin: auto auto; height: 620px">
     <div style="height: 620px">
       <el-container class="loginPage" style="mardin-top: 0px">
-        <el-main
-          style="padding:0px;filter:brightness(85%);width=100%;overflow:hidden;"
-        >
-          <img
-            src="@/assets/home_left.jpg"
-            style="height: 560px; overflow: hidden"
-          />
+        <el-main style="padding:0px;filter:brightness(85%);width=100%;overflow:hidden;">
+          <img src="@/assets/home_left.jpg" style="height: 560px; overflow: hidden" />
         </el-main>
 
         <el-aside width="500px" class="loginForm" style="height: 560px">
           <el-container>
-            <el-header height="150px"
-              ><p
-                style="
+            <el-header height="150px">
+              <p style="
                   margin: 70px auto 50px auto;
                   color: white;
                   font: 32px Microsoft YaHei;
-                "
-              >
+                ">
                 实验教学系统
-              </p></el-header
-            >
+              </p>
+            </el-header>
             <el-main class="login_back" style="padding=0px;">
-              <el-form
-                ref="ruleForm"
-                :model="ruleForm"
-                status-icon
-                :rules="rules"
-                label-width="80px"
-              >
-                <el-form-item label="您的身份" prop="role">
+              <el-form ref="ruleForm" :model="ruleForm" status-icon :rules="rules" label-width="80px">
+                <!-- <el-form-item label="您的身份" prop="role">
                   <el-select class="select" v-model="role" placeholder="请选择">
-                    <el-option
-                      v-for="item in options"
-                      :key="item.value"
-                      :label="item.label"
-                      :value="item.value"
-                    >
+                    <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
                     </el-option>
                   </el-select>
-                </el-form-item>
+                </el-form-item> -->
                 <el-form-item label="用户名" prop="id">
-                  <el-input
-                    v-model="ruleForm.id"
-                    type="text"
-                    autocomplete="off"
-                    placeholder="请输入学号/工号/账号"
-                  ></el-input>
+                  <el-input v-model="ruleForm.id" type="text" autocomplete="off" placeholder="请输入学号/工号/账号"></el-input>
                 </el-form-item>
                 <el-form-item label="密码" prop="password">
-                  <el-input
-                    v-model="ruleForm.password"
-                    type="password"
-                    autocomplete="off"
-                    placeholder="请输入密码"
-                  ></el-input>
+                  <el-input v-model="ruleForm.password" type="password" autocomplete="off" placeholder="请输入密码">
+                  </el-input>
                 </el-form-item>
                 <el-form-item>
-                  <el-button type="primary" @click="submitForm()"
-                    >登陆</el-button
-                  >
-                  <el-button @click="openMask" style="margin-left: 10%"
-                    >忘记密码</el-button
-                  >
+                  <el-button type="primary" @click="submitForm()">登陆</el-button>
+                  <el-button @click="openMask" style="margin-left: 10%">忘记密码</el-button>
 
                   <br />
                   <br />
 
                   <br />
                   <el-form-item>
-                    <dialog-bar
-                      v-model="sendVal"
-                      type="danger"
-                      title="忘记密码"
-                      content="忘记密码"
-                      v-on:cancel="clickCancel()"
-                      @danger="clickDanger()"
-                      @confirm="clickConfirm()"
-                      dangerText="提交"
-                    ></dialog-bar>
+                    <dialog-bar v-model="sendVal" type="danger" title="忘记密码" content="忘记密码" v-on:cancel="clickCancel()"
+                      @danger="clickDanger()" @confirm="clickConfirm()" dangerText="提交"></dialog-bar>
                   </el-form-item>
                 </el-form-item>
               </el-form>
@@ -93,13 +54,8 @@
     <div class="outFunction">
       <h2>系 统 功 能</h2>
       <el-container height="400px" style="padding-top: 30px">
-        <el-col
-          :span="4"
-          v-for="(item, index) in main_title"
-          :key="index"
-          class="system_pic"
-          :offset="index > 0 ? 1 : 0"
-        >
+        <el-col :span="4" v-for="(item, index) in main_title" :key="index" class="system_pic"
+          :offset="index > 0 ? 1 : 0">
           <el-card style="box-shadow: 7px 7px 7px rgba(0, 0, 0, 0.15)">
             <img :src="item.img" class="img" />
             <div style="padding: 14px">
@@ -118,26 +74,15 @@
         本系统中包含大学中各理工学科的实验项目，如计算机网络实验、电路实验、操作系统实验等。学生可通过本系统进行线上实验，帮助线下教学理解。
       </p>
 
-      <el-carousel
-        :interval="4000"
-        type="card"
-        height="500px"
-        style="padding-left: 50px; padding-right: 50px; padding-top: 25px"
-      >
+      <el-carousel :interval="4000" type="card" height="500px"
+        style="padding-left: 50px; padding-right: 50px; padding-top: 25px">
         <el-carousel-item v-for="item in imageList" :key="item.id">
           <img :src="item.su" />
         </el-carousel-item>
       </el-carousel>
     </div>
     <div class="contact" style="height: 160px; background: #99ccff">
-      <el-col
-        :span="4"
-        v-for="index of 4"
-        :key="index"
-        class="us"
-        :offset="index > 0 ? 2 : 1"
-        style="margin-top: 30px"
-      >
+      <el-col :span="4" v-for="index of 4" :key="index" class="us" :offset="index > 0 ? 2 : 1" style="margin-top: 30px">
         <h4 class="text-uppercase">Contact us</h4>
         <p class="address">
           123 Second Street Fifth <br />
@@ -153,7 +98,8 @@
 
 
 <script>
-//import axios from "axios";
+import axios from "axios";
+// import courseScoreVue from "../teacher/course/courseDetail/courseScore.vue";
 import dialogBar from "./dialog.vue";
 export default {
   components: {
@@ -195,8 +141,8 @@ export default {
       ],
 
       ruleForm: {
-        id: "",
-        password: "",
+        id: "666666",
+        password: "666666",
       },
       rules: {
         id: [{ validator: validatePass }],
@@ -266,49 +212,58 @@ export default {
       } else if (this.ruleForm.password === "") {
         this.$message("请输入密码！");
       } else {
-        /*let config = {
-          headers: { "Content-Type": "multipart/form-data" },
-        };
-        */
         //学生登录
         sessionStorage.setItem("id", this.ruleForm.id);
-        if (this.role == "student") {
-          sessionStorage.setItem("role", 1);
-          this.$message({
-            message: "登陆成功",
-            type: "success",
-          });
+        axios({
+          method: "POST",
+          url: "http://127.0.0.1:8001/user/login",
+          data: this.ruleForm
+        }).then((res) => {
+          if (res.data.code == 200) {
+            sessionStorage.setItem("role", 1);
+            this.$message({
+              message: "登陆成功",
+              type: "success",
+            });
+            // console.log(res);
+            sessionStorage.setItem("role", res.data.data.identity);
+            sessionStorage.setItem("authorities", res.data.data.authorities);
+            console.log(res.data.data.identity == 1)
+            switch (res.data.data.identity) {
+              case "1":
+                console.log("管理员")
+                this.$router.push("/adminHome");
+                break;
+              case "2":
+                this.$router.push("/teacherHome/control");
+                break;
+              case "3":
+                this.$router.push("/teacherHome/control");
+                break;
+              case "4":
+                this.$router.push("/studentHome/control");
+                break;
+              case "5":
+                this.$router.push("/studentHome/control");
+                break;
+              default:
+                break;
+            }
 
-          this.$router.push("/studentHome/control");
-        }
-        //老师登录
-        else if (this.role == "teacher") {
-          sessionStorage.setItem("role", 2);
+          } else {
+            this.$message({
+              message: "账号或密码错误",
+              type: "error",
+            });
+          }
+
+        }).catch((err) => {
+          console.log(err);
           this.$message({
-            message: "登陆成功",
-            type: "success",
+            message: "服务器错误",
+            type: "error",
           });
-          this.$router.push("/teacherHome/control");
-        }
-        //助教登录
-        else if (this.role == "teachingAssistant") {
-          sessionStorage.setItem("role", 3);
-          this.$message({
-            message: "登陆成功",
-            type: "success",
-          });
-          //助教先导引到学生页面
-          this.$router.push("/assistHome/myClass");
-        }
-        //管理员登录
-        else {
-          sessionStorage.setItem("role", 0);
-          this.$message({
-            message: "登陆成功",
-            type: "success",
-          });
-          this.$router.push("/adminHome");
-        }
+        })
       }
     },
   },
@@ -316,7 +271,7 @@ export default {
 </script>
 
 <style scoped>
-body > .el-container {
+body>.el-container {
   margin-bottom: 40px;
 }
 
@@ -338,9 +293,11 @@ body > .el-container {
 .text-button {
   color: white;
 }
+
 .select {
   width: 330px;
 }
+
 .text-button:hover {
   color: #bbdefb;
 }
@@ -390,9 +347,11 @@ body > .el-container {
 .el-carousel__item:nth-child(2n + 1) {
   background-color: #d3dce6;
 }
+
 .el-button--primary {
   color: white;
 }
+
 .el-button--success {
   color: white;
 }

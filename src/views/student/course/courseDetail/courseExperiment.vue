@@ -99,7 +99,7 @@ export default {
           experiment_title: "不确定性分析",
           is_submit: false,
           status: "未过期",
-          score: null
+          score: null,
         },
         {
           ex_id: 3,
@@ -170,9 +170,7 @@ export default {
       this.currentPage = currentPage;
     },
     // eslint-disable-next-line no-unused-vars
-    goToOnline(ex_id, end_time) {
-
-    },
+    goToOnline(ex_id, end_time) {},
     handlePreview(file) {
       console.log(file);
     },
@@ -207,6 +205,15 @@ export default {
     },
     goToExcise(row) {
       switch (row.ex_id) {
+        case 3:
+          this.$router.push({
+            path: "/studentHome/concreteCourse/rzc",
+            query: {
+              id: row.ex_id,
+              title: row.experiment_title,
+            },
+          });
+          break;
         case 4:
           this.$router.push({
             path: "/studentHome/concreteCourse/cyh",
@@ -216,6 +223,7 @@ export default {
             },
           });
           break;
+
         default:
           console.log("goToExcise", row);
       }
