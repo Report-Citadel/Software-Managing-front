@@ -47,9 +47,14 @@
           </template>
           <template #default="scope">
             <v-row>
-              <v-col cols="3">
+              <v-col>
                 <v-btn small dark @click="handleGrade(scope.row)"
-                  >查看学生报告</v-btn
+                  >批改</v-btn
+                >
+              </v-col>
+              <v-col>
+                <v-btn small dark @click="uploadFile()"
+                >上传</v-btn
                 >
               </v-col>
             </v-row>
@@ -195,6 +200,9 @@ export default {
       return this.$confirm(`确定移除 ${file.name}？`);
     },
 
+    uploadFile(){
+
+    },
     handleGrade(row) {
       this.$router.push({
         path: "/teacherHome/concreteCourse/stuExperList",
