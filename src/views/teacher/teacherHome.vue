@@ -26,6 +26,9 @@
                 <el-menu-item index="/teacherHome/account"
                   >查看个人资料</el-menu-item
                 >
+                <el-menu-item index="/teacherHome/modifyAccount"
+                  >编辑个人资料</el-menu-item
+                >
                 <el-menu-item index="/teacherHome/modifyPassword"
                   >修改密码</el-menu-item
                 >

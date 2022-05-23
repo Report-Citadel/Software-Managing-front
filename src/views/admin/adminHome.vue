@@ -15,6 +15,9 @@
                 <el-menu-item index="/adminHome/account"
                   >查看个人资料</el-menu-item
                 >
+                <el-menu-item index="/adminHome/modifyAccount"
+                  >编辑个人资料</el-menu-item
+                >
                 <el-menu-item index="/adminHome/modifyPassword"
                   >修改密码</el-menu-item
                 >
@@ -24,14 +27,7 @@
               <i class="el-icon-user"></i>
               <span slot="title">用户管理</span>
             </el-menu-item>
-            <el-menu-item index="/adminHome/courseManage/courseType">
-              <i class="el-icon-reading"></i>
-              <span slot="title">课程管理</span>
-            </el-menu-item>
-            <el-menu-item index="/adminHome/annManage">
-              <i class="el-icon-postcard"></i>
-              <span slot="title">公告管理</span>
-            </el-menu-item>
+
             <el-menu-item index="/" @click="Logout()">
               <i class="el-icon-reading"></i>
               <span slot="title">退出登录</span>
