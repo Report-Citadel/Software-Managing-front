@@ -71,7 +71,7 @@
     <div class="ExperimentIntro" style="padding-top: 50px; margin-bottom: 30px">
       <h2>实 验 介 绍</h2>
       <p style="padding-top: 10px">
-        本系统中包含大学中各理工学科的实验项目，如计算机网络实验、电路实验、操作系统实验等。学生可通过本系统进行线上实验，帮助线下教学理解。
+        本系统中包含多个在线模拟的实验项目，如不确定性分析实验、拍卖实验、盈亏平衡实验、经济寿命周期实验等。学生可通过本系统进行线上实验，帮助线下教学理解。
       </p>
 
       <el-carousel :interval="4000" type="card" height="500px"
@@ -81,14 +81,13 @@
         </el-carousel-item>
       </el-carousel>
     </div>
-    <div class="contact" style="height: 160px; background: #99ccff">
+    <div class="contact" id="contact" style="height: 160px; background: #99ccff">
       <el-col :span="4" v-for="index of 4" :key="index" class="us" :offset="index > 0 ? 2 : 1" style="margin-top: 30px">
         <h4 class="text-uppercase">Contact us</h4>
         <p class="address">
-          123 Second Street Fifth <br />
-          Avenue,<br />
-          Manhattan, New York<br />
-          +987 654 3210
+          Tongji University <br />
+          Shanghai, <br />
+          201800
         </p>
       </el-col>
     </div>
@@ -168,27 +167,28 @@ export default {
       ],
       main_title: [
         {
-          img: require("@/assets/logo.png"),
+          img: require("@/assets/user_manage.jpeg"),
+          
           title: "用户管理",
           text: 10,
         },
         {
-          img: require("@/assets/logo.png"),
+          img: require("@/assets/teaching.jpeg"),
           title: "实验教学",
           text: 5,
         },
         {
-          img: require("@/assets/logo.png"),
+          img: require("@/assets/Analysis.png"),
           title: "实验分析",
           text: 20,
         },
         {
-          img: require("@/assets/logo.png"),
+          img: require("@/assets/pk.jpeg"),
           title: "对抗练习",
           text: 5,
         },
         {
-          img: require("@/assets/logo.png"),
+          img: require("@/assets/online_lab.png"),
           title: "在线模拟",
           text: 6,
         },
@@ -216,7 +216,7 @@ export default {
         sessionStorage.setItem("id", this.ruleForm.id);
         axios({
           method: "POST",
-          url: "http://127.0.0.1:8001/user/login",
+          url: "http://139.196.114.7:8082/user/login",
           data: this.ruleForm
         }).then((res) => {
           if (res.data.code == 200) {
