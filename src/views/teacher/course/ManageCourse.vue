@@ -58,49 +58,6 @@
               </template>
             </el-table-column>
           </el-table>
-          <div style="margin-top: 8px">
-            <span>班级助教:{{ a.ta_name }}</span>
-          </div>
-          <div style="margin-top: 8px">
-            <el-select
-              v-model="classaddta"
-              size="small"
-              filterable
-              clearable
-              placeholder="请选择助教"
-            >
-              <el-option
-                v-for="item in optionsown2"
-                :key="item.ta_name"
-                :label="item.ta_name"
-                :value="item.ta_name"
-                :disabled="item.disabled"
-              ></el-option>
-            </el-select>
-            <el-button type="primary" size="small" @click="addta(a.class_id)"
-              >添加助教</el-button
-            >
-          </div>
-          <div style="margin-top: 8px">
-            <el-select
-              v-model="classdeleteta"
-              size="small"
-              filterable
-              clearable
-              placeholder="请选择助教"
-            >
-              <el-option
-                v-for="item in owntas"
-                :key="item.ta_id"
-                :label="item.ta_name"
-                :value="item.ta_id"
-                :disabled="item.disabled"
-              ></el-option>
-            </el-select>
-            <el-button type="primary" size="small" @click="deleteta(a.class_id)"
-              >删除助教</el-button
-            >
-          </div>
         </el-dialog>
       </div>
       <el-card
@@ -217,7 +174,7 @@ import axios from "axios";
 export default {
   name: "FillShippingCost",
   async created() {
-    await axios.get("http://101.132.121.170:8090/class/all").then((res) => {
+    await axios.get("http://localhost:8100/class/all").then((res) => {
       console.log("res.data");
       this.classes = res.data;
     });
@@ -426,12 +383,12 @@ export default {
           };
           console.log(params.class_id);
           axios
-            .delete("http://101.132.121.170:8090/class/delete", {
+            .delete("http://localhost:8100/class/delete", {
               data: params,
             })
             .then((res) => {
               console.log(res);
-              axios.get("http://101.132.121.170:8090/class/all").then((res) => {
+              axios.get("http://localhost:8100/class/all").then((res) => {
                 console.log("res.data");
                 this.classes = res.data;
               });

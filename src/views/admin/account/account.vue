@@ -11,11 +11,6 @@
           size="medium"
           box-shadow="15px 15px 10px"
         >
-          <template slot="extra">
-            <el-button type="primary" size="medium" @click="modifyAccount()"
-              >编辑</el-button
-            >
-          </template>
           <el-descriptions-item>
             <template slot="label"> 姓名 </template>
             {{ name }}
