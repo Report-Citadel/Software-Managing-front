@@ -3,7 +3,7 @@
     <el-container class="back">
       <el-aside width="15%">
         <div>
-          <el-menu class="admin-aside-menu" router :collapse="true">
+          <el-menu class="admin-aside-menu" router>
             <img ref="stuAvatar" class="admin-aside-menu-head" />
 
             <el-submenu index="1">
@@ -15,6 +15,9 @@
                 <el-menu-item index="/studentHome/account"
                   >查看个人资料</el-menu-item
                 >
+                <el-menu-item index="/studentHome/modifyAccount"
+                  >编辑个人资料</el-menu-item
+                >
                 <el-menu-item index="/studentHome/modifyPassword"
                   >修改密码</el-menu-item
                 >
@@ -24,10 +27,7 @@
               <i class="el-icon-user"></i>
               我的课程
             </el-menu-item>
-            <el-menu-item index="/studentHome/accounce">
-              <i class="el-icon-reading"></i>
-              系统公告
-            </el-menu-item>
+
             <el-menu-item index="/" @click="Logout()">
               <i class="el-icon-reading"></i>
               退出登录
