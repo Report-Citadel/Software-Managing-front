@@ -42,6 +42,9 @@
 
         <el-table-column label="操作" min-width="120%">
           <template slot-scope="scope">
+            <el-button size="small" type="primary" @click="toExFill(scope.row)"
+              >模拟</el-button
+            >
             <el-button
               size="small"
               @click="toExFill(scope.row)"
@@ -187,28 +190,26 @@ export default {
     },
 
     toExFill(row) {
-
       switch (row.ex_id) {
         case 3:
           this.$router.push({
-          path: "/studentHome/concreteCourse/DemandSupplyReport",
-          query: {
-            id: row.ex_id,
-            title: row.experiment_title,
+            path: "/studentHome/concreteCourse/DemandSupplyReport",
+            query: {
+              id: row.ex_id,
+              title: row.experiment_title,
             },
           });
           break;
-      
-      default:
-         this.$router.push({
-        path: "/studentHome/concreteCourse/FillExper",
-        query: {
-          id: row.ex_id,
-          title: row.experiment_title,
-        },
-      });
-      }
 
+        default:
+          this.$router.push({
+            path: "/studentHome/concreteCourse/FillExper",
+            query: {
+              id: row.ex_id,
+              title: row.experiment_title,
+            },
+          });
+      }
     },
     goToExcise(row) {
       switch (row.ex_id) {
