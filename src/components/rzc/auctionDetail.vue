@@ -60,7 +60,7 @@ export default {
     // this.timer=setInterval(()=>{
     this.axios
       .get(
-        "http://106.14.97.109:8081/participationEntity/getSupPriceCurve?id=" +
+        "http://106.14.97.109:8081/auction/participationEntity/getSupPriceCurve?id=" +
           this.auc_id
       )
       .then((res) => {
@@ -69,7 +69,7 @@ export default {
       });
     this.axios
       .get(
-        "http://106.14.97.109:8081/participationEntity/getDemPriceCurve?id=" +
+        "http://106.14.97.109:8081/auction/participationEntity/getDemPriceCurve?id=" +
           this.auc_id
       )
       .then((res) => {

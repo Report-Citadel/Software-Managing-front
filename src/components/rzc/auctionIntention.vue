@@ -127,7 +127,7 @@
     },
     mounted(){
       this.aucId=this.$route.query.id;
-        this.axios.get('http://106.14.97.109:8081/participationEntity/getWillPriceForm?id='+this.aucId)
+        this.axios.get('http://106.14.97.109:8081/auction/participationEntity/getWillPriceForm?id='+this.aucId)
         .then(res=>{
             this.tableData=res.data.data;
             console.log("test");
