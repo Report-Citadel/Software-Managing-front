@@ -216,7 +216,8 @@ export default {
         sessionStorage.setItem("id", this.ruleForm.id);
         axios({
           method: "POST",
-          url: "http://139.196.114.7:8082/user/login",
+          baseURL:'/api',
+          url: "/user/login",
           data: this.ruleForm
         }).then((res) => {
           if (res.data.code == 200) {
