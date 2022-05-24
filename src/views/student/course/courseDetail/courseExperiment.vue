@@ -195,19 +195,34 @@ export default {
     },
 
     toExFill(row) {
-      this.$router.push({
+
+      switch (row.ex_id) {
+        case 3:
+          this.$router.push({
+          path: "/studentHome/concreteCourse/DemandSupplyReport",
+          query: {
+            id: row.ex_id,
+            title: row.experiment_title,
+            },
+          });
+          break;
+      
+      default:
+         this.$router.push({
         path: "/studentHome/concreteCourse/FillExper",
         query: {
           id: row.ex_id,
           title: row.experiment_title,
         },
       });
+      }
+
     },
     goToExcise(row) {
       switch (row.ex_id) {
         case 3:
           this.$router.push({
-            path: "/studentHome/concreteCourse/rzc",
+            path: "/studentHome/concreteCourse/DemandSupply",
             query: {
               id: row.ex_id,
               title: row.experiment_title,

@@ -51,7 +51,12 @@ const routes = [
           { path: '/studentHome/concreteCourse/File', component: () => import('../views/student/course/courseDetail/courseFile.vue') },
 
           //rzc拍卖
-          { path: '/studentHome/concreteCourse/rzc', component: () => import('../components/rzc/RZC.vue') },
+          { path: '/studentHome/concreteCourse/DemandSupply', component: () => import('../components/rzc/auctionIntroduction.vue') },
+          { path: '/studentHome/concreteCourse/DemandSupplyPar', component: () => import('../components/rzc/auction.vue') },
+          { path: '/studentHome/concreteCourse/DemandSupplyCurve', component: () => import('../components/rzc/auctionDetail.vue') },
+          { path: '/studentHome/concreteCourse/DemandSupplyIntention', component: () => import('../components/rzc/auctionIntention.vue') },
+          { path: '/studentHome/concreteCourse/DemandSupplyReport', component: () => import('../components/rzc/auctionReport.vue') },
+          
           //cyh盈亏平衡
           { path: '/studentHome/concreteCourse/cyh', component: () => import('../components/cyh/BreakEventExp.vue') },
           // 不确定分析
