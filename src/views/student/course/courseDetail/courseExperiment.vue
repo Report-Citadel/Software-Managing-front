@@ -43,14 +43,6 @@
         <el-table-column label="操作" min-width="120%">
           <template slot-scope="scope">
             <el-button
-              type="primary"
-              plain
-              size="small"
-              @click="goToExcise(scope.row)"
-              v-if="scope.row.status === '未过期'"
-              >模拟</el-button
-            >
-            <el-button
               size="small"
               @click="toExFill(scope.row)"
               v-if="scope.row.ex_id != 4"
