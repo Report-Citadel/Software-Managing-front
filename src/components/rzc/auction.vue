@@ -127,7 +127,7 @@
           mounted(){
         console.log("begin")
         this.aucId=this.$route.query.id;
-        this.axios.get('http://106.14.97.109:8081/auctionEntity/getAuction?id='+this.aucId)
+        this.axios.get('http://106.14.97.109:8081/auction/auctionEntity/getAuction?id='+this.aucId)
         .then(res=>{
           console.log(res.data.data.description)
           this.ruleForm.desc=res.data.data.description
@@ -146,7 +146,7 @@
 
         // })
         //this.axios.post('http://106.14.97.109:8081/participationEntity/postPrice?aucId='+this.aucId+'&price='+this.price+'&role='+this.role+'&userId='+localStorage.getItem('user-id'))
-        this.axios.post('http://106.14.97.109:8081/participationEntity/postPrice?aucId='+this.aucId+'&price='+this.price+'&role='+this.role+'&userId=1953606')
+        this.axios.post('http://106.14.97.109:8081/auction/participationEntity/postPrice?aucId='+this.aucId+'&price='+this.price+'&role='+this.role+'&userId=1953606')
         .then(res=>{
           if(res.data.code==200){
             this.$message({

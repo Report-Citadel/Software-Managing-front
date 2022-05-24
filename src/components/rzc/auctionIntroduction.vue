@@ -43,6 +43,16 @@
                         <el-col :span="12"><div class="principleIntroduction">
                             <el-card class="box-card" >
                                 <div class="text item">
+                                  <el-row><h2>[ 碳排放配额交易 ]</h2></el-row>
+                                  <el-row><span style="width:auto; display:block; text-align:left; line-height:30px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                  虚拟仿真碳排放配额交易中，减排成本较低的排放实体(如清洁能源企
+                                  业)，作为供给者将其所拥有的碳排放配额(CEA)在碳市场上有偿转让给需求
+                                  者，即减排成本较高的排放实体(如火力发电厂等)的交易过程。
+                                  本项实验虚拟仿真碳市场交易主体在买卖竞价中形成碳排放配额价格，即
+                                  买卖双方在交易前不事先设定碳排放配额交易价格，交易双方均采用碳交易算
+                                  法密封报价碳配额价格，竞价形成碳排放配额最优价格。实现碳排放配额供求
+                                  均衡，碳配额交易将促进国家碳达峰碳中和事业发展。
+                                  </span></el-row>
                                     <el-row><h2>[ 供 需 平 衡 ]</h2></el-row>
                                         
                                     <el-row><span style="width:auto; display:block; text-align:left; line-height:30px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -106,7 +116,7 @@
  },
  mounted(){
 
-   this.axios.get('http://106.14.97.109:8081/auctionEntity/getAllAuction')
+   this.axios.get('http://106.14.97.109:8081/auction/auctionEntity/getAllAuction')
    .then(res=>{
      this.auctions=res.data.data;
    })

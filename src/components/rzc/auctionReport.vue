@@ -198,7 +198,7 @@
                   headers: {
                   'Content-Type': 'multipart/form-data'
                   }};
-                this.axios.post('http://106.14.97.109:8081/aucReport2Entity/markdown2pdf',
+                this.axios.post('http://106.14.97.109:8081/auction/aucReport2Entity/markdown2pdf',
                 this.formData,
                 config)
                 .then(()=>{
