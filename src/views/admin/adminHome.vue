@@ -44,7 +44,7 @@
               <i class="el-icon-postcard"></i>
               <span slot="title">修改账户信息</span>
             </el-menu-item>
-            <el-menu-item index="/adminHome/annManage" v-if="auth_edit_auth">
+            <el-menu-item index="/adminHome/editauth" v-if="auth_edit_auth">
               <i class="el-icon-postcard"></i>
               <span slot="title">修改权限信息</span>
             </el-menu-item>

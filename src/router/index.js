@@ -76,6 +76,7 @@ const routes = [
       //账户
       { path: '/adminHome/account', component: () => import('../views/admin/account/account.vue') },
       { path: '/adminHome/modifyAccount', component: () => import('../views/admin/account/modifyAccount.vue') },
+      { path: '/adminHome/editauth', component: () => import('../views/admin/account/editauth.vue') },
       { path: '/adminHome/modifyPassword', component: () => import('../views/admin/account/passwordModify.vue') },
       //公告
       { path: '/adminHome/annManage', component: () => import('../views/admin/annManage/annManage.vue') },
