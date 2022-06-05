@@ -43,7 +43,7 @@
               </template>
               <el-menu-item-group>
                 <el-menu-item index="/teacherHome/manageCourse2">我的课程</el-menu-item>
-                <el-menu-item index="/teacherHome/manageCourse">课程管理</el-menu-item>
+                <el-menu-item v-if="show" index="/teacherHome/manageCourse">课程管理</el-menu-item>
               </el-menu-item-group>
             </el-submenu>
 
@@ -64,6 +64,21 @@
 <script>
 export default {
   methods: {
+  },
+  data(){
+    return{
+      show:false
+    }
+  },
+  created() {
+    var authoriy = sessionStorage.getItem('authorities')
+    var index = authoriy.search('manage_course')
+    if(index == -1){
+      this.show = false
+    }
+    else{
+      this.show = true
+    }
   }
 };
 </script>
