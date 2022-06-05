@@ -174,39 +174,39 @@ import axios from "axios";
 export default {
   name: "FillShippingCost",
   async created() {
-    await axios.get("http://localhost:8100/class/all").then((res) => {
-      console.log("res.data");
+    await axios.get("/class/course-server/class/get/all").then((res) => {
+      console.log(res);
       this.classes = res.data;
     });
-    await axios.get("http://101.132.121.170:8090/class/teacher").then((res) => {
-      console.log(res);
-      this.options1 = res.data;
-    });
-    await axios.get("http://101.132.121.170:8090/class/ta/all").then((res) => {
-      console.log(res);
-      this.options2 = res.data;
-      this.optionsown2 = res.data;
-    });
-    var params3 = {
-      type: "责任教师",
-    };
-    await axios
-      .get(
-        "http://101.132.121.170:8090/permission/get" + "?role=" + params3.type
-      )
-      .then((res) => {
-        console.log(res);
-        if (this.contains("创建班级", res.data.permission)) {
-          this.isnotOK = false;
-        } else {
-          this.isnotOK = true;
-        }
-        if (this.contains("删除班级", res.data.permission)) {
-          this.isnotOK1 = false;
-        } else {
-          this.isnotOK1 = true;
-        }
-      });
+    // await axios.get("http://101.132.121.170:8090/class/teacher").then((res) => {
+    //   console.log(res);
+    //   this.options1 = res.data;
+    // });
+    // await axios.get("http://101.132.121.170:8090/class/ta/all").then((res) => {
+    //   console.log(res);
+    //   this.options2 = res.data;
+    //   this.optionsown2 = res.data;
+    // });
+    // var params3 = {
+    //   type: "责任教师",
+    // };
+    // await axios
+    //   .get(
+    //     "http://101.132.121.170:8090/permission/get" + "?role=" + params3.type
+    //   )
+    //   .then((res) => {
+    //     console.log(res);
+    //     if (this.contains("创建班级", res.data.permission)) {
+    //       this.isnotOK = false;
+    //     } else {
+    //       this.isnotOK = true;
+    //     }
+    //     if (this.contains("删除班级", res.data.permission)) {
+    //       this.isnotOK1 = false;
+    //     } else {
+    //       this.isnotOK1 = true;
+    //     }
+    //   });
   },
   data() {
     return {
