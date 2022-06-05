@@ -42,12 +42,15 @@
 
         <el-table-column label="操作" min-width="120%">
           <template slot-scope="scope">
-            <el-button size="small" type="primary" @click="toExFill(scope.row)"
+            <el-button
+              size="small"
+              type="primary"
+              @click="goToExcise(scope.row)"
               >模拟</el-button
             >
             <el-button
               size="small"
-              @click="toExFill(scope.row)"
+              @click="fillEx(scope.row)"
               v-if="scope.row.ex_id != 4"
               >在线填写</el-button
             >
@@ -189,18 +192,8 @@ export default {
       });
     },
 
-    toExFill(row) {
+    fillEx(row) {
       switch (row.ex_id) {
-        case 3:
-          this.$router.push({
-            path: "/studentHome/concreteCourse/DemandSupplyReport",
-            query: {
-              id: row.ex_id,
-              title: row.experiment_title,
-            },
-          });
-          break;
-
         default:
           this.$router.push({
             path: "/studentHome/concreteCourse/FillExper",

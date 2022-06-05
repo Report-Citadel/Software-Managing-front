@@ -42,12 +42,16 @@
                 <span>课程管理</span>
               </template>
               <el-menu-item-group>
-                <el-menu-item index="/teacherHome/manageCourse2">我的课程</el-menu-item>
-                <el-menu-item index="/teacherHome/manageCourse">课程管理</el-menu-item>
+                <el-menu-item index="/teacherHome/manageCourse2"
+                  >我的课程</el-menu-item
+                >
+                <el-menu-item index="/teacherHome/manageCourse"
+                  >课程管理</el-menu-item
+                >
               </el-menu-item-group>
             </el-submenu>
 
-            <el-menu-item index="/" >
+            <el-menu-item index="/">
               <i class="el-icon-s-tools"></i>
               <span slot="title">退出登录</span>
             </el-menu-item>
@@ -63,8 +67,7 @@
 
 <script>
 export default {
-  methods: {
-  }
+  methods: {},
 };
 </script>
 
