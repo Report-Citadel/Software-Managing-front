@@ -63,7 +63,6 @@
 
 <script>
 export default {
-<<<<<<< HEAD
   methods: {
   },
   data(){
@@ -81,9 +80,6 @@ export default {
       this.show = true
     }
   }
-=======
-  methods: {},
->>>>>>> 2829de36776583630d87bfabf1a49733d532219c
 };
 </script>
 
