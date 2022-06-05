@@ -5,7 +5,7 @@
         margin-bottom: 30px;
         color: grey;
         font: 32px Microsoft YaHei;
-        font-weigh: 900;
+        font-weight: 900;
         text-align: center;
       "
     >

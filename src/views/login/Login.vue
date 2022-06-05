@@ -2,7 +2,7 @@
   <div style="margin: auto auto; height: 620px">
     <div style="height: 620px">
       <el-container class="loginPage" style="mardin-top: 0px">
-        <el-main style="padding:0px;filter:brightness(85%);width=100%;overflow:hidden;">
+        <el-main style="padding:0px;filter:brightness(85%);width: 100%;overflow:hidden;">
           <img src="@/assets/home_left.jpg" style="height: 560px; overflow: hidden" />
         </el-main>
 
@@ -17,7 +17,7 @@
                 实验教学系统
               </p>
             </el-header>
-            <el-main class="login_back" style="padding=0px;">
+            <el-main class="login_back" style="padding: 0px;">
               <el-form ref="ruleForm" :model="ruleForm" status-icon :rules="rules" label-width="80px">
                 <!-- <el-form-item label="您的身份" prop="role">
                   <el-select class="select" v-model="role" placeholder="请选择">
@@ -220,7 +220,7 @@ export default {
           url: "/user/login",
           data: this.ruleForm
         }).then((res) => {
-          if (res.data.code == 200) {
+          if (res.data.code === 200) {
             sessionStorage.setItem("role", 1);
             this.$message({
               message: "登陆成功",
@@ -229,7 +229,7 @@ export default {
             // console.log(res);
             sessionStorage.setItem("role", res.data.data.identity);
             sessionStorage.setItem("authorities", res.data.data.authorities);
-            console.log(res.data.data.identity == 1)
+            console.log(res.data.data.identity === 1)
             switch (res.data.data.identity) {
               case "1":
                 console.log("管理员")

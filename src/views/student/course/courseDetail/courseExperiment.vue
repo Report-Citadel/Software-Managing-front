@@ -50,8 +50,13 @@
             >
             <el-button
               size="small"
+<<<<<<< Updated upstream
               @click="fillEx(scope.row)"
               v-if="scope.row.ex_id != 4"
+=======
+              @click="toExFill(scope.row)"
+              v-if="scope.row.ex_id !== 4"
+>>>>>>> Stashed changes
               >在线填写</el-button
             >
           </template>
@@ -194,6 +199,27 @@ export default {
 
     fillEx(row) {
       switch (row.ex_id) {
+<<<<<<< Updated upstream
+=======
+        case 3:
+          this.$router.push({
+            path: "/studentHome/concreteCourse/DemandSupplyReport",
+            query: {
+              id: row.ex_id,
+              title: row.experiment_title,
+            },
+          });
+          break;
+        case 4:
+          this.$router.push({
+            path: "/studentHome/concreteCourse/BalanceCost",
+            query: {
+              id: row.ex_id,
+              title: row.experiment_title,
+            },
+          });
+          break;
+>>>>>>> Stashed changes
         default:
           this.$router.push({
             path: "/studentHome/concreteCourse/FillExper",

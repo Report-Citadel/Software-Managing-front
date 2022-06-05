@@ -204,13 +204,25 @@ export default {
 
     },
     handleGrade(row) {
-      this.$router.push({
-        path: "/teacherHome/concreteCourse/stuExperList",
-        query: {
-          ex_id: row.ex_id,
-          ex_type: row.ex_type,
-        },
-      });
+      switch (row.ex_id) {
+        case 4:
+          this.$router.push({
+            path: "/studentHome/concreteCourse/BalanceCostExp",
+            // query: {
+            //   id: row.ex_id,
+            //   title: row.experiment_title,
+            // },
+          });
+          break;
+          default:
+          this.$router.push({
+            path: "/teacherHome/concreteCourse/stuExperList",
+            query: {
+              ex_id: row.ex_id,
+              ex_type: row.ex_type,
+            },
+          });
+      }
     },
 
     handleFile() {

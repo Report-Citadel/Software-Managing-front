@@ -58,7 +58,7 @@ const routes = [
           { path: '/studentHome/concreteCourse/DemandSupplyReport', component: () => import('../components/rzc/auctionReport.vue') },
           
           //cyh盈亏平衡
-          { path: '/studentHome/concreteCourse/cyh', component: () => import('../components/cyh/BreakEventExp.vue') },
+          { path: '/studentHome/concreteCourse/BalanceCost', component: () => import('../components/cyh/BreakEventExp.vue') },
           // 不确定分析
           // { path: '/experiment/uncertainty-analysis', component: () => import('../views/Experiments/UncertiantyAnalysis') },
 
@@ -139,7 +139,7 @@ const routes = [
           { path: '/teacherHome/concreteCourse/Exper', component: () => import('../views/teacher/course/courseDetail/courseExperiment.vue') },
 
           { path: '/teacherHome/concreteCourse/stuExperList', component: () => import('../views/teacher/course/experiment/stuExperList.vue') },
-
+          { path: '/studentHome/concreteCourse/BalanceCostExp', component: () => import('../components/cyh/CorrectReport')},
 
         ]
       },
