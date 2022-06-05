@@ -11,15 +11,18 @@
             <el-descriptions-item label="班号">{{
               a.class_id
             }}</el-descriptions-item>
-            <el-descriptions-item label="班级人数">{{
-              a.student_num
+            <el-descriptions-item label="课程">{{
+              a.class_name
             }}</el-descriptions-item>
+            <el-descriptions-item label="责任教师">{{
+                a.professor
+              }} {{a.professor_name}}</el-descriptions-item>
             <el-descriptions-item label="班级助教">{{
-              a.ta_name
-            }}</el-descriptions-item>
+              a.ta_id
+            }} {{a.ta_name}}</el-descriptions-item>
             <el-descriptions-item label="班级老师">{{
-              a.teacher_name
-            }}</el-descriptions-item>
+              a.teacher_id
+            }} {{a.teacher_name}}</el-descriptions-item>
           </el-descriptions>
           <el-button
             type="text"
@@ -78,9 +81,16 @@
             style="width: 210px; margin: 10px"
             placeholder="请输入班号"
           ></el-input>
+          <el-input
+              type="text"
+              v-model="newclass.class_name"
+              size="small"
+              style="width: 210px; margin: 10px"
+              placeholder="请输入班名"
+          ></el-input>
           <div>
             <el-select
-              v-model="newclass.teacher"
+              v-model="newclass.teacherId"
               style="margin: 10px"
               size="small"
               filterable
@@ -89,33 +99,42 @@
             >
               <el-option
                 v-for="item in options1"
-                :key="item.teacher_id"
-                :label="item.teacher_name"
-                :value="item.teacher_id"
-                :disabled="item.disabled"
+                :key="item.id"
+                :label="item.id + item.name"
+                :value="item.id"
               ></el-option>
             </el-select>
           </div>
           <div>
             <el-select
-              v-model="newclass.ta_list"
+              v-model="newclass.taId"
               style="margin: 10px"
               size="small"
-              multiple
               filterable
               clearable
               placeholder="请选择助教"
             >
               <el-option
                 v-for="item in options2"
-                :key="item.ta_id"
-                :label="item.ta_name"
-                :value="item.ta_id"
-                :disabled="item.disabled"
+                :key="item.id"
+                :label="item.id+item.name"
+                :value="item.id"
               ></el-option>
             </el-select>
           </div>
-          <!--                  实验多选框-->
+          <div style="margin: 10px">
+            <el-checkbox-group v-model="experimentList">
+              <el-checkbox label="1">敏感性分析</el-checkbox>
+              <el-checkbox label="2">不确定性分析</el-checkbox>
+              <el-checkbox label="3">供需分析</el-checkbox>
+              <el-checkbox label="4">盈亏平衡</el-checkbox>
+              <el-checkbox label="5">项目经济测算指标</el-checkbox>
+              <el-checkbox label="6">经济寿命周期</el-checkbox>
+              <el-checkbox label="7">对抗练习</el-checkbox>
+              <el-checkbox label="8">软件成本估算</el-checkbox>
+              <el-checkbox label="9">多人博弈</el-checkbox>
+            </el-checkbox-group>
+          </div>
           <div>
             <el-upload
               ref="input"
@@ -149,18 +168,18 @@
             </el-upload>
           </div>
         </div>
-        <el-dialog title="班级信息" :visible.sync="tableVisible">
-          <el-table style="width: auto" border :data="tableData" id="tableData">
-            <template v-for="(item, index) in tableHead">
-              <el-table-column
-                :prop="item.column_name"
-                :label="item.column_comment"
-                :key="index"
-                v-if="item.column_name !== 'id'"
-              ></el-table-column>
-            </template>
-          </el-table>
-        </el-dialog>
+<!--        <el-dialog title="班级信息" :visible.sync="tableVisible">-->
+<!--          <el-table style="width: auto" border :data="tableData" id="tableData">-->
+<!--            <template v-for="(item, index) in tableHead">-->
+<!--              <el-table-column-->
+<!--                :prop="item.column_name"-->
+<!--                :label="item.column_comment"-->
+<!--                :key="index"-->
+<!--                v-if="item.column_name !== 'id'"-->
+<!--              ></el-table-column>-->
+<!--            </template>-->
+<!--          </el-table>-->
+<!--        </el-dialog>-->
       </el-card>
     </div>
   </div>
@@ -173,43 +192,9 @@ import axios from "axios";
 
 export default {
   name: "FillShippingCost",
-  async created() {
-    await axios.get("/class/course-server/class/get/all").then((res) => {
-      console.log(res);
-      this.classes = res.data;
-    });
-    // await axios.get("http://101.132.121.170:8090/class/teacher").then((res) => {
-    //   console.log(res);
-    //   this.options1 = res.data;
-    // });
-    // await axios.get("http://101.132.121.170:8090/class/ta/all").then((res) => {
-    //   console.log(res);
-    //   this.options2 = res.data;
-    //   this.optionsown2 = res.data;
-    // });
-    // var params3 = {
-    //   type: "责任教师",
-    // };
-    // await axios
-    //   .get(
-    //     "http://101.132.121.170:8090/permission/get" + "?role=" + params3.type
-    //   )
-    //   .then((res) => {
-    //     console.log(res);
-    //     if (this.contains("创建班级", res.data.permission)) {
-    //       this.isnotOK = false;
-    //     } else {
-    //       this.isnotOK = true;
-    //     }
-    //     if (this.contains("删除班级", res.data.permission)) {
-    //       this.isnotOK1 = false;
-    //     } else {
-    //       this.isnotOK1 = true;
-    //     }
-    //   });
-  },
   data() {
     return {
+      experimentList:[],
       isnotOK: false,
       isnotOK1: false,
       tableVisible: false,
@@ -217,9 +202,11 @@ export default {
       newclass: [
         {
           class_id: "",
+          class_name:"",
           student_list: "",
-          ta_list: [],
-          teacher: "",
+          taId: "",
+          teacherId: "",
+          professor:sessionStorage.getItem("id"),
         },
       ],
       classes: [
@@ -253,6 +240,26 @@ export default {
       classdeleteta: "",
       search: "",
     };
+  },
+  async created() {
+    await axios.get("/class/course-server/class/get/all").then((res) => {
+      console.log(res);
+      this.classes = res.data;
+    });
+
+    await axios.get("/api/user/getallusers").then(res=>{
+      console.log(res.data.data)
+      for(var i=0; i<res.data.data.length; i++){
+        if(res.data.data[i].identity == 3 || res.data.data[i].identity == 2){
+          this.options1.push(res.data.data[i])
+        }
+        else if(res.data.data[i].identity == 4){
+          this.options2.push(res.data.data[i])
+        }
+      }
+    })
+    console.log(this.options1)
+    console.log(this.options2)
   },
 
   methods: {
@@ -371,8 +378,8 @@ export default {
           this.tableDatastu = res.data.student_list;
         });
     },
-    deleteclass(class_id) {
-      this.$confirm("此操作将永久删除该班级, 是否继续?", "提示", {
+    async deleteclass(class_id) {
+      await this.$confirm("此操作将永久删除该班级, 是否继续?", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
         type: "warning",
@@ -383,20 +390,19 @@ export default {
           };
           console.log(params.class_id);
           axios
-            .delete("http://localhost:8100/class/delete", {
+            .delete("/class/course-server/class/delete", {
               data: params,
             })
             .then((res) => {
               console.log(res);
-              axios.get("http://localhost:8100/class/all").then((res) => {
-                console.log("res.data");
-                this.classes = res.data;
+              this.$message({
+                type: "success",
+                message: "删除成功!",
               });
+              location.reload()
+
             });
-          this.$message({
-            type: "success",
-            message: "删除成功!",
-          });
+
         })
         .catch(() => {
           this.$message({
@@ -405,35 +411,27 @@ export default {
           });
         });
     },
-    submit() {
-      console.log(this.newclass);
-      var n = this.tableData.length;
-      var S_id = "";
-      for (var i = 0; i < n; i++) {
-        S_id = S_id + this.tableData[i].column_name1 + ",";
-      }
-      console.log(S_id);
-      console.log(this.newclass.ta_list.toString());
-      console.log(this.newclass.teacher);
+    async submit() {
+
       var params = {
         class_id: this.newclass.class_id,
-        student_list: S_id,
-        ta_list: this.newclass.ta_list.toString(),
-        teacher: this.newclass.teacher,
+        class_name: this.newclass.class_name,
+
+        ta_id: this.newclass.taId,
+        teacher_id: this.newclass.teacherId,
+        professor:sessionStorage.getItem("id"),
+        experimentList:this.experimentList.toString()
       };
-      axios
-        .post("http://101.132.121.170:8090/class/open", params)
+      console.log(params)
+      await axios
+        .post("/class/course-server/class/new", params)
         .then((res) => {
           console.log(res);
           this.$alert("班级创建成功！", "提示", {
             confirmButtonText: "确定",
           });
-          axios.get("http://101.132.121.170:8090/class/all").then((res) => {
-            console.log("nihaokainbfwqy");
-            console.log(res.data);
-            this.classes = res.data;
-          });
         });
+      location.reload()
     },
     dialogvisiblea(class_id) {
       this.dialogFormVisible = true;
