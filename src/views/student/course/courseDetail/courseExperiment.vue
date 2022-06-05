@@ -194,6 +194,24 @@ export default {
 
     fillEx(row) {
       switch (row.ex_id) {
+        case 3:
+          this.$router.push({
+            path: "/studentHome/concreteCourse/DemandSupplyReport",
+            query: {
+              id: row.ex_id,
+              title: row.experiment_title,
+            },
+          });
+          break;
+        case 4:
+          this.$router.push({
+            path: "/studentHome/concreteCourse/BalanceCost",
+            query: {
+              id: row.ex_id,
+              title: row.experiment_title,
+            },
+          });
+          break;
         default:
           this.$router.push({
             path: "/studentHome/concreteCourse/FillExper",
