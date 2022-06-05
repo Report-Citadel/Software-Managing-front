@@ -47,7 +47,7 @@
               </el-menu-item-group>
             </el-submenu>
 
-            <el-menu-item index="/" >
+            <el-menu-item index="/">
               <i class="el-icon-s-tools"></i>
               <span slot="title">退出登录</span>
             </el-menu-item>
@@ -63,6 +63,7 @@
 
 <script>
 export default {
+<<<<<<< HEAD
   methods: {
   },
   data(){
@@ -80,6 +81,9 @@ export default {
       this.show = true
     }
   }
+=======
+  methods: {},
+>>>>>>> 2829de36776583630d87bfabf1a49733d532219c
 };
 </script>
 
