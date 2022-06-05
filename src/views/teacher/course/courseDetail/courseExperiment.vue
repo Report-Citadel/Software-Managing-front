@@ -214,7 +214,7 @@ export default {
             // },
           });
           break;
-          default:
+        default:
           this.$router.push({
             path: "/teacherHome/concreteCourse/stuExperList",
             query: {
