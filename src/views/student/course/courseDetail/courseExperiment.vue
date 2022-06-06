@@ -194,9 +194,9 @@ export default {
 
     fillEx(row) {
       switch (row.ex_id) {
-        case 3:
+        case 1:
           this.$router.push({
-            path: "/studentHome/concreteCourse/DemandSupplyReport",
+            path: "/studentHome/concreteCourse/FillSimulater",
             query: {
               id: row.ex_id,
               title: row.experiment_title,

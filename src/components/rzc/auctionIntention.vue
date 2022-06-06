@@ -153,7 +153,7 @@
     },
     Exit(){
      this.$router.push({
-          path: "/studentHome/concreteCourse/Exper",
+          path: "/studentHome/concreteCourse/DemandSupply",
         });
    }
 
