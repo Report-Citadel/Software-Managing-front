@@ -4,7 +4,7 @@
       <!-- <a href="/"><img src="@/assets/SystemLogo.png" /></a> -->
       <el-menu :default-active="activeIndex" class="el-menu-demo" id="el-menu-demo" mode="horizontal" @select="handleSelect" style="background-color: unset">
       <el-menu-item index="1" disabled style="opacity:0.8"><img src="@/assets/SystemLogo.png" /></el-menu-item>
-      <el-menu-item index="2"><a href="/" target="_blank">主页</a></el-menu-item>
+      <el-menu-item index="2"><a href="http://localhost:8080/#/">主页</a></el-menu-item>
     </el-menu>
     </div>
     <router-view />
