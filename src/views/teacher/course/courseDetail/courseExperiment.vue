@@ -10,30 +10,32 @@
             .filter(
               (data) =>
                 !search ||
-                data.title.toLowerCase().includes(search.toLowerCase())
+                data.experiment_title
+                  .toLowerCase()
+                  .includes(search.toLowerCase())
             )
             .slice((currentPage - 1) * pagesize, currentPage * pagesize)
         "
         style="width: 100%"
       >
-        <el-table-column prop="title" label="实验名称" sortable />
-        <el-table-column prop="end_time" label="发布日期" sortable />
+        <el-table-column prop="experiment_title" label="实验名称" sortable />
+        <el-table-column prop="end_time" label="截止日期" sortable />
         <el-table-column
-          prop="ex_type"
-          label="提交方式"
+          prop="status"
+          label="状态"
           sortable
           :filters="[
-            { text: '在线提交', value: '在线提交' },
-            { text: '提交文件', value: '提交文件' },
+            { text: '未过期', value: '未过期' },
+            { text: '已过期', value: '已过期' },
           ]"
           :filter-method="filterTag"
           filter-placement="bottom-end"
         >
           <template slot-scope="scope">
             <el-tag
-              :type="scope.row.ex_type === '在线提交' ? 'primary' : 'success'"
+              :type="scope.row.status === '未过期' ? 'primary' : 'success'"
               disable-transitions
-              >{{ scope.row.ex_type }}</el-tag
+              >{{ scope.row.status }}</el-tag
             >
           </template>
         </el-table-column>
@@ -45,8 +47,15 @@
           </template>
           <template #default="scope">
             <v-row>
-              <v-col cols="3">
-                <v-btn small dark @click="handleGrade(scope.row)">批改</v-btn>
+              <v-col>
+                <v-btn small dark @click="handleGrade(scope.row)"
+                  >批改</v-btn
+                >
+              </v-col>
+              <v-col>
+                <v-btn small dark @click="uploadFile()"
+                >上传</v-btn
+                >
               </v-col>
             </v-row>
           </template>
@@ -75,19 +84,78 @@ export default {
       dialogVisible: false,
       search: "",
       currentPage: 1,
-      pagesize: 6,
+      pagesize: 9,
       fileList: [],
       experimentList: [
         {
-          title: "第一次试验",
-          end_time: "2021-2-2",
-          ex_type: "在线提交",
+          ex_id: 1,
+          end_time: "2021-12-2 12:30:21",
+          experiment_title: "敏感性分析",
+          status: "未过期",
           weight: "0.3",
         },
         {
-          title: "第2次试验",
-          end_time: "2021-2-3",
-          ex_type: "提交文件",
+          ex_id: 2,
+          end_time: "2021-12-2 12:30:21",
+          experiment_title: "不确定性分析",
+
+          status: "未过期",
+          weight: "0.3",
+        },
+        {
+          ex_id: 3,
+          end_time: "2021-12-2 12:30:21",
+          experiment_title: "供需分析",
+
+          status: "未过期",
+          weight: "0.3",
+        },
+        {
+          ex_id: 4,
+          end_time: "2021-12-2 12:30:21",
+          experiment_title: "盈亏平衡",
+
+          status: "未过期",
+          weight: "0.3",
+        },
+        {
+          ex_id: 5,
+          end_time: "2021-12-2 12:30:21",
+          experiment_title: "项目经济指标测算",
+
+          status: "未过期",
+          weight: "0.3",
+        },
+        {
+          ex_id: 6,
+          end_time: "2021-12-2 12:30:21",
+          experiment_title: "经济寿命周期",
+
+          status: "未过期",
+          weight: "0.3",
+        },
+        {
+          ex_id: 7,
+          end_time: "2021-12-2 12:30:21",
+          experiment_title: "对抗练习",
+
+          status: "未过期",
+          weight: "0.3",
+        },
+        {
+          ex_id: 8,
+          end_time: "2021-12-2 12:30:21",
+          experiment_title: "软件成本估算",
+
+          status: "未过期",
+          weight: "0.3",
+        },
+        {
+          ex_id: 9,
+          end_time: "2021-12-2 12:30:21",
+          experiment_title: "多人博弈",
+
+          status: "未过期",
           weight: "0.3",
         },
       ],
@@ -107,7 +175,7 @@ export default {
       this.$refs.filterTable.clearFilter();
     },
     filterTag(value, row) {
-      return row.ex_type === value;
+      return row.status === value;
     },
     filterHandler(value, row, column) {
       const property = column["property"];
@@ -132,14 +200,29 @@ export default {
       return this.$confirm(`确定移除 ${file.name}？`);
     },
 
+    uploadFile(){
+
+    },
     handleGrade(row) {
-      this.$router.push({
-        path: "/teacherHome/concreteCourse/stuExperList",
-        query: {
-          ex_id: row.ex_id,
-          ex_type: row.ex_type,
-        },
-      });
+      switch (row.ex_id) {
+        case 4:
+          this.$router.push({
+            path: "/studentHome/concreteCourse/BalanceCostExp",
+            // query: {
+            //   id: row.ex_id,
+            //   title: row.experiment_title,
+            // },
+          });
+          break;
+        default:
+          this.$router.push({
+            path: "/teacherHome/concreteCourse/stuExperList",
+            query: {
+              ex_id: row.ex_id,
+              ex_type: row.ex_type,
+            },
+          });
+      }
     },
 
     handleFile() {

@@ -15,26 +15,38 @@
                 <el-menu-item index="/adminHome/account"
                   >查看个人资料</el-menu-item
                 >
+                <el-menu-item index="/adminHome/modifyAccount"
+                  >编辑个人资料</el-menu-item
+                >
                 <el-menu-item index="/adminHome/modifyPassword"
                   >修改密码</el-menu-item
                 >
               </el-menu-item-group>
             </el-submenu>
-            <el-menu-item index="/adminHome/userManage/accountAdd">
+            <!-- <el-menu-item index="/adminHome/userManage/accountAdd">
               <i class="el-icon-user"></i>
               <span slot="title">用户管理</span>
             </el-menu-item>
-            <el-menu-item index="/adminHome/courseManage/courseType">
-              <i class="el-icon-reading"></i>
-              <span slot="title">课程管理</span>
-            </el-menu-item>
-            <el-menu-item index="/adminHome/annManage">
-              <i class="el-icon-postcard"></i>
-              <span slot="title">公告管理</span>
-            </el-menu-item>
+
             <el-menu-item index="/" @click="Logout()">
               <i class="el-icon-reading"></i>
               <span slot="title">退出登录</span>
+            </el-menu-item> -->
+            <el-menu-item index="/adminHome/annManage" v-if="auth_create_account">
+              <i class="el-icon-postcard"></i>
+              <span slot="title">创建账户</span>
+            </el-menu-item>
+            <el-menu-item index="/adminHome/annManage" v-if="auth_delete_account">
+              <i class="el-icon-postcard"></i>
+              <span slot="title">删除账户</span>
+            </el-menu-item>
+            <el-menu-item index="/adminHome/annManage" v-if="auth_edit_info">
+              <i class="el-icon-postcard"></i>
+              <span slot="title">修改账户信息</span>
+            </el-menu-item>
+            <el-menu-item index="/adminHome/editauth" v-if="auth_edit_auth">
+              <i class="el-icon-postcard"></i>
+              <span slot="title">修改权限信息</span>
             </el-menu-item>
           </el-menu>
         </div>
@@ -45,21 +57,10 @@
     </el-container>
 
     <el-dialog title="头像设置" :visible.sync="avatarDialog" center width="20%">
-      <el-upload
-        class="avatar-uploader"
-        action=""
-        :show-file-list="false"
-        :on-success="handleAvatarSuccess"
-        :on-remove="handleRemove"
-        :before-upload="beforeAvatarUpload"
-        :data="id"
-      >
+      <el-upload class="avatar-uploader" action="" :show-file-list="false" :on-success="handleAvatarSuccess"
+        :on-remove="handleRemove" :before-upload="beforeAvatarUpload" :data="id">
         <img v-if="imageUrl" :src="imageUrl" class="avatar" />
-        <span
-          v-if="imageUrl"
-          class="el-upload-action"
-          @click.stop="handleRemove()"
-        >
+        <span v-if="imageUrl" class="el-upload-action" @click.stop="handleRemove()">
           <i class="el-icon-delete"></i>
         </span>
         <i v-else class="el-icon-upload2 avatar-uploader-icon" stop></i>
@@ -76,11 +77,25 @@
 <script>
 // import axios from "axios";
 export default {
+  created() {
+    console.log("created");
+    var authorities = sessionStorage.getItem("authorities");
+    console.log(authorities);
+    this.auth_create_account = (authorities.indexOf("create_account") != -1);
+    this.auth_delete_account = (authorities.indexOf("delete_account") != -1);
+    this.auth_edit_auth = (authorities.indexOf("edit_auth") != -1);
+    this.auth_edit_info = (authorities.indexOf("edit_info") != -1);
+
+  },
   data() {
     return {
       avatarDialog: false,
       id: "",
       imageUrl: "http://39.107.51.181:5000/static/avatar/管理员头像.png",
+      auth_create_account: false,
+      auth_delete_account: false,
+      auth_edit_info: false,
+      auth_edit_auth: false,
     };
   },
   methods: {
@@ -139,8 +154,8 @@ export default {
     },
     getAvatar() {
       //获取头像
-     
-     
+
+
     },
     Logout() {
       sessionStorage.removeItem("role");
@@ -160,16 +175,19 @@ export default {
   height: 650px;
   border-radius: 20px;
 }
+
 .back {
   margin-left: 10px;
   margin-top: 20px;
 }
+
 .admin-aside-menu {
   box-shadow: 3px 3px 10px #d3d3d3;
   background: #f0f8ff;
   border-radius: 10%;
   height: 800px;
 }
+
 .admin-aside-menu-head {
   margin: 20px auto;
   width: 70%;
@@ -188,6 +206,7 @@ export default {
   background-size: 100% 100%;
   margin-left: 25%;
 }
+
 .avatar-uploader-icon {
   font-size: 0;
   color: #fff;
@@ -196,15 +215,18 @@ export default {
   line-height: 120px;
   text-align: center;
 }
+
 .avatar-uploader-icon:hover {
   font-size: 28px;
   background-color: rgba(0, 0, 0, 0.3);
 }
+
 .avatar {
   width: 120px;
   height: 120px;
   display: block;
 }
+
 .el-upload-action {
   position: absolute;
   top: 0;
@@ -217,6 +239,7 @@ export default {
   text-align: center;
   line-height: 120px;
 }
+
 .el-upload-action:hover {
   font-size: 20px;
   background-color: #000;

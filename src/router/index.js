@@ -46,16 +46,25 @@ const routes = [
           { path: '/studentHome/concreteCourse/Exper', component: () => import('../views/student/course/courseDetail/courseExperiment.vue') },
           { path: '/studentHome/concreteCourse/Peo', component: () => import('../views/student/course/courseDetail/coursePeople.vue') },
           { path: '/studentHome/concreteCourse/Perform', component: () => import('../views/student/course/courseDetail/coursePerformance.vue') },
-
-          { path: '/studentHome/concreteCourse/FillExper', component: () => import('../views/student/course/experiment/experimentFill.vue') },
+          //{ path: '/studentHome/concreteCourse/ConExper', component: () => import('../views/student/course/experiment/experiment.vue') },
+          // { path: '/studentHome/concreteCourse/FillExper', component: () => import('../views/student/course/experiment/experimentFill.vue') },
+          { path: '/studentHome/concreteCourse/FillExper', component: () => import('../views/student/course/experiment/experimentSimulater.vue') },
           { path: '/studentHome/concreteCourse/File', component: () => import('../views/student/course/courseDetail/courseFile.vue') },
 
+          //rzc拍卖
+          { path: '/studentHome/concreteCourse/DemandSupply', component: () => import('../components/rzc/auctionIntroduction.vue') },
+          { path: '/studentHome/concreteCourse/DemandSupplyPar', component: () => import('../components/rzc/auction.vue') },
+          { path: '/studentHome/concreteCourse/DemandSupplyCurve', component: () => import('../components/rzc/auctionDetail.vue') },
+          { path: '/studentHome/concreteCourse/DemandSupplyIntention', component: () => import('../components/rzc/auctionIntention.vue') },
+          { path: '/studentHome/concreteCourse/DemandSupplyReport', component: () => import('../components/rzc/auctionReport.vue') },
+          
           //cyh盈亏平衡
-          { path: '/studentHome/concreteCourse/cyh', component: () => import('../components/cyh/BreakEventExp.vue') },
+          { path: '/studentHome/concreteCourse/BalanceCost', component: () => import('../components/cyh/BreakEventExp.vue') },
           // 不确定分析
           // { path: '/experiment/uncertainty-analysis', component: () => import('../views/Experiments/UncertiantyAnalysis') },
           //经济寿命周期
           { path: '/studentHome/concreteCourse/elc', component: () => import('../components/elc/EconomyLifeExp.vue') },
+          { path: '/experiment/uncertainty-analysis', component: () => import('../views/Experiments/UncertiantyAnalysis') },
 
         ]
       },
@@ -71,6 +80,7 @@ const routes = [
       //账户
       { path: '/adminHome/account', component: () => import('../views/admin/account/account.vue') },
       { path: '/adminHome/modifyAccount', component: () => import('../views/admin/account/modifyAccount.vue') },
+      { path: '/adminHome/editauth', component: () => import('../views/admin/account/editauth.vue') },
       { path: '/adminHome/modifyPassword', component: () => import('../views/admin/account/passwordModify.vue') },
       //公告
       { path: '/adminHome/annManage', component: () => import('../views/admin/annManage/annManage.vue') },
@@ -133,7 +143,7 @@ const routes = [
           { path: '/teacherHome/concreteCourse/Exper', component: () => import('../views/teacher/course/courseDetail/courseExperiment.vue') },
 
           { path: '/teacherHome/concreteCourse/stuExperList', component: () => import('../views/teacher/course/experiment/stuExperList.vue') },
-
+          { path: '/studentHome/concreteCourse/BalanceCostExp', component: () => import('../components/cyh/CorrectReport')},
 
         ]
       },

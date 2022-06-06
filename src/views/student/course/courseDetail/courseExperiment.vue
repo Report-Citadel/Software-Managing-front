@@ -43,16 +43,14 @@
         <el-table-column label="操作" min-width="120%">
           <template slot-scope="scope">
             <el-button
-              type="primary"
-              plain
               size="small"
+              type="primary"
               @click="goToExcise(scope.row)"
-              v-if="scope.row.status === '未过期'"
               >模拟</el-button
             >
             <el-button
               size="small"
-              @click="toExFill(scope.row)"
+              @click="fillEx(scope.row)"
               v-if="scope.row.ex_id != 4"
               >在线填写</el-button
             >
@@ -99,7 +97,7 @@ export default {
           experiment_title: "不确定性分析",
           is_submit: false,
           status: "未过期",
-          score: null
+          score: null,
         },
         {
           ex_id: 3,
@@ -170,9 +168,7 @@ export default {
       this.currentPage = currentPage;
     },
     // eslint-disable-next-line no-unused-vars
-    goToOnline(ex_id, end_time) {
-
-    },
+    goToOnline(ex_id, end_time) {},
     handlePreview(file) {
       console.log(file);
     },
@@ -196,17 +192,47 @@ export default {
       });
     },
 
-    toExFill(row) {
-      this.$router.push({
-        path: "/studentHome/concreteCourse/FillExper",
-        query: {
-          id: row.ex_id,
-          title: row.experiment_title,
-        },
-      });
+    fillEx(row) {
+      switch (row.ex_id) {
+        case 3:
+          this.$router.push({
+            path: "/studentHome/concreteCourse/DemandSupplyReport",
+            query: {
+              id: row.ex_id,
+              title: row.experiment_title,
+            },
+          });
+          break;
+        case 4:
+          this.$router.push({
+            path: "/studentHome/concreteCourse/BalanceCost",
+            query: {
+              id: row.ex_id,
+              title: row.experiment_title,
+            },
+          });
+          break;
+        default:
+          this.$router.push({
+            path: "/studentHome/concreteCourse/FillExper",
+            query: {
+              id: row.ex_id,
+              title: row.experiment_title,
+            },
+          });
+      }
     },
     goToExcise(row) {
       switch (row.ex_id) {
+        case 3:
+          this.$router.push({
+            path: "/studentHome/concreteCourse/DemandSupply",
+            query: {
+              id: row.ex_id,
+              title: row.experiment_title,
+            },
+          });
+          break;
         case 4:
           this.$router.push({
             path: "/studentHome/concreteCourse/cyh",

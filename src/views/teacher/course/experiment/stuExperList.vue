@@ -27,31 +27,14 @@
           </template>
           <template #default="scope">
             <v-row>
-              <v-col cols="3" v-if="ex_type == '在线提交'">
-                <v-btn small dark @click="giveScoreOnline(scope.row)"
+              <v-col cols="4">
+                <v-btn small dark @click="checkExperiment(scope.row)"
                   >查看</v-btn
                 >
               </v-col>
-              <v-col cols="4" v-if="ex_type == '提交文件'">
-                <v-btn
-                  small
-                  dark
-                  @click="check(scope.row)"
-                  v-if="scope.row.status == '是'"
-                  >查看</v-btn
-                >
-              </v-col>
-              <v-col cols="4" v-if="ex_type == '提交文件'">
-                <v-btn
-                  small
-                  dark
-                  @click="download(scope.row)"
-                  v-if="scope.row.status == '是'"
-                  >下载</v-btn
-                >
-              </v-col>
-              <v-col cols="4" v-if="ex_type == '提交文件'">
-                <v-btn small dark @click="handleScoreDown(scope.row)"
+
+              <v-col cols="4">
+                <v-btn small dark @click="gradeExperiment(scope.row)"
                   >打分</v-btn
                 >
               </v-col>
@@ -98,7 +81,7 @@ export default {
       stuScore: "",
       s_id: "",
 
-      pagesize: 6,
+      pagesize: 10,
       multipleSelection: [],
 
       stuExData: [
@@ -129,58 +112,14 @@ export default {
     handleSelectionChange(val) {
       this.multipleSelection = val;
     },
-    handleScoreDown(row) {
+    gradeExperiment(row) {
       this.scoreDialog = true;
       this.s_id = row.s_id;
     },
     giveScoreDown() {},
 
-    giveScoreOnline() {},
+    checkExperiment() {},
 
-    check() {
-      //console.log("checkjson", row, this.ex_id);
-    },
-    download(row) {
-      //console.log(row);
-      let formData = new FormData();
-      formData.append("s_id", row.s_id);
-      formData.append("ex_id", this.ex_id);
-
-      this.axios
-        .post("/api/tea/Ex/getReport/", formData, {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-          responseType: "blob",
-        })
-        .then((response) => {
-          console.log("download", response);
-
-          const fileName = response.headers["content-disposition"];
-          var fname = fileName.split("filename=")[1];
-          fname = decodeURIComponent(fname);
-          //const title = fileName && (fileName.indexOf('filename=') !== -1) ? fileName.split('=')[1] : 'download';
-
-          const blob = new Blob([response.data], {
-            type: "application/pdf",
-          });
-          var downloadElement = document.createElement("a");
-          var href = window.URL.createObjectURL(blob);
-          downloadElement.href = href;
-
-          downloadElement.download = fname;
-          document.body.appendChild(downloadElement);
-          downloadElement.click();
-          document.body.removeChild(downloadElement);
-          window.URL.revokeObjectURL(href);
-          /*
-        href.href = window.URL.createObjectURL(blob);
-        href.target = "_blank";
-        href.click();
-          */
-          //console.log(response)
-        });
-    },
     getStuEx() {},
     getParams: function () {
       this.ex_id = this.$route.query.ex_id;

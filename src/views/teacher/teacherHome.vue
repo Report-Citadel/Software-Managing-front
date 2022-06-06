@@ -26,6 +26,9 @@
                 <el-menu-item index="/teacherHome/account"
                   >查看个人资料</el-menu-item
                 >
+                <el-menu-item index="/teacherHome/modifyAccount"
+                  >编辑个人资料</el-menu-item
+                >
                 <el-menu-item index="/teacherHome/modifyPassword"
                   >修改密码</el-menu-item
                 >
@@ -40,11 +43,11 @@
               </template>
               <el-menu-item-group>
                 <el-menu-item index="/teacherHome/manageCourse2">我的课程</el-menu-item>
-                <el-menu-item index="/teacherHome/manageCourse">课程管理</el-menu-item>
+                <el-menu-item v-if="show" index="/teacherHome/manageCourse">课程管理</el-menu-item>
               </el-menu-item-group>
             </el-submenu>
 
-            <el-menu-item index="/" >
+            <el-menu-item index="/">
               <i class="el-icon-s-tools"></i>
               <span slot="title">退出登录</span>
             </el-menu-item>
@@ -61,6 +64,21 @@
 <script>
 export default {
   methods: {
+  },
+  data(){
+    return{
+      show:false
+    }
+  },
+  created() {
+    var authoriy = sessionStorage.getItem('authorities')
+    var index = authoriy.search('manage_course')
+    if(index == -1){
+      this.show = false
+    }
+    else{
+      this.show = true
+    }
   }
 };
 </script>
