@@ -46,28 +46,6 @@
             width="180">
         </el-table-column>
         <el-table-column
-            prop="courseName"
-            label="课程"
-            sortable
-            width="280">
-          <template slot-scope="scope">
-            <el-tag
-                type="success"
-                disable-transitions>{{scope.row.courseName}}</el-tag>
-          </template>
-        </el-table-column>
-        <el-table-column
-            prop="experimentName"
-            label="实验"
-            sortable
-            width="200">
-          <template slot-scope="scope">
-            <el-tag
-                type="primary"
-                disable-transitions>{{scope.row.experimentName}}</el-tag>
-          </template>
-        </el-table-column>
-        <el-table-column
             prop="score"
             label="分数"
             width="200">
@@ -199,12 +177,12 @@ export default {
       let FormData = require('form-data');
       let data = new FormData();
       data.append('reportId', reportId);
-      data.append('userEmail', userEmail);
+      data.append('userEmail', "1950089@tongji.edu.cn");
       data.append('score', score);
 
       let config = {
         method: 'post',
-        url: 'http://8.130.26.39:8082/experiment/score/update',
+        url: 'http://139.224.251.185:8082/experiment/score/update',
         data: data
       };
 
@@ -229,7 +207,7 @@ export default {
 
       let config = {
         method: 'post',
-        url: 'http://8.130.26.39:8082/experiment/report/get',
+        url: 'http://139.224.251.185:8082/experiment/report/get',
       };
 
       axios(config)
