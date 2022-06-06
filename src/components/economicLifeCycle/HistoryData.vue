@@ -54,7 +54,7 @@
 
 <script>
 import { GetHistoryData } from "@/api/index";
-import Curve from "@/components/elc/curve.vue";
+import Curve from "@/components/economicLifeCycle/curve.vue";
 
 export default {
   components: { Curve },

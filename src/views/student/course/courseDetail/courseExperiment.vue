@@ -244,7 +244,7 @@ export default {
           break;
         case 6:
           this.$router.push({
-            path: "/studentHome/concreteCourse/elc",
+            path: "/studentHome/concreteCourse/EconomicLife",
             query: {
               id: row.ex_id,
               title: row.experiment_title,

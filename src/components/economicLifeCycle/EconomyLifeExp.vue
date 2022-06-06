@@ -54,11 +54,11 @@
 </template>
 
 <script>
-import InitialStep1 from "@/components/elc/InitialStep1.vue"
-import QuestionStep2 from "@/components/elc/QuestionStep2.vue"
-import FileStep3 from "@/components/elc/FileStep3.vue"
-import HistoryData from "@/components/elc/HistoryData.vue"
-import RemainingTime from "@/components/elc/RemainingTime.vue"
+import InitialStep1 from "@/components/economicLifeCycle/InitialStep1.vue"
+import QuestionStep2 from "@/components/economicLifeCycle/QuestionStep2.vue"
+import FileStep3 from "@/components/economicLifeCycle/FileStep3.vue"
+import HistoryData from "@/components/economicLifeCycle/HistoryData.vue"
+import RemainingTime from "@/components/economicLifeCycle/RemainingTime.vue"
 export default {
   name: "EconomyLife",
   components: {
