@@ -54,6 +54,8 @@ const routes = [
           { path: '/studentHome/concreteCourse/cyh', component: () => import('../components/cyh/BreakEventExp.vue') },
           // 不确定分析
           // { path: '/experiment/uncertainty-analysis', component: () => import('../views/Experiments/UncertiantyAnalysis') },
+          //经济寿命周期
+          { path: '/studentHome/concreteCourse/elc', component: () => import('../components/elc/EconomyLifeExp.vue') },
 
         ]
       },

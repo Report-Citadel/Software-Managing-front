@@ -8,6 +8,7 @@ import VueAxios from 'vue-axios'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 import Vuetify from './plugins/vuetify.js'
+import VeLine from 'v-charts/lib/line.common'
 //图标
 import 'material-design-icons-iconfont/dist/material-design-icons.css'
 import 'vuetify/dist/vuetify.min.css'
@@ -33,6 +34,7 @@ Vue.use(Vuetify)
 Vue.use(vueToPdf);
 Vue.use(htmlToPdf)
 Vue.use(VueQuillEditor)
+Vue.component(VeLine.name,VeLine)
 
 Vue.config.productionTip = false
 Vue.prototype.$Base64 = Base64;

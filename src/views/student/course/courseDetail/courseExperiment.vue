@@ -216,6 +216,15 @@ export default {
             },
           });
           break;
+        case 6:
+          this.$router.push({
+            path: "/studentHome/concreteCourse/elc",
+            query: {
+              id: row.ex_id,
+              title: row.experiment_title,
+            },
+          });
+          break;
         default:
           console.log("goToExcise", row);
       }
