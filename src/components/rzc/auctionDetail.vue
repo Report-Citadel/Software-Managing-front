@@ -265,29 +265,20 @@ export default {
   margin: 0px 50px;
 }
 .left-box {
+  width: 46%;
   height: 500px;
   float: left;
   margin: 20px 20px;
 }
 .right-box {
+  width: 46%;
   height: 350px;
   float: left;
-  margin: 40px 20px;
+  margin: 20px 20px;
   box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
 }
 .butt {
   margin: 10px 10px;
 }
-.el-aside {
-  overflow: hidden;
-}
-.navigator {
-  position: fixed;
-  margin: -0.53% auto;
-  left: -6%;
-  z-index: 5;
-}
-/* .el-main{
-  margin-left: 15%;
-} */
+
 </style>

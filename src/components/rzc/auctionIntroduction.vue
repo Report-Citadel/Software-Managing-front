@@ -3,13 +3,7 @@
     <!--布局容器-->
       <el-container style="height: 100%;min-height:100%; " direction="vertical">
       
-          
-          <!--左侧侧边栏-->
-          <!-- <el-aside width="13%" class="navigator">
-            <Navigator></Navigator>
-          </el-aside> -->
-          <!--主要区域容器-->
-          <!-- <div class="courses" > -->
+
             <div style="width:100%;">
               <el-button type="primary" @click="Exit()" style="float:left;">←退出</el-button>
             </div>
@@ -23,7 +17,7 @@
                     </el-steps>
                    <p></p>
 
-                    <div style="width:100%;display:flex;max-height:300px;overflow-y:scroll;">
+                    <div style="width:100%;display:flex;max-height:360px;overflow-y:scroll;">
                       <div class="ongoing">
                         <el-divider><h2>进行中</h2></el-divider>
                         
@@ -35,7 +29,7 @@
     关闭时间：{{item.endTime.split('T')[0]}}&nbsp;{{item.endTime.split('T')[1]}}
     <br>
    
-    <el-button type="text" @click="enter(item.auctionId)" >进入实验></el-button>
+    <el-button type="text" @click="enter(item.auctionId)" >参与出价></el-button>
     <el-button type="text" @click="curve(item.auctionId)">查看供需曲线></el-button>
     <el-button type="text" @click="will(item.auctionId)">查看意向表></el-button>
 
@@ -51,7 +45,7 @@
     关闭时间：{{item.endTime.split('T')[0]}}&nbsp;{{item.endTime.split('T')[1]}}
     <br>
    
-    <el-button type="text" disabled @click="enter(item.auctionId)" >进入实验></el-button>
+    <el-button type="text" disabled @click="enter(item.auctionId)" >参与出价></el-button>
     <el-button type="text" @click="curve(item.auctionId)">查看供需曲线></el-button>
     <el-button type="text" @click="will(item.auctionId)">查看意向表></el-button>
 
@@ -174,20 +168,10 @@ will(id){
  </script>
 
  <style>
-.el-aside{
-  overflow: hidden;
-}
-
-.navigator{
-  position:fixed;
-  margin:-0.53% auto;
-  left:-6%;
-  z-index:5;
-}
-
 .eachAuction{
   width:85%;
   padding: 10px 40px;
+  margin-left: 20px;
   height: 150px;
   float: left;
   box-shadow: 0 5px 14px  rgba(51, 102, 255, 0.24);
