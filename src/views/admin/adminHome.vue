@@ -12,35 +12,35 @@
                 <span>个人信息</span>
               </template>
               <el-menu-item-group>
-                <el-menu-item index="/adminHome/account"
+                <el-menu-item @click="accountinfo()"
                   >查看个人资料</el-menu-item
                 >
-                <el-menu-item index="/adminHome/modifyAccount"
+                <el-menu-item  @click="modifyAccount()"
                   >编辑个人资料</el-menu-item
                 >
                 <el-menu-item index="/adminHome/modifyPassword"
                   >修改密码</el-menu-item
                 >
               </el-menu-item-group>
-            </el-submenu>
-            <!-- <el-menu-item index="/adminHome/userManage/accountAdd">
+            </el-submenu> 
+            <el-menu-item index="/adminHome/userManage/accountAdd" v-if="auth_create_account">
               <i class="el-icon-user"></i>
-              <span slot="title">用户管理</span>
+              <span slot="title">创建账户</span>
             </el-menu-item>
 
-            <el-menu-item index="/" @click="Logout()">
+            <!-- <el-menu-item index="/" @click="Logout()">
               <i class="el-icon-reading"></i>
               <span slot="title">退出登录</span>
             </el-menu-item> -->
-            <el-menu-item index="/adminHome/annManage" v-if="auth_create_account">
+            <!-- <el-menu-item index="/adminHome/annManage" v-if="auth_create_account">
               <i class="el-icon-postcard"></i>
               <span slot="title">创建账户</span>
-            </el-menu-item>
-            <el-menu-item index="/adminHome/annManage" v-if="auth_delete_account">
+            </el-menu-item> -->
+            <el-menu-item index="/adminHome/userManage/accountCancel" v-if="auth_delete_account">
               <i class="el-icon-postcard"></i>
               <span slot="title">删除账户</span>
             </el-menu-item>
-            <el-menu-item index="/adminHome/annManage" v-if="auth_edit_info">
+            <el-menu-item index="/adminHome/userManage/accountCheck" v-if="auth_edit_info">
               <i class="el-icon-postcard"></i>
               <span slot="title">修改账户信息</span>
             </el-menu-item>
@@ -78,9 +78,9 @@
 // import axios from "axios";
 export default {
   created() {
-    console.log("created");
+    // console.log("created");
     var authorities = sessionStorage.getItem("authorities");
-    console.log(authorities);
+    // console.log(authorities);
     this.auth_create_account = (authorities.indexOf("create_account") != -1);
     this.auth_delete_account = (authorities.indexOf("delete_account") != -1);
     this.auth_edit_auth = (authorities.indexOf("edit_auth") != -1);
@@ -99,6 +99,26 @@ export default {
     };
   },
   methods: {
+    accountinfo(){
+      this.$router.push({
+        path: "/adminHome/userManage/accountInfo",
+        query: {
+          info: this.$Base64.encode(
+            JSON.stringify({ id: sessionStorage.getItem("id"), role: sessionStorage.getItem("role") })
+          ),
+        },
+      });
+    },
+    modifyAccount() {
+      this.$router.push({
+        path: "/adminHome/userManage/accountModify",
+        query: {
+          info: this.$Base64.encode(
+            JSON.stringify({ id: sessionStorage.getItem("id"), role: sessionStorage.getItem("role")  })
+          ),
+        },
+      });
+    },
     handleOpen(key, keyPath) {
       console.log(key, keyPath);
     },

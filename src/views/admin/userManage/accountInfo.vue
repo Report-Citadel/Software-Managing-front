@@ -5,50 +5,45 @@
       <el-card>
         <el-descriptions title="账户信息" :column="2" border size="medium">
           <template slot="extra">
-            <el-button type="primary" size="medium" @click="back"
-              >返回</el-button
-            >
-            <el-button type="primary" size="medium" @click="modifyAccount()"
-              >编辑</el-button
-            >
+            <el-button type="primary" size="medium" @click="back">返回</el-button>
+            <el-button type="primary" size="medium" @click="modifyAccount()">编辑</el-button>
           </template>
           <el-descriptions-item>
             <template slot="label"> 姓名 </template>
-            {{ name }}
+            {{ tableData.name }}
           </el-descriptions-item>
           <el-descriptions-item>
             <template slot="label"> 学号 </template>
-            {{ id }}
-          </el-descriptions-item>
-          <el-descriptions-item>
-            <template slot="label"> 性别 </template>
-            {{ gender }}
-          </el-descriptions-item>
-          <el-descriptions-item>
-            <template slot="label"> 手机号 </template>
-            {{ phone_number }}
+            {{ tableData.id }}
           </el-descriptions-item>
           <el-descriptions-item>
             <template slot="label"> 邮箱 </template>
-            {{ email }}
+            {{ tableData.email }}
           </el-descriptions-item>
           <el-descriptions-item>
-            <template slot="label"> 状态 </template>
-            <el-tag
-              :type="is_active === 1 ? 'success' : 'danger'"
-              disable-transitions
-              ><span v-if="is_active === 1">激活</span>
-              <span v-if="is_active === 0">非激活</span></el-tag
-            >
+            <template slot="label"> 身份 </template>
+            {{ tableData.identityname }}
+          </el-descriptions-item>
+          <el-descriptions-item v-if="tableData.identity >= 4">
+            <template slot="label"> 年级 </template>
+            {{ tableData.grade }}
+          </el-descriptions-item>
+          <el-descriptions-item v-if="tableData.identity >= 4">
+            <template slot="label"> 专业 </template>
+            {{ tableData.major }}
+          </el-descriptions-item>
+          <el-descriptions-item v-if="tableData.identity >= 4">
+            <template slot="label"> 班级 </template>
+            {{ tableData.class_id }}
           </el-descriptions-item>
 
-          <el-descriptions-item>
+          <el-descriptions-item v-if="tableData.identity == 2 || tableData.identity == 3">
             <template slot="label"> 学院 </template>
-            {{ department }}
+            {{ tableData.school }}
           </el-descriptions-item>
-          <el-descriptions-item>
-            <template slot="label"> 专业 </template>
-            {{ major_id }}
+          <el-descriptions-item v-if="tableData.identity == 2 || tableData.identity == 3">
+            <template slot="label"> 职称 </template>
+            {{ tableData.title }}
           </el-descriptions-item>
         </el-descriptions>
       </el-card>
@@ -58,6 +53,7 @@
 
 
 <script>
+import axios from "axios";
 export default {
   data() {
     return {
@@ -70,6 +66,7 @@ export default {
       department: "",
       major_id: "",
       role: "",
+      tableData: null,
     };
   },
   methods: {
@@ -85,7 +82,81 @@ export default {
       console.log("路有参数" + this.id + this.role);
     },
 
-    getInfo() {},
+    getInfo() {
+      switch (this.role) {
+        case "1":
+          axios({
+            method: "GET",
+            baseURL: '/api',
+            url: "/user/getadmininfo",
+            params: {
+              id: this.id
+            }
+          }).then((res) => {
+            console.log(res.data.data);
+            this.tableData = res.data.data;
+            this.tableData.identityname = "管理员";
+          }).catch((err) => {
+            console.log(err);
+            this.$message({
+              message: "服务器错误",
+              type: "error",
+            });
+          })
+          break;
+        case "2":
+        case "3":
+          axios({
+            method: "GET",
+            baseURL: '/api',
+            url: "/user/getteacherinfo",
+            params: {
+              id: this.id
+            }
+          }).then((res) => {
+            console.log(res.data.data);
+            this.tableData = res.data.data;
+            if (this.tableData.identity == 2) {
+              this.tableData.identityname = "责任教师";
+            } else {
+              this.tableData.identityname = "普通教师";
+            }
+          }).catch((err) => {
+            console.log(err);
+            this.$message({
+              message: "服务器错误",
+              type: "error",
+            });
+          })
+          break;
+
+        default:
+          axios({
+            method: "GET",
+            baseURL: '/api',
+            url: "/user/getstudentinfo",
+            params: {
+              id: this.id
+            }
+          }).then((res) => {
+            console.log(res.data.data);
+            this.tableData = res.data.data;
+            if (this.tableData.identity == 4) {
+              this.tableData.identityname = "助教";
+            } else {
+              this.tableData.identityname = "学生";
+            }
+          }).catch((err) => {
+            console.log(err);
+            this.$message({
+              message: "服务器错误",
+              type: "error",
+            });
+          })
+          break;
+      }
+
+    },
 
     modifyAccount() {
       this.$router.push({

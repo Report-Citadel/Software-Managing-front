@@ -140,8 +140,8 @@ export default {
       ],
 
       ruleForm: {
-        id: "666666",
-        password: "666666",
+        id: "10001",
+        password: "10001",
       },
       rules: {
         id: [{ validator: validatePass }],
@@ -229,6 +229,8 @@ export default {
             // console.log(res);
             sessionStorage.setItem("role", res.data.data.identity);
             sessionStorage.setItem("authorities", res.data.data.authorities);
+            sessionStorage.setItem("token", res.data.data.token);
+            sessionStorage.setItem("id", res.data.data.userid);
             console.log(res.data.data.identity === 1)
             switch (res.data.data.identity) {
               case "1":
