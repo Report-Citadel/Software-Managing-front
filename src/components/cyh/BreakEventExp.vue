@@ -119,7 +119,7 @@ export default {
       let axios = require("axios");
       let FormData = require("form-data");
       let postData = new FormData();
-      postData.append("userEmail", this.$store.getters.userEmail);
+      postData.append("userEmail", "1950089@tongji.edu.cn");
       postData.append("experimentId", "1");
       postData.append("price", this.answerForm.price);
       postData.append("fixedCost", this.answerForm.fixedCost);
@@ -131,7 +131,7 @@ export default {
       postData.append("state", status);
       let config = {
         method: "post",
-        url: "http://8.130.26.39:8082/experiment/report/write",
+        url: "http://139.224.251.185:8082/experiment/report/write",
         data: postData,
       };
 
@@ -168,9 +168,9 @@ export default {
 
     let config = {
       method: "get",
-      url: "http://8.130.26.39:8082/experiment/temporaryReport/get",
+      url: "http://139.224.251.185:8082/experiment/temporaryReport/get",
       params: {
-        userEmail: this.$store.getters.userEmail,
+        userEmail: "1950089@tongji.edu.cn",
       },
     };
 

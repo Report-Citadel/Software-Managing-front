@@ -194,9 +194,9 @@ export default {
 
     fillEx(row) {
       switch (row.ex_id) {
-        case 3:
+        case 1:
           this.$router.push({
-            path: "/studentHome/concreteCourse/DemandSupplyReport",
+            path: "/studentHome/concreteCourse/FillSimulater",
             query: {
               id: row.ex_id,
               title: row.experiment_title,
@@ -235,14 +235,22 @@ export default {
           break;
         case 4:
           this.$router.push({
-            path: "/studentHome/concreteCourse/cyh",
+            path: "/studentHome/concreteCourse/BalanceCost",
             query: {
               id: row.ex_id,
               title: row.experiment_title,
             },
           });
           break;
-
+        case 6:
+          this.$router.push({
+            path: "/studentHome/concreteCourse/EconomicLife",
+            query: {
+              id: row.ex_id,
+              title: row.experiment_title,
+            },
+          });
+          break;
         default:
           console.log("goToExcise", row);
       }
