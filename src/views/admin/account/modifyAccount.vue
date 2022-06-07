@@ -1,9 +1,10 @@
 <template>
-  <el-card
+  <el-card 
     style="
       box-shadow: 7px 7px 7px rgba(0, 0, 0, 0.15);
       margin-left: 15%;
       margin-right: 15%;
+      margin-top: 150px
     "
   >
     <el-form

@@ -1,8 +1,8 @@
 <template>
   <div>
-    <el-card>
+    <el-card style="margin-top: 100px">
       <el-dropdown @command="handleCommandDetail" style="margin-right: 10px">
-        <el-button type="info" style="background: #7986cb; color: white">
+        <el-button  type="primary" plain>
           手动添加<i class="el-icon-arrow-down el-icon--right"></i>
         </el-button>
         <el-dropdown-menu slot="dropdown">

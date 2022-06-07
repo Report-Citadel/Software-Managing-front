@@ -1,7 +1,7 @@
 <!-- 查看页面-->
 <template>
   <div>
-    <el-card>
+    <el-card style="margin-top: 100px">
       <el-table ref="filterTable" :data="
         tableData.slice((currentPage - 1) * pagesize, currentPage * pagesize)
       " style="width: 100%">
