@@ -39,6 +39,8 @@
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
   data() {
     return {
@@ -74,6 +76,18 @@ export default {
         },
       });
     },
+    async get(){
+      await axios.get("http://101.132.121.170:8018/course-server/class/get/teacher/class",{
+        params:{
+          teacher_id:sessionStorage.getItem("id")
+        }
+      }).then(res=>{
+        console.log(res)
+      })
+    }
   },
+  mounted() {
+    this.get()
+  }
 };
 </script>
