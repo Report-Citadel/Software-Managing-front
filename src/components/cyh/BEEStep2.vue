@@ -87,6 +87,7 @@ export default {
           this.xAxisData[i] * Number(this.answerForm.variableCost)
         );
       }
+      // console.log(this.variableCosts, "variableCosts")
     },
     setTotalCosts() {
       for (let i = 0; i < this.xAxisData.length; i++) {
@@ -95,16 +96,19 @@ export default {
             Number(this.answerForm.fixedCost)
         );
       }
+      // console.log(this.totalCosts, "totalCosts")
     },
     setSales() {
       for (let i = 0; i < this.xAxisData.length; i++) {
         this.sales.push(this.xAxisData[i] * Number(this.answerForm.price));
       }
+      // console.log(this.sales,"sales")
     },
     setFixedCosts() {
       for (let i = 0; i < this.xAxisData.length; i++) {
         this.fixedCosts.push(Number(this.answerForm.fixedCost));
       }
+      // console.log(this.fixedCosts, "fixedCosts")
     },
     createChart() {
       this.setSales();

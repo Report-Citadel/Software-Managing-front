@@ -209,26 +209,7 @@ export default {
           professor:sessionStorage.getItem("id"),
         },
       ],
-      classes: [
-        {
-          class_id: 4129302,
-          student_num: 42,
-          ta_name: "王明",
-          teacher_name: "黄杰",
-        },
-        {
-          class_id: 4129303,
-          student_num: 42,
-          ta_name: "王明",
-          teacher_name: "黄杰",
-        },
-        {
-          class_id: 4129304,
-          student_num: 42,
-          ta_name: "王明",
-          teacher_name: "黄杰",
-        },
-      ],
+      classes: [],
       options1: [],
       options2: [],
       owntas: [],

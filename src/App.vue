@@ -2,6 +2,7 @@
   <div id="app">
     <div id="nav">
       <!-- <a href="/"><img src="@/assets/SystemLogo.png" /></a> -->
+
       <el-menu
         :default-active="activeIndex"
         class="el-menu-demo"

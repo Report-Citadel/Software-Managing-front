@@ -18,7 +18,13 @@
         "
         style="width: 100%"
       >
-        <el-table-column prop="experiment_title" label="实验名称" sortable />
+        <el-table-column prop="experiment_title" label="实验名称" sortable >
+        <template slot-scope="scope"
+            ><el-link @click="specialFunc(scope.row)">{{
+              scope.row.experiment_title
+            }}</el-link>
+          </template>
+          </el-table-column>
         <el-table-column prop="end_time" label="截止日期" sortable />
         <el-table-column
           prop="status"
@@ -204,13 +210,25 @@ export default {
 
     },
     handleGrade(row) {
-      this.$router.push({
-        path: "/teacherHome/concreteCourse/stuExperList",
-        query: {
-          ex_id: row.ex_id,
-          ex_type: row.ex_type,
-        },
-      });
+      switch (row.ex_id) {
+        case 4:
+          this.$router.push({
+            path: "/studentHome/concreteCourse/BalanceCostExp",
+            // query: {
+            //   id: row.ex_id,
+            //   title: row.experiment_title,
+            // },
+          });
+          break;
+        default:
+          this.$router.push({
+            path: "/teacherHome/concreteCourse/stuExperList",
+            query: {
+              ex_id: row.ex_id,
+              ex_type: row.ex_type,
+            },
+          });
+      }
     },
 
     handleFile() {
@@ -223,6 +241,19 @@ export default {
         "class_id"
       ];
       console.log("cid===" + this.c_id);
+    },
+    specialFunc(row) {
+      switch (row.ex_id) {
+        case 3:
+          this.$router.push({
+            path: "/teacherHome/concreteCourse/Exper/DemandSupplyManage",
+            query: {
+              id: row.ex_id,
+              title: row.experiment_title,
+            },
+          });
+          break;
+      }
     },
   },
   mounted() {
