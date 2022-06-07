@@ -32,11 +32,17 @@
               <i class="el-icon-reading"></i>
               <span slot="title">退出登录</span>
             </el-menu-item> -->
-            <el-menu-item index="/adminHome/annManage" v-if="auth_create_account">
+            <el-menu-item
+              index="/adminHome/annManage"
+              v-if="auth_create_account"
+            >
               <i class="el-icon-postcard"></i>
               <span slot="title">创建账户</span>
             </el-menu-item>
-            <el-menu-item index="/adminHome/annManage" v-if="auth_delete_account">
+            <el-menu-item
+              index="/adminHome/annManage"
+              v-if="auth_delete_account"
+            >
               <i class="el-icon-postcard"></i>
               <span slot="title">删除账户</span>
             </el-menu-item>
@@ -48,6 +54,10 @@
               <i class="el-icon-postcard"></i>
               <span slot="title">修改权限信息</span>
             </el-menu-item>
+            <el-menu-item index="/" @click="Logout()">
+              <i class="el-icon-reading"></i>
+              退出登录
+            </el-menu-item>
           </el-menu>
         </div>
       </el-aside>
@@ -57,10 +67,21 @@
     </el-container>
 
     <el-dialog title="头像设置" :visible.sync="avatarDialog" center width="20%">
-      <el-upload class="avatar-uploader" action="" :show-file-list="false" :on-success="handleAvatarSuccess"
-        :on-remove="handleRemove" :before-upload="beforeAvatarUpload" :data="id">
+      <el-upload
+        class="avatar-uploader"
+        action=""
+        :show-file-list="false"
+        :on-success="handleAvatarSuccess"
+        :on-remove="handleRemove"
+        :before-upload="beforeAvatarUpload"
+        :data="id"
+      >
         <img v-if="imageUrl" :src="imageUrl" class="avatar" />
-        <span v-if="imageUrl" class="el-upload-action" @click.stop="handleRemove()">
+        <span
+          v-if="imageUrl"
+          class="el-upload-action"
+          @click.stop="handleRemove()"
+        >
           <i class="el-icon-delete"></i>
         </span>
         <i v-else class="el-icon-upload2 avatar-uploader-icon" stop></i>
@@ -81,11 +102,10 @@ export default {
     console.log("created");
     var authorities = sessionStorage.getItem("authorities");
     console.log(authorities);
-    this.auth_create_account = (authorities.indexOf("create_account") != -1);
-    this.auth_delete_account = (authorities.indexOf("delete_account") != -1);
-    this.auth_edit_auth = (authorities.indexOf("edit_auth") != -1);
-    this.auth_edit_info = (authorities.indexOf("edit_info") != -1);
-
+    this.auth_create_account = authorities.indexOf("create_account") != -1;
+    this.auth_delete_account = authorities.indexOf("delete_account") != -1;
+    this.auth_edit_auth = authorities.indexOf("edit_auth") != -1;
+    this.auth_edit_info = authorities.indexOf("edit_info") != -1;
   },
   data() {
     return {
@@ -154,8 +174,6 @@ export default {
     },
     getAvatar() {
       //获取头像
-
-
     },
     Logout() {
       sessionStorage.removeItem("role");

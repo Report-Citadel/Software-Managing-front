@@ -46,8 +46,9 @@ const routes = [
           { path: '/studentHome/concreteCourse/Exper', component: () => import('../views/student/course/courseDetail/courseExperiment.vue') },
           { path: '/studentHome/concreteCourse/Peo', component: () => import('../views/student/course/courseDetail/coursePeople.vue') },
           { path: '/studentHome/concreteCourse/Perform', component: () => import('../views/student/course/courseDetail/coursePerformance.vue') },
-
+          { path: '/studentHome/concreteCourse/ConExper', component: () => import('../views/student/course/concreteCourse.vue') },
           { path: '/studentHome/concreteCourse/FillExper', component: () => import('../views/student/course/experiment/experimentFill.vue') },
+          { path: '/studentHome/concreteCourse/FillSimulater', component: () => import('../views/student/course/experiment/experimentSimulater.vue') },
           { path: '/studentHome/concreteCourse/File', component: () => import('../views/student/course/courseDetail/courseFile.vue') },
 
           //rzc拍卖
@@ -56,10 +57,14 @@ const routes = [
           { path: '/studentHome/concreteCourse/DemandSupplyCurve', component: () => import('../components/rzc/auctionDetail.vue') },
           { path: '/studentHome/concreteCourse/DemandSupplyIntention', component: () => import('../components/rzc/auctionIntention.vue') },
           { path: '/studentHome/concreteCourse/DemandSupplyReport', component: () => import('../components/rzc/auctionReport.vue') },
+          { path: '/teacherHome/concreteCourse/Exper/DemandSupplyManage', component: () => import('../components/rzc/auctionManagement.vue') },
           
           //cyh盈亏平衡
           { path: '/studentHome/concreteCourse/BalanceCost', component: () => import('../components/cyh/BreakEventExp.vue') },
           // 不确定分析
+          // { path: '/experiment/uncertainty-analysis', component: () => import('../views/Experiments/UncertiantyAnalysis') },
+          //经济寿命周期
+          { path: '/studentHome/concreteCourse/EconomicLife', component: () => import('../components/economicLifeCycle/EconomyLifeExp.vue') },
           { path: '/experiment/uncertainty-analysis', component: () => import('../views/Experiments/UncertiantyAnalysis') },
 
         ]
