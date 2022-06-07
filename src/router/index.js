@@ -96,20 +96,24 @@ const routes = [
         ]
       },
       //用户
-      {
-        path: '/adminHome/userManage',
-        name: 'AdminUserManage',
-        component: () => import('../views/admin/userManage/accountManageHome.vue'),
-        children: [
-          { path: '/adminHome/userManage/accountAdd', component: () => import('../views/admin/userManage/accountAdd.vue') },
-          { path: '/adminHome/userManage/accountCheck', component: () => import('../views/admin/userManage/accountCheck.vue') },
-          { path: '/adminHome/userManage/accountInfo', component: () => import('../views/admin/userManage/accountInfo.vue') },
-          { path: '/adminHome/userManage/accountModify', component: () => import('../views/admin/userManage/accountModify.vue') },
-          { path: '/adminHome/userManage/accountCancel', component: () => import('../views/admin/userManage/accountCancel.vue') },
-        ]
-      },
+      // {
+      //   path: '/adminHome/userManage',
+      //   name: 'AdminUserManage',
+      //   component: () => import('../views/admin/userManage/accountManageHome.vue'),
+      //   children: [
+      //     { path: '/adminHome/userManage/accountAdd', component: () => import('../views/admin/userManage/accountAdd.vue') },
+      //     { path: '/adminHome/userManage/accountCheck', component: () => import('../views/admin/userManage/accountCheck.vue') },
+      //     { path: '/adminHome/userManage/accountInfo', component: () => import('../views/admin/userManage/accountInfo.vue') },
+      //     { path: '/adminHome/userManage/accountModify', component: () => import('../views/admin/userManage/accountModify.vue') },
+      //     { path: '/adminHome/userManage/accountCancel', component: () => import('../views/admin/userManage/accountCancel.vue') },
+      //   ]
+      // },
 
-
+      {path: '/adminHome/accountAdd',component: () => import('../views/admin/userManage/accountAdd.vue')},
+      {path: '/adminHome/accountCheck',component: () => import('../views/admin/userManage/accountCheck.vue')},
+      {path: '/adminHome/accountInfo',component: () => import('../views/admin/userManage/accountInfo.vue')},
+      {path: '/adminHome/accountModify',component: () => import('../views/admin/userManage/accountModify.vue')},
+      {path: '/adminHome/accountCancel',component: () => import('../views/admin/userManage/accountCancel.vue')},
     ]
   },
   {
