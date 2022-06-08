@@ -34,7 +34,6 @@
                 >
               </el-menu-item-group>
             </el-submenu>
-            <el-menu-item index="/teacherHome/myClass">我的班级</el-menu-item>
 
             <el-submenu index="3">
               <template slot="title">

@@ -44,12 +44,6 @@ export default {
       show: false,
       // 获得的课程信息可以放在这个classData里面，格式可以按照这样来，要显示什么，直接在上面的地方修改即可
       classData: [
-        {
-          class_id: 401902,
-          course_name: "软件工程",
-          year: 2021,
-          semester: "春季",
-        },
       ],
       id: "",
     };

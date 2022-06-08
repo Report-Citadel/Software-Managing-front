@@ -21,33 +21,11 @@
           <template slot-scope="scope"
           >
             <el-link @click="specialFunc(scope.row)">{{
-                scope.row.experiment_title
+                scope.row.name
               }}
             </el-link>
           </template>
         </el-table-column>
-        <el-table-column prop="end_time" label="截止日期" sortable/>
-        <el-table-column
-            prop="status"
-            label="状态"
-            sortable
-            :filters="[
-            { text: '未过期', value: '未过期' },
-            { text: '已过期', value: '已过期' },
-          ]"
-            :filter-method="filterTag"
-            filter-placement="bottom-end"
-        >
-          <template slot-scope="scope">
-            <el-tag
-                :type="scope.row.status === '未过期' ? 'primary' : 'success'"
-                disable-transitions
-            >{{ scope.row.status }}
-            </el-tag
-            >
-          </template>
-        </el-table-column>
-        <el-table-column prop="weight" label="权重" sortable/>
 
         <el-table-column>
           <template #header>
@@ -61,10 +39,16 @@
                 </v-btn
                 >
               </v-col>
-              <v-col>
+              <v-col v-if="scope.row.file !==  null">
                 <v-btn small dark  @click="dialogFormVisible = true"
                        :disabled="isnotOK"
-                >上传
+                >上传实验指导书
+                </v-btn
+                >
+              </v-col>
+              <v-col v-else>
+                <v-btn small dark
+                >查看实验指导书
                 </v-btn
                 >
               </v-col>
@@ -292,7 +276,15 @@ export default {
       this.dialogVisible = true;
     },
 
-    getCourseEx() {
+    async getCourseEx() {
+      await axios.get("http://101.132.121.170:8018/course-server/class/experiment",{
+        params:{
+          class_id:this.$route.query.id
+        }
+      }).then(res=>{
+        console.log(res)
+        this.experimentList = res.data
+      })
     },
     getParams: function () {
       this.c_id = this.$route.query.id

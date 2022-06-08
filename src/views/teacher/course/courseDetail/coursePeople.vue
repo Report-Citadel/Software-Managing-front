@@ -12,6 +12,8 @@
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
   data() {
     return {
@@ -24,7 +26,21 @@ export default {
     getParams: function () {
       this.c_id = this.$route.query.id
     },
+    async getPeople(){
+      await axios({
+        method: "get",
+        baseURL:'http://139.196.114.7:8082',
+        url: "/user/getstudentbyclassid",
+        params: {class_id:this.c_id}
+      }).then(res=>{
+        console.log(res)
+      })
+    },
   },
+  mounted() {
+    this.getParams()
+    this.getPeople()
+  }
 
 };
 </script>
