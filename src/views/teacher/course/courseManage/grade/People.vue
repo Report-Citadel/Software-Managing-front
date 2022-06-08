@@ -70,7 +70,7 @@ export default {
     },
     getStudents(courseid) {
       this.axios
-        .get("http://139.196.181.186:8000/api/findByCourseId", {
+        .get("/yxk/findByCourseId", {
           params: { courseId: courseid },
         })
         .then((res) => {

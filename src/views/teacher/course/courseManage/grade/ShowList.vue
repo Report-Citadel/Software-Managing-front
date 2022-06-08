@@ -1,26 +1,6 @@
 <template>
   <div>
     <el-row :gutter="20" style="margin-bottom: 30px">
-      <el-col class="选择班级" :span="6">
-        <el-card class="small_card" style="height: 62px">
-          <a>选择班级：</a>
-          <el-select
-            v-model="course_id"
-            placeholder="请选择班级"
-            size="small"
-            @change="chooseCourse"
-            style="width: 60%"
-          >
-            <el-option
-              v-for="course in courses"
-              :key="course.courseid"
-              :label="course.time"
-              :value="course.courseid"
-            >
-            </el-option>
-          </el-select>
-        </el-card>
-      </el-col>
       <el-col class="班级学生数" :span="6">
         <el-card class="small_card"
           ><a>班级学生数：</a>{{ student_total }}
@@ -48,11 +28,13 @@
 <script>
 import People from "./People.vue";
 export default {
+  props: ["id"],
   components: {
     People,
   },
   data() {
     return {
+      c_id: this.id,
       student_total: "",
       current_average: "",
       attendance_average: "",
@@ -60,36 +42,33 @@ export default {
       courses: [],
     };
   },
-  created() {
-    this.axios.get("http://139.196.181.186:8000/api/getCourse").then((res) => {
-      this.courses = res.data;
-      this.course_id = this.courses[0].courseid;
-      console.log(res.data);
-      this.chooseCourse(this.courses[0].courseid);
-    });
+  mounted() {
+    this.chooseCourse();
   },
   methods: {
-    chooseCourse(value) {
-      this.course_id = value;
+    chooseCourse() {
       this.axios
-        .get("http://139.196.181.186:8000/api/getStudentNum", {
-          params: { courseId: value },
+        .get("/yxk/getStudentNum", {
+          params: { courseId: this.c_id },
         })
         .then((res) => {
+          //console.log("/yxk/getStudentNum", res);
           this.student_total = res.data;
         });
       this.axios
-        .get("http://139.196.181.186:8000/api/getAvgTotal", {
-          params: { courseId: value },
+        .get("/yxk/getAvgTotal", {
+          params: { courseId: this.c_id },
         })
         .then((res) => {
+          //console.log("/yxk/getAvgTotal", res);
           this.current_average = res.data;
         });
       this.axios
-        .get("http://139.196.181.186:8000/api/getAvgAttendance", {
-          params: { courseId: value },
+        .get("/yxk/getAvgAttendance", {
+          params: { courseId: this.c_id },
         })
         .then((res) => {
+          ///console.log("/yxk/getAvgAttendance", res);
           this.attendance_average = res.data;
         });
     },

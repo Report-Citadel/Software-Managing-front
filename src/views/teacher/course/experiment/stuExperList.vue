@@ -5,6 +5,7 @@
       <el-table
         ref="filterTable"
         @selection-change="handleSelectionChange"
+
         :data="
           stuExData.filter(
             (data) =>
@@ -17,7 +18,7 @@
       >
         <el-table-column prop="student_id" label="学号" sortable />
         <el-table-column prop="student_name" label="姓名" sortable />
-        <el-table-column prop="time" label="提交日期" sortable />
+        <el-table-column prop="time" label="提交日期" :formatter="formatDate" sortable />
         <el-table-column>
           <template #header>
             <el-input v-model="search" placeholder="请输入" />
@@ -86,6 +87,18 @@ export default {
     };
   },
   methods: {
+    formatDate(row, column) {
+      // 获取单元格数据
+      let data = row[column.property]
+      console.log("aaaaaaaaaaaaaaaaa",data)
+      if(data == null) {
+        return null
+      }
+      let dt = new Date(data)
+      return dt.getFullYear() + '-' + (dt.getMonth() + 1) + '-' + dt.getDate() + ' ' + dt.getHours() + ':' + dt.getMinutes() + ':' + dt.getSeconds()
+    },
+
+
 
     handleSizeChange: function (val) {
       this.pagesize = val;
@@ -134,6 +147,7 @@ export default {
           console.log("!!!!!!!",res);
           this.stuExData = res.data;
           console.log("%%%",this.stuExData[0].class_id)
+
         });
 
   },

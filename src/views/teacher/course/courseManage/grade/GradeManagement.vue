@@ -1,26 +1,6 @@
 <template>
   <div>
     <el-row :gutter="20" style="margin-bottom: 30px">
-      <el-col class="选择班级" :span="6">
-        <el-card class="small_card" style="height: 62px">
-          <a>选择班级：</a>
-          <el-select
-            v-model="value"
-            placeholder="请选择班级"
-            size="small"
-            @change="chooseCourse"
-            style="width: 60%"
-          >
-            <el-option
-              v-for="course in courses"
-              :key="course.courseid"
-              :label="course.time"
-              :value="course.courseid"
-            >
-            </el-option>
-          </el-select>
-        </el-card>
-      </el-col>
       <el-col class="班级学生数" :span="6">
         <el-card class="small_card">
           <a>班级学生数：</a>{{ student_total }}
@@ -37,10 +17,12 @@
       <el-col :span="18">
         <el-row style="margin-bottom: 20px">
           <el-card style="height: 37vh; margin-bottom: 20px">
-            <pie-chart v-bind:course_id="course_id"></pie-chart>
+            <!--
+            <PieChart v-bind:course_id="course_id"></PieChart>-->
           </el-card>
           <el-card style="height: 40vh">
-            <line-chart></line-chart>
+            <!--
+            <LineChart></LineChart>-->
           </el-card>
         </el-row>
       </el-col>
@@ -55,7 +37,7 @@
               prop="attendanceNum"
             >
               <el-input
-                v-model="gradeForm.attendancenum"
+                v-model="gradeForm.attendanceNum"
                 autocomplete="off"
               ></el-input>
             </el-form-item>
@@ -65,7 +47,7 @@
               prop="attendancePropotion"
             >
               <el-input
-                v-model="gradeForm.attendanceproportion"
+                v-model="gradeForm.attendanceProportion"
                 autocomplete="off"
               ></el-input>
             </el-form-item>
@@ -75,7 +57,7 @@
               prop="projectNum"
             >
               <el-input
-                v-model="gradeForm.projectnum"
+                v-model="gradeForm.projectNum"
                 autocomplete="off"
               ></el-input>
             </el-form-item>
@@ -85,7 +67,7 @@
               prop="projectPropotion"
             >
               <el-input
-                v-model="gradeForm.projectproportion"
+                v-model="gradeForm.projectProportion"
                 autocomplete="off"
               ></el-input>
             </el-form-item>
@@ -95,7 +77,7 @@
               prop="competitionPropotion"
             >
               <el-input
-                v-model="gradeForm.competitionproportion"
+                v-model="gradeForm.competitionProportion"
                 autocomplete="off"
               ></el-input>
             </el-form-item>
@@ -114,19 +96,20 @@
 </template>
 
 <script>
-import PieChart from "./PieChart.vue";
+//import PieChart from "./PieChart.vue";
 
-import LineChart from "./LineChart.vue";
+//import LineChart from "./LineChart.vue";
 
 export default {
   name: "GradeManagement",
+  props: ["id"],
   components: {
-    PieChart,
-
-    LineChart,
+    //PieChart,
+    //LineChart,
   },
   data() {
     return {
+      c_id: this.id,
       value: "",
       formLabelWidth: "80px",
       activeName: "second",
@@ -188,33 +171,23 @@ export default {
   },
   created() {
     this.getsettings();
-    this.axios
-      .get("http://139.196.181.186:8000/api/getCourse", {
-        params: { instructor: localStorage.getItem("id") },
-      })
-      .then((res) => {
-        this.courses = res.data;
-        console.log(res.data);
-        this.course_id = this.courses[0].courseid;
-        this.chooseCourse(this.course_id);
-        this.value = this.courses[0].courseid;
-      });
+    console.log("cid", this.c_id);
+    this.chooseCourse();
   },
   methods: {
     getsettings() {
-      this.axios
-        .get("http://139.196.181.186:8000/api/getGradeSettings")
-        .then((res) => {
-          console.log(res);
-          this.gradeForm = res.data;
-        });
+      this.axios.get("/yxk/getGradeSettings").then((res) => {
+        //console.log("getsettings", res);
+        this.gradeForm = res.data;
+        console.log("getsettings", this.gradeForm);
+      });
     },
     updateGradeSettings() {
       console.log("当前form:");
       console.log(this.gradeForm);
 
       this.axios
-        .post("http://139.196.181.186:8000/api/updateGradeSettings", {
+        .post("/yxk/updateGradeSettings", {
           id: this.gradeForm.id,
           attendancenum: this.gradeForm.attendancenum,
           attendanceproportion: this.gradeForm.attendanceproportion,
@@ -277,28 +250,29 @@ export default {
     cancel() {
       this.getsettings();
     },
-
-    chooseCourse(course_id) {
-      this.course_id = course_id;
+    chooseCourse() {
       this.axios
-        .get("http://139.196.181.186:8000/api/getStudentNum", {
-          params: { courseId: course_id },
+        .get("/yxk/getStudentNum", {
+          params: { courseId: this.c_id },
         })
         .then((res) => {
+          //console.log("/yxk/getStudentNum", res);
           this.student_total = res.data;
         });
       this.axios
-        .get("http://139.196.181.186:8000/api/getAvgTotal", {
-          params: { courseId: course_id },
+        .get("/yxk/getAvgTotal", {
+          params: { courseId: this.c_id },
         })
         .then((res) => {
+          // console.log("/yxk/getAvgTotal", res);
           this.current_average = res.data;
         });
       this.axios
-        .get("http://139.196.181.186:8000/api/getAvgAttendance", {
-          params: { courseId: course_id },
+        .get("/yxk/getAvgAttendance", {
+          params: { courseId: this.c_id },
         })
         .then((res) => {
+          // console.log("/yxk/getAvgAttendance", res);
           this.attendance_average = res.data;
         });
     },

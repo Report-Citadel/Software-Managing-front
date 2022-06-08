@@ -1,6 +1,6 @@
 <template>
   <el-container class="back">
-    <el-header class="hBack">{{ course_name }}</el-header>
+    <el-header class="hBack">{{ c_id }}</el-header>
     <el-container>
       <el-aside width="120px" class="lBack">
         <el-menu @select="handleSelect">
@@ -60,7 +60,7 @@ export default {
   data() {
     return {
       c_id: "",
-      course_name: "软件工程",
+      //course_name: "软件工程",
     };
   },
   methods: {

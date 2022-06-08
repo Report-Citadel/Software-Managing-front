@@ -837,7 +837,7 @@ export default {
   components: {VeLine},
   async created() {
     const tmp=localStorage.getItem('storage');
-    if(tmp==2){
+    if(tmp==3){
       this.newform.plan=3;
       this.newform.state=2;
 
@@ -965,8 +965,8 @@ export default {
   },
 
   methods: {
-    async submitResult() {
-      localStorage.setItem('storage', 2);
+    submitResult() {
+      localStorage.setItem('storage', 3);
       this.$alert("保存成功！", "提示", {
         confirmButtonText: "确定",
       });

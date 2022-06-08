@@ -39,10 +39,10 @@ module.exports = {
                 }
             },
             '/yxk': { // 匹配所有以 '/api'开头的请求路径
-                target: 'http://139.196.181.186::8888', // 代理目标的基础路径
+                target: 'http://139.196.181.186:8889', // 代理目标的基础路径
                 changeOrigin: true, // 支持跨域
                 pathRewrite: { // 重写路径: 去掉路径中开头的'/api'
-                    '^/yxk': '/api'
+                    '^/yxk': '/management'
                 }
             },
 

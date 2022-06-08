@@ -169,6 +169,24 @@ export default {
 
     handleGrade(row) {
       switch (row.ex_id) {
+        case 1:
+          this.$router.push({
+            path: "/studentHome/concreteCourse/FillSimulater",
+            query: {
+              id: row.ex_id,
+              title: row.experiment_title,
+            },
+          });
+          break;
+        case 2:
+          this.$router.push({
+            path: "/experiment/uncertainty-analysis",
+            query: {
+              id: row.ex_id,
+              title: row.experiment_title,
+            },
+          });
+          break;
         case 4:
           this.$router.push({
             path: "/studentHome/concreteCourse/BalanceCostExp",
