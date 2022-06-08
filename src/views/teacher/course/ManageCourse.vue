@@ -409,9 +409,9 @@ export default {
         ta_id: this.newclass.taId,
         teacher_id: this.newclass.teacherId,
         professor:sessionStorage.getItem("id"),
-        experimentList:this.experimentList.toString()
+        experiment_list:this.experimentList.toString()
       };
-      console.log(params)
+      console.log("aaaaaa",params.experimentList)
       await axios
         .post("/class/course-server/class/new", params)
         .then((res) => {
