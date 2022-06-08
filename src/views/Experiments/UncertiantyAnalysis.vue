@@ -973,16 +973,19 @@ export default {
       console.log(this.tableData6[4].suggest)
     },
   },
-  methods: {
-    async submitResult() {
 
-      // for (let i = 0; i < this.newform.plan; i++) {
-      //   for (let j = 0; j < this.newform.state; j++) {
-      //     let tmp = this.tableData[i].xx.toString();
-      //     table1 = tmp + ";";
-      //
-      //   }
-      // }
+  methods: {
+    // getTableOne(){
+    //   let tableone = new String();
+    //   for (let i = 0; i < this.newform.plan; i++) {
+    //     for (let j = 0; j < this.newform.state; j++) {
+    //       let tmp = this.tableData[i].name.toString();
+    //       tableone += tmp + ";";
+    //     }
+    //   }
+    // },
+
+    async submitResult() {
       var params = {
         student_id: "10005",
         table_1: String,
@@ -1017,18 +1020,34 @@ export default {
       // await axios.get('http://101.132.121.170:8090/class/user' + '?user_id=' + params.user_id).then(res => {
       //   this.class = res.data[0].class_id
       // })
+      // let fd = new FormData()
+      // fd.append('student_name', "test学生")
+      // fd.append('class_id', "420120120")
+      // fd.append('experiment_id', 2)
+      // fd.append('student_id', "10005")
+      // fd.append('report_name', "test2")
+      //
+      // this.fileList3.forEach(item => {
+      //   fd.append('file', item.raw)
+      // })
+      // fd.forEach((value, key) => { console.log(`key ${key}: value ${value}`); })
+      // axios.post('http://101.132.121.170:8018/course-server/report/upload', fd).then(res => {
+      //   console.log(res)
+      // })
+
       let fd = new FormData()
       fd.append('experiment_id', 2)
-      fd.append('student_id', 10005)
-      fd.append('report_name', "不确定性分析实验")
-      fd.append('student_name', "测试学生")
-      fd.append('class_id', 1)
+      fd.append('uploader', "TEST")
+
       this.fileList3.forEach(item => {
         fd.append('file', item.raw)
       })
-      axios.post('/class/course-server/report/upload', fd).then(res => {
+      fd.forEach((value, key) => { console.log(`key ${key}: value ${value}`); })
+      axios.post('http://101.132.121.170:8018/course-server/experiment/upload', fd).then(res => {
         console.log(res)
       })
+
+
       this.dialogVisibleaa = false
     },
     handleCommand() {

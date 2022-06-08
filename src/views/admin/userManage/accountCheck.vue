@@ -1,37 +1,28 @@
 <!-- 查看页面-->
 <template>
   <div>
-    <el-card>
-      <el-table
-        ref="filterTable"
-        :data="
-          tableData.slice((currentPage - 1) * pagesize, currentPage * pagesize)
-        "
-        style="width: 100%"
-      >
+    <el-card style="margin-top: 100px">
+      <el-table ref="filterTable" :data="
+        tableData.slice((currentPage - 1) * pagesize, currentPage * pagesize)
+      " style="width: 100%">
         <el-table-column prop="name" label="姓名" sortable />
         <el-table-column prop="id" label="学号" sortable />
-        <el-table-column
-          prop="role"
-          label="身份权限"
-          sortable
-          :filters="[
-            { text: '学生', value: 1 },
-
-            { text: '教师', value: 2 },
-            { text: '助教', value: 3 },
-          ]"
-          :filter-method="filterIdentity"
-        >
+        <el-table-column prop="identity" label="身份权限" sortable :filters="[
+          { text: '学生', value: 1 },
+        
+          { text: '教师', value: 2 },
+          { text: '助教', value: 3 },
+        ]" :filter-method="filterIdentity">
           <template slot-scope="scope">
-            <span v-if="scope.row.role === 1">学生</span>
-
-            <span v-if="scope.row.role === 2">教师</span>
-            <span v-if="scope.row.role === 3">助教</span>
+            <span v-if="scope.row.identity === '1'">管理员</span>
+            <span v-if="scope.row.identity === '2'">责任教师</span>
+            <span v-if="scope.row.identity === '3'">普通教师</span>
+            <span v-if="scope.row.identity === '4'">助教</span>
+            <span v-if="scope.row.identity === '5'">学生</span>
           </template>
         </el-table-column>
-
-        <el-table-column
+        <el-table-column prop="email" label="邮箱" sortable />
+        <!-- <el-table-column
           prop="is_active"
           label="状态"
           sortable
@@ -50,38 +41,25 @@
               <span v-if="scope.row.is_active === 0">非激活</span></el-tag
             >
           </template>
-        </el-table-column>
+        </el-table-column> -->
 
         <el-table-column label="操作">
           <template slot-scope="scope">
-            <el-button
-              class="button"
-              size="small"
-              @click="handleCheck(scope.row)"
-              >查看</el-button
-            >
-            <el-button size="small" type="danger" @click="handleEdit(scope.row)"
-              >编辑</el-button
-            >
+            <el-button class="button" size="small" @click="handleCheck(scope.row)">查看</el-button>
+            <!-- <el-button size="small" type="danger" @click="handleEdit(scope.row)">编辑</el-button> -->
           </template>
         </el-table-column>
       </el-table>
 
-      <el-pagination
-        @size-change="handleSizeChange"
-        @current-change="handleCurrentChange"
-        :current-page="currentPage"
-        :page-size="pagesize"
-        layout="total, prev, pager, next, jumper"
-        :total="tableData.length"
-      >
+      <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage"
+        :page-size="pagesize" layout="total, prev, pager, next, jumper" :total="tableData.length">
       </el-pagination>
     </el-card>
   </div>
 </template>
 
 <script >
-// import axios from "axios";
+import axios from "axios";
 export default {
   data() {
     return {
@@ -89,25 +67,42 @@ export default {
       pagesize: 6,
       tableData: [
         {
-          name:"001",
-          id:"001",
-          role:1,
-          is_active:0,
+          name: "001",
+          id: "001",
+          role: 1,
+          is_active: 0,
         },
         {
-          name:"002",
-          id:"002",
-          role:2,
-          is_active:0,
+          name: "002",
+          id: "002",
+          role: 2,
+          is_active: 0,
         },
         {
-          name:"003",
-          id:"003",
-          role:3,
-          is_active:0,
+          name: "003",
+          id: "003",
+          role: 3,
+          is_active: 0,
         },
       ],
     };
+  },
+  mounted() {
+    console.log("created");
+    axios({
+      method: "GET",
+      baseURL: '/api',
+      url: "/user/getallusers"
+    }).then((res) => {
+      console.log(res.data.data);
+      this.tableData = res.data.data;
+    }).catch((err) => {
+      console.log(err);
+      this.$message({
+        message: "服务器错误",
+        type: "error",
+      });
+    })
   },
   methods: {
     handleSizeChange: function (val) {
@@ -123,7 +118,7 @@ export default {
         path: "/adminHome/userManage/accountInfo",
         query: {
           info: this.$Base64.encode(
-            JSON.stringify({ id: row.id, role: row.role })
+            JSON.stringify({ id: row.id, role: row.identity })
           ),
         },
       });
@@ -149,9 +144,7 @@ export default {
       return row[property] === value;
     },
   },
-  mounted() {
-    //获取所有用户所有信息
-  },
+
 };
 </script>
 
@@ -160,9 +153,11 @@ export default {
   background: #7986cb;
   color: white;
 }
+
 .button:hover {
   color: yellow;
 }
+
 .el-button--danger {
   color: white;
 }

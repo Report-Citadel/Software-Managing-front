@@ -1,63 +1,39 @@
 <template>
   <div>
-    <el-card>
+    <el-card style="margin-top: 100px">
       <el-dropdown @command="handleCommandDetail" style="margin-right: 10px">
-        <el-button type="info" style="background: #7986cb; color: white">
+        <el-button  type="primary" plain>
           手动添加<i class="el-icon-arrow-down el-icon--right"></i>
         </el-button>
         <el-dropdown-menu slot="dropdown">
           <el-dropdown-item command="s">添加学生</el-dropdown-item>
           <el-dropdown-item command="t">添加老师</el-dropdown-item>
-          <el-dropdown-item command="a">添加助教</el-dropdown-item>
+          <el-dropdown-item command="a">添加管理员</el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
 
       <el-dropdown @command="handleCommandForm" style="margin-right: 10px">
-        <el-button type="info" style="background: #7986cb; color: white">
+        <!-- <el-button type="info" style="background: #7986cb; color: white">
           表格导入<i class="el-icon-arrow-down el-icon--right"></i>
-        </el-button>
+        </el-button> -->
         <el-dropdown-menu slot="dropdown">
           <el-dropdown-item command="s">导入学生</el-dropdown-item>
           <el-dropdown-item command="t">导入老师</el-dropdown-item>
-          <el-dropdown-item command="a">导入助教</el-dropdown-item>
+          <el-dropdown-item command="a">导入管理员</el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
 
-      <el-dialog
-        :visible.sync="dialogFormVisibleS"
-        title="请输入学生信息"
-        center
-      >
-        <el-form
-          :model="formS"
-          ref="formS"
-          style="margin: 40px 65px 0px 25px"
-          label-width="80px"
-        >
-          <el-form-item
-            label="姓名"
-            :rules="nameRules"
-            prop="name"
-            status-icon="true"
-          >
+      <el-dialog :visible.sync="dialogFormVisibleS" title="请输入学生信息" center>
+        <el-form :model="formS" ref="formS" style="margin: 40px 65px 0px 25px" label-width="80px">
+          <el-form-item label="姓名" :rules="nameRules" prop="name" status-icon="true">
             <el-input v-model="formS.name" autocomplete="off"></el-input>
           </el-form-item>
 
-          <el-form-item
-            label="学号"
-            :rules="idRules"
-            prop="id"
-            status-icon="true"
-          >
+          <el-form-item label="学号" :rules="idRules" prop="id" status-icon="true">
             <el-input v-model="formS.id"></el-input>
           </el-form-item>
 
-          <el-form-item
-            label="邮箱"
-            prop="email"
-            status-icon="true"
-            :required="true"
-          >
+          <el-form-item label="邮箱" prop="email" status-icon="true" :required="true">
             <el-input type="email" v-model="formS.email"></el-input>
           </el-form-item>
         </el-form>
@@ -67,41 +43,17 @@
         </div>
       </el-dialog>
 
-      <el-dialog
-        :visible.sync="dialogFormVisibleT"
-        title="请输入教师信息"
-        center
-      >
-        <el-form
-          :model="formT"
-          ref="formT"
-          style="margin: 40px 65px 0px 25px"
-          label-width="80px"
-        >
-          <el-form-item
-            label="姓名"
-            :rules="nameRules"
-            prop="name"
-            status-icon="true"
-          >
+      <el-dialog :visible.sync="dialogFormVisibleT" title="请输入教师信息" center>
+        <el-form :model="formT" ref="formT" style="margin: 40px 65px 0px 25px" label-width="80px">
+          <el-form-item label="姓名" :rules="nameRules" prop="name" status-icon="true">
             <el-input v-model="formT.name" autocomplete="off"></el-input>
           </el-form-item>
 
-          <el-form-item
-            label="工号"
-            :rules="idRules"
-            prop="id"
-            status-icon="true"
-          >
+          <el-form-item label="工号" :rules="idRules" prop="id" status-icon="true">
             <el-input v-model="formT.id"></el-input>
           </el-form-item>
 
-          <el-form-item
-            label="邮箱"
-            prop="email"
-            status-icon="true"
-            :required="true"
-          >
+          <el-form-item label="邮箱" prop="email" status-icon="true" :required="true">
             <el-input type="email" v-model="formT.email"></el-input>
           </el-form-item>
         </el-form>
@@ -111,40 +63,17 @@
         </div>
       </el-dialog>
 
-      <el-dialog
-        :visible.sync="dialogFormVisibleA"
-        title="请输入助教信息"
-        center
-      >
-        <el-form
-          :model="formA"
-          style="margin: 40px 65px 0px 25px"
-          label-width="80px"
-        >
-          <el-form-item
-            label="姓名"
-            :rules="nameRules"
-            prop="name"
-            status-icon="true"
-          >
+      <el-dialog :visible.sync="dialogFormVisibleA" title="请输入助教信息" center>
+        <el-form :model="formA" style="margin: 40px 65px 0px 25px" label-width="80px">
+          <el-form-item label="姓名" :rules="nameRules" prop="name" status-icon="true">
             <el-input v-model="formA.name" autocomplete="off"></el-input>
           </el-form-item>
 
-          <el-form-item
-            label="学号"
-            :rules="idRules"
-            prop="ta_id"
-            status-icon="true"
-          >
-            <el-input v-model="formA.ta_id"></el-input>
+          <el-form-item label="学号" :rules="idRules" prop="id" status-icon="true">
+            <el-input v-model="formA.id"></el-input>
           </el-form-item>
 
-          <el-form-item
-            label="邮箱"
-            prop="email"
-            status-icon="true"
-            :required="true"
-          >
+          <el-form-item label="邮箱" prop="email" status-icon="true" :required="true">
             <el-input type="email" v-model="formA.email"></el-input>
           </el-form-item>
         </el-form>
@@ -154,24 +83,11 @@
         </div>
       </el-dialog>
 
-      <el-dialog
-        :visible.sync="dialogExcelVisibleS"
-        title="请选择导入的学生文件"
-        center
-      >
-        <el-upload
-          class="upload-import"
-          ref="uploadImport"
-          action="https://baidu.com/"
-          :on-preview="handlePreviewS"
-          :on-remove="handleRemoveS"
-          :on-change="handleChangeS"
-          :before-remove="beforeRemoveS"
-          :file-list="fileListS"
-          :multiple="true"
-          :auto-upload="false"
-          accept="application/vnd.ms-excel,.csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,"
-        >
+      <el-dialog :visible.sync="dialogExcelVisibleS" title="请选择导入的学生文件" center>
+        <el-upload class="upload-import" ref="uploadImport" action="https://baidu.com/" :on-preview="handlePreviewS"
+          :on-remove="handleRemoveS" :on-change="handleChangeS" :before-remove="beforeRemoveS" :file-list="fileListS"
+          :multiple="true" :auto-upload="false"
+          accept="application/vnd.ms-excel,.csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,">
           <el-button type="primary">选取文件</el-button>
           <div slot="tip" class="el-upload__tip">只能上传excel文件</div>
         </el-upload>
@@ -182,19 +98,10 @@
       </el-dialog>
 
       <el-dialog :visible.sync="dialogExcelVisibleT" title="请选择文件" center>
-        <el-upload
-          class="upload-import"
-          ref="uploadImport"
-          action="https://baidu.com/"
-          :on-preview="handlePreviewT"
-          :on-remove="handleRemoveT"
-          :on-change="handleChangeT"
-          :before-remove="beforeRemoveT"
-          :file-list="fileListT"
-          :multiple="true"
-          :auto-upload="false"
-          accept="application/vnd.ms-excel,.csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,"
-        >
+        <el-upload class="upload-import" ref="uploadImport" action="https://baidu.com/" :on-preview="handlePreviewT"
+          :on-remove="handleRemoveT" :on-change="handleChangeT" :before-remove="beforeRemoveT" :file-list="fileListT"
+          :multiple="true" :auto-upload="false"
+          accept="application/vnd.ms-excel,.csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,">
           <el-button type="primary">选取文件</el-button>
           <div slot="tip" class="el-upload__tip">只能上传excel文件</div>
         </el-upload>
@@ -205,19 +112,10 @@
       </el-dialog>
 
       <el-dialog :visible.sync="dialogExcelVisibleA" title="请选择文件" center>
-        <el-upload
-          class="upload-import"
-          ref="uploadImport"
-          action="https://baidu.com/"
-          :on-preview="handlePreviewTA"
-          :on-remove="handleRemoveTA"
-          :on-change="handleChangeTA"
-          :before-remove="beforeRemoveTA"
-          :file-list="fileListA"
-          :multiple="true"
-          :auto-upload="false"
-          accept="application/vnd.ms-excel,.csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,"
-        >
+        <el-upload class="upload-import" ref="uploadImport" action="https://baidu.com/" :on-preview="handlePreviewTA"
+          :on-remove="handleRemoveTA" :on-change="handleChangeTA" :before-remove="beforeRemoveTA" :file-list="fileListA"
+          :multiple="true" :auto-upload="false"
+          accept="application/vnd.ms-excel,.csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,">
           <el-button type="primary">选取文件</el-button>
           <div slot="tip" class="el-upload__tip">只能上传excel文件</div>
         </el-upload>
@@ -227,77 +125,47 @@
         </div>
       </el-dialog>
 
-      <el-table
-        ref="filterTable"
-        :data="
-          userData.slice((currentPage - 1) * pagesize, currentPage * pagesize)
-        "
-        style="width: 100%"
-      >
+      <el-table ref="filterTable" :data="
+        userData.slice((currentPage - 1) * pagesize, currentPage * pagesize)
+      " style="width: 100%">
         <el-table-column prop="name" label="姓名" sortable />
         <el-table-column prop="id" label="学号" sortable />
-        <el-table-column
-          prop="role"
-          label="身份权限"
-          sortable
-          :filters="[
-            { text: '学生', value: 1 },
-
-            { text: '教师', value: 2 },
-            { text: '助教', value: 3 },
-          ]"
-          :filter-method="filterIdentity"
-        >
+        <el-table-column prop="identity" label="身份权限" sortable :filters="[
+          { text: '学生', value: 1 },
+        
+          { text: '教师', value: 2 },
+          { text: '助教', value: 3 },
+        ]" :filter-method="filterIdentity">
           <template slot-scope="scope">
-            <span v-if="scope.row.role === 1">学生</span>
+            <span v-if="scope.row.identity === '1'">管理员</span>
 
-            <span v-if="scope.row.role === 2">教师</span>
-            <span v-if="scope.row.role === 3">助教</span>
+            <span v-if="scope.row.identity === '2'">责任教师</span>
+            <span v-if="scope.row.identity === '3'">普通教师</span>
+            <span v-if="scope.row.identity === '4'">助教</span>
+            <span v-if="scope.row.identity === '5'">学生</span>
           </template>
         </el-table-column>
 
-        <el-table-column
-          prop="is_active"
-          label="状态"
-          sortable
-          :filters="[
-            { text: '激活', value: 1 },
-            { text: '非激活', value: 0 },
-          ]"
-          :filter-method="filterState"
-          filter-placement="bottom-end"
-        >
+        <!-- <el-table-column prop="email" label="邮箱" :filter-method="filterState" filter-placement="bottom-end">
           <template #default="scope">
-            <el-tag
-              :type="scope.row.is_active === 1 ? 'success' : 'danger'"
-              disable-transitions
-              ><span v-if="scope.row.is_active === 1">激活</span>
-              <span v-if="scope.row.is_active === 0">非激活</span></el-tag
-            >
-          </template>
-        </el-table-column>
-
-        <el-table-column label="手动激活">
+            <el-tag :type="scope.row.is_active === 1 ? 'success' : 'danger'" disable-transitions><span
+                v-if="scope.row.is_active === 1">激活</span>
+              <span v-if="scope.row.is_active === 0">非激活</span>
+            </el-tag>
+        </template>
+        </el-table-column> -->
+        <el-table-column prop="email" label="邮箱" sortable />
+        <!-- <el-table-column label="手动激活">
           <template #default="scope">
-            <el-button
-              plain
-              @click="
-                handleActive(scope.row.is_active, scope.row.id, scope.row.role)
-              "
-              >重新激活</el-button
-            >
+            <el-button plain @click="
+              handleActive(scope.row.is_active, scope.row.id, scope.row.role)
+            ">重新激活</el-button>
           </template>
-        </el-table-column>
+        </el-table-column> -->
       </el-table>
 
-      <el-pagination
-        @size-change="handleSizeChange"
-        @current-change="handleCurrentChange"
-        :current-page="currentPage"
-        :page-size="pagesize"
-        layout="total,  prev, pager, next, jumper"
-        :total="userData.length"
-      >
+      <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage"
+        :page-size="pagesize" layout="total,  prev, pager, next, jumper" :total="userData.length">
       </el-pagination>
     </el-card>
   </div>
@@ -305,7 +173,7 @@
 
 <script >
 // import axios from "axios";
-
+import axios from "axios";
 export default {
   data() {
     return {
@@ -321,18 +189,21 @@ export default {
         name: "",
         id: "",
         email: "",
+        group_id: "",
       },
       /*手动导入教师数据*/
       formT: {
         name: "",
         id: "",
         email: "",
+        group_id: "",
       },
       /*手动导入助教数据*/
       formA: {
         name: "",
-        ta_id: "",
+        id: "",
         email: "",
+        group_id: "",
       },
 
       /**/
@@ -351,13 +222,30 @@ export default {
       idRules: [{ required: true, message: "id is required", trigger: "blur" }],
     };
   },
+  mounted() {
+    console.log("created");
+    axios({
+      method: "GET",
+      baseURL: '/api',
+      url: "/user/getallusers"
+    }).then((res) => {
+      console.log(res.data.data);
+      this.userData = res.data.data;
+    }).catch((err) => {
+      console.log(err);
+      this.$message({
+        message: "服务器错误",
+        type: "error",
+      });
+    })
+  },
   methods: {
     //重新手动激活用户
     handleActive(is_active, id, usertype) {
       console.log(is_active, id, usertype);
     },
     //获取所有用户所有信息
-    getUserData() {},
+    getUserData() { },
     handleDetailS() {
       this.dialogFormVisibleS = true;
     },
@@ -439,22 +327,78 @@ export default {
     addFromDetailS() {
       //手动增加学生
       //location.reload();
+      this.formS.group_id = 5;
+      axios({
+            method: "POST",
+            baseURL: '/api',
+            url: "/user/adduser",
+            data: this.formS
+          }).then((res) => {
+            console.log(res.data.data);
+            this.$message({
+              message: "添加成功",
+              type: "success",
+            });
+          }).catch((err) => {
+            console.log(err);
+            this.$message({
+              message: "服务器错误",
+              type: "error",
+            });
+          })
     },
 
     addFromDetailT() {
       //手动增加教师
+      this.formS.group_id = 3;
+      axios({
+            method: "POST",
+            baseURL: '/api',
+            url: "/user/adduser",
+            data: this.formT
+          }).then((res) => {
+            console.log(res.data.data);
+            this.$message({
+              message: "添加成功",
+              type: "success",
+            });
+          }).catch((err) => {
+            console.log(err);
+            this.$message({
+              message: "服务器错误",
+              type: "error",
+            });
+          })
     },
 
     addFromDetailA() {
-      //手动增加助教
-      //location.reload();
+      //手动增加管理员
+      this.formS.group_id = 1;
+      axios({
+            method: "POST",
+            baseURL: '/api',
+            url: "/user/adduser",
+            data: this.formA
+          }).then((res) => {
+            console.log(res.data.data);
+            this.$message({
+              message: "添加成功",
+              type: "success",
+            });
+          }).catch((err) => {
+            console.log(err);
+            this.$message({
+              message: "服务器错误",
+              type: "error",
+            });
+          })
     },
 
-    addFromExcelS() {},
+    addFromExcelS() { },
 
-    addFromExcelT() {},
+    addFromExcelT() { },
 
-    addFromExcelA() {},
+    addFromExcelA() { },
 
     handleSizeChange: function (val) {
       this.pagesize = val;
@@ -490,9 +434,9 @@ export default {
       else if (command == "a") this.handleExcelA();
     },
   },
-  mounted() {
-    this.getUserData();
-  },
+  // mounted() {
+  //   this.getUserData();
+  // },
 };
 </script>
 

@@ -192,6 +192,7 @@
     },
     data() {
       return {
+        // irr:[],
         myChart: null,
         text: "计算",
         ruleform: {
@@ -270,26 +271,76 @@
       },
     },
     methods: {
-      setToDB() {
-        // PUTReport({
-        //   studentId: store.state.id,
-        //   courseId: "420244",
-        //   sectionId: "01",
-        //   labId: String(this.labId),
-        //   url: "www.google.com",
-        //   grades: 0,
-        //   purpose: this.ruleform.purpose,
-        //   progress: this.ruleform.progress,
-        //   principle: this.ruleform.principle,
-        // })
-        //   .then(() => {
-        //     this.$alert("提交成功");
-        //   })
-        //   .catch((err) => {
-        //     console.log(err);
-        //     this.$message("提交失败");
-        //   });
+      irr(values,guess)
+      {
+        let maxIterationCount = 20;
+        let absoluteAccuracy = 1.0E-7;
+
+        let x0 = guess;
+
+        let k = 0;
+        while (k < maxIterationCount) {
+            let fValue = 0;
+            let fDerivative = 0;
+            let m;
+            for (m = 0; m < values.length; m++) {
+                fValue += values[m] / Math.pow(1 + x0, m);
+                fDerivative += -m * values[m] / Math.pow(1.0 + x0, m + 1);
+            }
+            let x1 = x0 - fValue / fDerivative;
+            if (Math.abs(x1 - x0) <= absoluteAccuracy) {
+                return x1;
+            }
+            x0 = x1;
+            k++;
+        }
+        // let x = [1,2,3]
+
+        return 0;
       },
+
+      ComputeIrr(list)
+      {
+        var tArray = new Array();
+        for(var i=0;i<list.length;i++)
+        {
+          tArray[i]=new Array();
+          for(var j=0;j<4;j++)
+          {
+            let s = 1 + list[i];
+            let shouru = 480;
+            let touzi = 200;
+            let yunwei = 60;
+            let renyuan = 20;
+            if (j == 0) {
+                shouru = shouru * s;
+                let income = [shouru - touzi - yunwei - renyuan * 20, shouru * 1.04 - yunwei - renyuan * 20, shouru * 1.04 * 1.04 - yunwei - renyuan * 20, shouru * 1.04 * 1.04 * 1.04 - yunwei - renyuan * 20, shouru * 1.04 * 1.04 * 1.04 * 1.04 - yunwei - renyuan * 20, shouru * 1.04 * 1.04 * 1.04 * 1.04 * 1.04 - yunwei - renyuan * 20];
+                let ret = this.irr(income, 0.00001);
+                tArray[i][j] = ret;
+            }
+            if (j == 1) {
+                touzi = touzi * s;
+                let income = [shouru - touzi - yunwei - renyuan * 20, shouru * 1.04 - yunwei - renyuan * 20, shouru * 1.04 * 1.04 - yunwei - renyuan * 20, shouru * 1.04 * 1.04 * 1.04 - yunwei - renyuan * 20, shouru * 1.04 * 1.04 * 1.04 * 1.04 - yunwei - renyuan * 20, shouru * 1.04 * 1.04 * 1.04 * 1.04 * 1.04 - yunwei - renyuan * 20];
+                let ret = this.irr(income, 0.00001);
+                tArray[i][j] = ret;
+            }
+            if (j == 2) {
+                yunwei = yunwei * s;
+                let income = [shouru - touzi - yunwei - renyuan * 20, shouru * 1.04 - yunwei - renyuan * 20, shouru * 1.04 * 1.04 - yunwei - renyuan * 20, shouru * 1.04 * 1.04 * 1.04 - yunwei - renyuan * 20, shouru * 1.04 * 1.04 * 1.04 * 1.04 - yunwei - renyuan * 20, shouru * 1.04 * 1.04 * 1.04 * 1.04 * 1.04 - yunwei - renyuan * 20];
+                let ret = this.irr(income, 0.00001);
+                tArray[i][j] = ret;
+            }
+            if (j == 3) {
+                renyuan = renyuan * s;
+                let income = [shouru - touzi - yunwei - renyuan * 20, shouru * 1.04 - yunwei - renyuan * 20, shouru * 1.04 * 1.04 - yunwei - renyuan * 20, shouru * 1.04 * 1.04 * 1.04 - yunwei - renyuan * 20, shouru * 1.04 * 1.04 * 1.04 * 1.04 - yunwei - renyuan * 20, shouru * 1.04 * 1.04 * 1.04 * 1.04 * 1.04 - yunwei - renyuan * 20];
+                let ret = this.irr(income, 0.00001);
+                tArray[i][j] = ret;
+            }
+          }
+        }
+        return tArray;
+      },
+
       submitForm(formName) {
         console.log("submitform");
         this.$refs[formName].validate((valid) => {
@@ -386,6 +437,30 @@
           params.push(i * 0.01);
         }
         console.log("params: ", params);
+        // let j;
+        this.chartData = [];
+        this.tabledata = [];
+        let resData = this.ComputeIrr(params);
+        console.log("data: ", resData);
+        let s;
+        for (s = 0; s < resData.length; ++s) {
+          this.chartData.push({
+            changeRate: params[s] * 100,
+            income: resData[s][0],
+            investment: resData[s][1],
+            operatingCost: resData[s][2],
+            staffCost: resData[s][3],
+          });
+          this.tabledata.push({
+            changeRate: Math.round(params[s] * 1000) / 10,
+            income: Math.round(resData[s][0] * 1000) / 10,
+            investment: Math.round(resData[s][1] * 1000) / 10,
+            operatingCost: Math.round(resData[s][2] * 1000) / 10,
+            staffCost: Math.round(resData[s][3] * 1000) / 10,
+          });
+        }
+      },
+        
         // GETComputed(params)
         //   .then((data) => {
         //     console.log("data", data);
@@ -414,7 +489,7 @@
         //     console.log(err);
         //     this.$message("无法获取计算结果");
         //   });
-      },
+      // },
       myEcharts() {
         let option;
         // const chartDom = document.getElementById("linechart");

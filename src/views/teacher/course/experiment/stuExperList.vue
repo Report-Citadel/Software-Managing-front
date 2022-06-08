@@ -15,10 +15,10 @@
         "
         style="width: 100%"
       >
-        <el-table-column prop="s_id" label="学号" sortable />
-        <el-table-column prop="s_name" label="姓名" sortable />
-        <el-table-column prop="status" label="是否提交" sortable />
-        <el-table-column prop="submitTime" label="提交日期" sortable />
+        <el-table-column prop="student_id" label="学号" sortable />
+        <el-table-column prop="student_name" label="姓名" sortable />
+<!--        <el-table-column prop="status" label="是否提交" sortable />-->
+        <el-table-column prop="time" label="提交日期" sortable />
         <el-table-column prop="score" label="分数" sortable />
 
         <el-table-column>
@@ -70,6 +70,8 @@
 </template>
 
 <script >
+import axios from "axios";
+
 export default {
   data() {
     return {
@@ -84,25 +86,11 @@ export default {
       pagesize: 10,
       multipleSelection: [],
 
-      stuExData: [
-        {
-          s_id: "1",
-          s_name: "1",
-          status: "是",
-          submitTime: "2021.11.1",
-          score: "2022",
-        },
-        {
-          s_id: "2",
-          s_name: "2",
-          status: "是",
-          submitTime: "2021.11.1",
-          score: "2022",
-        },
-      ],
+      stuExData: [],
     };
   },
   methods: {
+
     handleSizeChange: function (val) {
       this.pagesize = val;
     },
@@ -129,6 +117,26 @@ export default {
   mounted() {
     this.getParams();
     this.getStuEx();
+  },
+  created(){
+    this.getParams();
+    console.log("TEST1",this.ex_id)
+    var params = {
+      class_id: '420120120',
+      experiment_id:this.ex_id,
+    };
+    axios
+        .get(
+            "http://101.132.121.170:8018/course-server/report/class" +
+            "?class_id=" +
+            params.class_id+"&experiment_id="+params.experiment_id
+        )
+        .then((res) => {
+          console.log("!!!!!!!",res);
+          this.stuExData = res.data;
+          console.log("%%%",this.stuExData[0].class_id)
+        });
+
   },
 };
 </script>

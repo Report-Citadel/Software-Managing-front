@@ -40,8 +40,7 @@ export default {
   },
   methods: {
     getParams: function () {
-      this.course_id = this.$route.query.id;
-      this.course_name = this.$route.query.name;
+      this.c_id = this.$route.query.id;
     },
   },
   created() {

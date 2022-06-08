@@ -200,8 +200,8 @@ export default {
       ],
 
       ruleForm: {
-        id: "666666",
-        password: "666666",
+        id: "10001",
+        password: "123",
       },
       rules: {
         id: [{ validator: validatePass }],
@@ -278,45 +278,41 @@ export default {
           method: "POST",
           baseURL: "/api",
           url: "/user/login",
-          data: this.ruleForm,
-        })
-          .then((res) => {
-            console.log("submitForm", res);
-            if (res.data.code === 200) {
-              sessionStorage.setItem("role", 1);
-              this.$message({
-                message: "登陆成功",
-                type: "success",
-              });
-              // console.log(res);
-              sessionStorage.setItem("role", res.data.data.identity);
-              sessionStorage.setItem("authorities", res.data.data.authorities);
-              console.log(res.data.data.identity === 1);
-              switch (res.data.data.identity) {
-                case "1":
-                  console.log("管理员");
-                  this.$router.push("/adminHome");
-                  break;
-                case "2":
-                  this.$router.push("/teacherHome/control");
-                  break;
-                case "3":
-                  this.$router.push("/teacherHome/control");
-                  break;
-                case "4":
-                  this.$router.push("/studentHome/control");
-                  break;
-                case "5":
-                  this.$router.push("/studentHome/control");
-                  break;
-                default:
-                  break;
-              }
-            } else {
-              this.$message({
-                message: "账号或密码错误",
-                type: "error",
-              });
+
+          data: this.ruleForm
+        }).then((res) => {
+          if (res.data.code === 200) {
+            sessionStorage.setItem("role", 1);
+            this.$message({
+              message: "登陆成功",
+              type: "success",
+            });
+            // console.log(res);
+            sessionStorage.setItem("role", res.data.data.identity);
+            sessionStorage.setItem("authorities", res.data.data.authorities);
+            sessionStorage.setItem("token", res.data.data.token);
+            sessionStorage.setItem("id", res.data.data.userid);
+            console.log(res.data.data.identity === 1)
+            switch (res.data.data.identity) {
+              case "1":
+                console.log("管理员")
+                this.$router.push("/adminHome");
+                break;
+              case "2":
+                this.$router.push("/teacherHome/control");
+                break;
+              case "3":
+                this.$router.push("/teacherHome/control");
+                break;
+              case "4":
+                this.$router.push("/studentHome/control");
+                break;
+              case "5":
+                this.$router.push("/studentHome/control");
+                break;
+              default:
+                break;
+
             }
           })
           .catch((err) => {
