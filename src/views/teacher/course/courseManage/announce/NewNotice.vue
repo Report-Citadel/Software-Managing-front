@@ -86,7 +86,7 @@ export default {
             this.noticeInformation.publisherId = parseInt(
               sessionStorage.getItem("id")
             );
-            this.noticeInformation.courseId = this.c_id;
+            this.noticeInformation.courseId = 48001978;
 
             console.log("this.noticeInformation", this.noticeInformation);
             this.list.push(this.noticeInformation);

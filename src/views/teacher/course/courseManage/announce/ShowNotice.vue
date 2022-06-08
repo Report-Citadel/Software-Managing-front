@@ -90,7 +90,7 @@ export default {
     getNoticeList() {
       this.axios
         .get("/yxk/getNoticeList", {
-          params: { id: parseInt(sessionStorage.getItem("id")) },
+          params: { id: 20001 },
         })
         .then((res) => {
           console.log("getNoticeList", res);

@@ -9,9 +9,11 @@
 import * as echarts from "echarts";
 export default {
   name: "PieChart",
-  props: ["course_id"],
+  props: ["id"],
   data() {
     return {
+      c_id: this.id,
+      course_id: 48001978,
       attendanceScore: [
         /*
         { name: "0-60", value: 2 },
@@ -139,6 +141,7 @@ export default {
     },
   },
   mounted() {
+    console.log("cid", this.course_id);
     setTimeout(() => {
       this.option.series[0].data = this.attendanceScore;
       this.option.series[1].data = this.totalScore;

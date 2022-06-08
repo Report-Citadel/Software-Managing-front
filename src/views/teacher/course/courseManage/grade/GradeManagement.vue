@@ -17,12 +17,10 @@
       <el-col :span="18">
         <el-row style="margin-bottom: 20px">
           <el-card style="height: 37vh; margin-bottom: 20px">
-            <!--
-            <PieChart v-bind:course_id="course_id"></PieChart>-->
+            <PieChart :id="c_id"></PieChart>
           </el-card>
           <el-card style="height: 40vh">
-            <!--
-            <LineChart></LineChart>-->
+            <LineChart :id="c_id"></LineChart>
           </el-card>
         </el-row>
       </el-col>
@@ -44,7 +42,7 @@
             <el-form-item
               label="考勤占比"
               :label-width="formLabelWidth"
-              prop="attendancePropotion"
+              prop="attendanceProportion"
             >
               <el-input
                 v-model="gradeForm.attendanceProportion"
@@ -64,7 +62,7 @@
             <el-form-item
               label="实验占比"
               :label-width="formLabelWidth"
-              prop="projectPropotion"
+              prop="projectProportion"
             >
               <el-input
                 v-model="gradeForm.projectProportion"
@@ -74,7 +72,7 @@
             <el-form-item
               label="对抗占比"
               :label-width="formLabelWidth"
-              prop="competitionPropotion"
+              prop="competitionProportion"
             >
               <el-input
                 v-model="gradeForm.competitionProportion"
@@ -96,16 +94,16 @@
 </template>
 
 <script>
-//import PieChart from "./PieChart.vue";
+import PieChart from "./PieChart.vue";
 
-//import LineChart from "./LineChart.vue";
+import LineChart from "./LineChart.vue";
 
 export default {
   name: "GradeManagement",
   props: ["id"],
   components: {
-    //PieChart,
-    //LineChart,
+    PieChart,
+    LineChart,
   },
   data() {
     return {
@@ -130,7 +128,7 @@ export default {
       },
       rules: {
         attendanceNum: [{ type: "number", message: "必须为整数" }],
-        attendancePropotion: [
+        attendanceProportion: [
           {
             type: "number",
             message: "考勤分数所占百分比，请输入0-100间的整数",
@@ -143,7 +141,7 @@ export default {
         ],
         projectNum: [{ type: "number", message: "必须为整数" }],
 
-        projectPropotion: [
+        projectProportion: [
           {
             type: "number",
             message: "所有实验总分数所占百分比，请输入0-100间的整数",
@@ -155,7 +153,7 @@ export default {
           },
         ],
 
-        competitionPropotion: [
+        competitionProportion: [
           {
             type: "number",
             message: "所有实验总分数所占百分比，请输入0-100间的整数",
@@ -189,11 +187,11 @@ export default {
       this.axios
         .post("/yxk/updateGradeSettings", {
           id: this.gradeForm.id,
-          attendancenum: this.gradeForm.attendancenum,
-          attendanceproportion: this.gradeForm.attendanceproportion,
-          projectnum: this.gradeForm.projectnum,
-          projectproportion: this.gradeForm.projectproportion,
-          competitionproportion: this.gradeForm.competitionproportion,
+          attendancenum: this.gradeForm.attendanceNum,
+          attendanceproportion: this.gradeForm.attendanceProportion,
+          projectnum: this.gradeForm.projectNum,
+          projectproportion: this.gradeForm.projectProportion,
+          competitionproportion: this.gradeForm.competitionProportion,
         })
         .then((res) => {
           if (res.status === 200) {
@@ -214,12 +212,7 @@ export default {
     },
     submit() {
       console.log("当前form:", this.gradeForm);
-      console.log(
-        "百分比之和为：",
-        parseInt(this.gradeForm.attendanceproportion) +
-          parseInt(this.gradeForm.projectproportion) +
-          parseInt(this.gradeForm.competitionproportion)
-      );
+
       if (
         parseInt(this.gradeForm.attendanceproportion) +
           parseInt(this.gradeForm.projectproportion) +
@@ -242,7 +235,7 @@ export default {
               message: "非法输入，请重新填写成绩设置",
               type: "error",
             });
-            this.getsettings();
+            //this.getsettings();
           }
         });
       }
