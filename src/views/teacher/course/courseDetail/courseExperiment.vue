@@ -26,29 +26,6 @@
             </el-link>
           </template>
         </el-table-column>
-        <el-table-column prop="end_time" label="截止日期" sortable />
-
-        <el-table-column
-          prop="status"
-          label="状态"
-          sortable
-          :filters="[
-            { text: '未过期', value: '未过期' },
-            { text: '已过期', value: '已过期' },
-          ]"
-          :filter-method="filterTag"
-          filter-placement="bottom-end"
-        >
-          <template slot-scope="scope">
-            <el-tag
-              :type="scope.row.status === '未过期' ? 'primary' : 'success'"
-              disable-transitions
-              >{{ scope.row.status }}
-            </el-tag>
-          </template>
-        </el-table-column>
-        <el-table-column prop="weight" label="权重" sortable />
->>>>>>> 0a6192a78aa98aa4abf1c5b3e5581ae39be3f582
 
         <el-table-column>
           <template #header>
@@ -141,79 +118,7 @@ export default {
         experiment_id: "",
         uploader: "",
       },
-      experimentList: [
-        {
-          ex_id: 1,
-          end_time: "2021-12-2 12:30:21",
-          experiment_title: "敏感性分析",
-          status: "未过期",
-          weight: "0.3",
-        },
-        {
-          ex_id: 2,
-          end_time: "2021-12-2 12:30:21",
-          experiment_title: "不确定性分析",
-
-          status: "未过期",
-          weight: "0.3",
-        },
-        {
-          ex_id: 3,
-          end_time: "2021-12-2 12:30:21",
-          experiment_title: "供需分析",
-
-          status: "未过期",
-          weight: "0.3",
-        },
-        {
-          ex_id: 4,
-          end_time: "2021-12-2 12:30:21",
-          experiment_title: "盈亏平衡",
-
-          status: "未过期",
-          weight: "0.3",
-        },
-        {
-          ex_id: 5,
-          end_time: "2021-12-2 12:30:21",
-          experiment_title: "项目经济指标测算",
-
-          status: "未过期",
-          weight: "0.3",
-        },
-        {
-          ex_id: 6,
-          end_time: "2021-12-2 12:30:21",
-          experiment_title: "经济寿命周期",
-
-          status: "未过期",
-          weight: "0.3",
-        },
-        {
-          ex_id: 7,
-          end_time: "2021-12-2 12:30:21",
-          experiment_title: "对抗练习",
-
-          status: "未过期",
-          weight: "0.3",
-        },
-        {
-          ex_id: 8,
-          end_time: "2021-12-2 12:30:21",
-          experiment_title: "软件成本估算",
-
-          status: "未过期",
-          weight: "0.3",
-        },
-        {
-          ex_id: 9,
-          end_time: "2021-12-2 12:30:21",
-          experiment_title: "多人博弈",
-
-          status: "未过期",
-          weight: "0.3",
-        },
-      ],
+      experimentList: [],
     };
   },
   methods: {
@@ -325,7 +230,6 @@ export default {
     },
   },
   mounted() {
-    this.getParams();
     this.getCourseEx();
   },
 };
