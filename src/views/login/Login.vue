@@ -2,23 +2,41 @@
   <div style="margin: auto auto; height: 620px">
     <div style="height: 620px">
       <el-container class="loginPage" style="mardin-top: 0px">
-        <el-main style="padding:0px;filter:brightness(85%);width: 100%;overflow:hidden;">
-          <img src="@/assets/home_left.jpg" style="height: 560px; overflow: hidden" />
+        <el-main
+          style="
+            padding: 0px;
+            filter: brightness(85%);
+            width: 100%;
+            overflow: hidden;
+          "
+        >
+          <img
+            src="@/assets/home_left.jpg"
+            style="height: 560px; overflow: hidden"
+          />
         </el-main>
 
         <el-aside width="500px" class="loginForm" style="height: 560px">
           <el-container>
             <el-header height="150px">
-              <p style="
+              <p
+                style="
                   margin: 70px auto 50px auto;
                   color: white;
                   font: 32px Microsoft YaHei;
-                ">
+                "
+              >
                 实验教学系统
               </p>
             </el-header>
-            <el-main class="login_back" style="padding: 0px;">
-              <el-form ref="ruleForm" :model="ruleForm" status-icon :rules="rules" label-width="80px">
+            <el-main class="login_back" style="padding: 0px">
+              <el-form
+                ref="ruleForm"
+                :model="ruleForm"
+                status-icon
+                :rules="rules"
+                label-width="80px"
+              >
                 <!-- <el-form-item label="您的身份" prop="role">
                   <el-select class="select" v-model="role" placeholder="请选择">
                     <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
@@ -26,23 +44,45 @@
                   </el-select>
                 </el-form-item> -->
                 <el-form-item label="用户名" prop="id">
-                  <el-input v-model="ruleForm.id" type="text" autocomplete="off" placeholder="请输入学号/工号/账号"></el-input>
+                  <el-input
+                    v-model="ruleForm.id"
+                    type="text"
+                    autocomplete="off"
+                    placeholder="请输入学号/工号/账号"
+                  ></el-input>
                 </el-form-item>
                 <el-form-item label="密码" prop="password">
-                  <el-input v-model="ruleForm.password" type="password" autocomplete="off" placeholder="请输入密码">
+                  <el-input
+                    v-model="ruleForm.password"
+                    type="password"
+                    autocomplete="off"
+                    placeholder="请输入密码"
+                  >
                   </el-input>
                 </el-form-item>
                 <el-form-item>
-                  <el-button type="primary" @click="submitForm()">登陆</el-button>
-                  <el-button @click="openMask" style="margin-left: 10%">忘记密码</el-button>
+                  <el-button type="primary" @click="submitForm()"
+                    >登陆</el-button
+                  >
+                  <el-button @click="openMask" style="margin-left: 10%"
+                    >忘记密码</el-button
+                  >
 
                   <br />
                   <br />
 
                   <br />
                   <el-form-item>
-                    <dialog-bar v-model="sendVal" type="danger" title="忘记密码" content="忘记密码" v-on:cancel="clickCancel()"
-                      @danger="clickDanger()" @confirm="clickConfirm()" dangerText="提交"></dialog-bar>
+                    <dialog-bar
+                      v-model="sendVal"
+                      type="danger"
+                      title="忘记密码"
+                      content="忘记密码"
+                      v-on:cancel="clickCancel()"
+                      @danger="clickDanger()"
+                      @confirm="clickConfirm()"
+                      dangerText="提交"
+                    ></dialog-bar>
                   </el-form-item>
                 </el-form-item>
               </el-form>
@@ -54,8 +94,13 @@
     <div class="outFunction">
       <h2>系 统 功 能</h2>
       <el-container height="400px" style="padding-top: 30px">
-        <el-col :span="4" v-for="(item, index) in main_title" :key="index" class="system_pic"
-          :offset="index > 0 ? 1 : 0">
+        <el-col
+          :span="4"
+          v-for="(item, index) in main_title"
+          :key="index"
+          class="system_pic"
+          :offset="index > 0 ? 1 : 0"
+        >
           <el-card style="box-shadow: 7px 7px 7px rgba(0, 0, 0, 0.15)">
             <img :src="item.img" class="img" />
             <div style="padding: 14px">
@@ -74,15 +119,30 @@
         本系统中包含多个在线模拟的实验项目，如不确定性分析实验、拍卖实验、盈亏平衡实验、经济寿命周期实验等。学生可通过本系统进行线上实验，帮助线下教学理解。
       </p>
 
-      <el-carousel :interval="4000" type="card" height="500px"
-        style="padding-left: 50px; padding-right: 50px; padding-top: 25px">
+      <el-carousel
+        :interval="4000"
+        type="card"
+        height="500px"
+        style="padding-left: 50px; padding-right: 50px; padding-top: 25px"
+      >
         <el-carousel-item v-for="item in imageList" :key="item.id">
           <img :src="item.su" />
         </el-carousel-item>
       </el-carousel>
     </div>
-    <div class="contact" id="contact" style="height: 160px; background: #99ccff">
-      <el-col :span="4" v-for="index of 4" :key="index" class="us" :offset="index > 0 ? 2 : 1" style="margin-top: 30px">
+    <div
+      class="contact"
+      id="contact"
+      style="height: 160px; background: #99ccff"
+    >
+      <el-col
+        :span="4"
+        v-for="index of 4"
+        :key="index"
+        class="us"
+        :offset="index > 0 ? 2 : 1"
+        style="margin-top: 30px"
+      >
         <h4 class="text-uppercase">Contact us</h4>
         <p class="address">
           Tongji University <br />
@@ -168,7 +228,7 @@ export default {
       main_title: [
         {
           img: require("@/assets/user_manage.jpeg"),
-          
+
           title: "用户管理",
           text: 10,
         },
@@ -216,55 +276,56 @@ export default {
         sessionStorage.setItem("id", this.ruleForm.id);
         axios({
           method: "POST",
-          baseURL:'/api',
+          baseURL: "/api",
           url: "/user/login",
-          data: this.ruleForm
-        }).then((res) => {
-          if (res.data.code === 200) {
-            sessionStorage.setItem("role", 1);
-            this.$message({
-              message: "登陆成功",
-              type: "success",
-            });
-            // console.log(res);
-            sessionStorage.setItem("role", res.data.data.identity);
-            sessionStorage.setItem("authorities", res.data.data.authorities);
-            console.log(res.data.data.identity === 1)
-            switch (res.data.data.identity) {
-              case "1":
-                console.log("管理员")
-                this.$router.push("/adminHome");
-                break;
-              case "2":
-                this.$router.push("/teacherHome/control");
-                break;
-              case "3":
-                this.$router.push("/teacherHome/control");
-                break;
-              case "4":
-                this.$router.push("/studentHome/control");
-                break;
-              case "5":
-                this.$router.push("/studentHome/control");
-                break;
-              default:
-                break;
+          data: this.ruleForm,
+        })
+          .then((res) => {
+            console.log("submitForm", res);
+            if (res.data.code === 200) {
+              sessionStorage.setItem("role", 1);
+              this.$message({
+                message: "登陆成功",
+                type: "success",
+              });
+              // console.log(res);
+              sessionStorage.setItem("role", res.data.data.identity);
+              sessionStorage.setItem("authorities", res.data.data.authorities);
+              console.log(res.data.data.identity === 1);
+              switch (res.data.data.identity) {
+                case "1":
+                  console.log("管理员");
+                  this.$router.push("/adminHome");
+                  break;
+                case "2":
+                  this.$router.push("/teacherHome/control");
+                  break;
+                case "3":
+                  this.$router.push("/teacherHome/control");
+                  break;
+                case "4":
+                  this.$router.push("/studentHome/control");
+                  break;
+                case "5":
+                  this.$router.push("/studentHome/control");
+                  break;
+                default:
+                  break;
+              }
+            } else {
+              this.$message({
+                message: "账号或密码错误",
+                type: "error",
+              });
             }
-
-          } else {
+          })
+          .catch((err) => {
+            console.log(err);
             this.$message({
-              message: "账号或密码错误",
+              message: "服务器错误",
               type: "error",
             });
-          }
-
-        }).catch((err) => {
-          console.log(err);
-          this.$message({
-            message: "服务器错误",
-            type: "error",
           });
-        })
       }
     },
   },
@@ -272,7 +333,7 @@ export default {
 </script>
 
 <style scoped>
-body>.el-container {
+body > .el-container {
   margin-bottom: 40px;
 }
 

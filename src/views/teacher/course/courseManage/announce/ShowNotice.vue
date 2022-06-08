@@ -12,7 +12,8 @@
     >
       <el-table-column label="公告" prop="title" style="fit: false">
       </el-table-column>
-      <el-table-column label="班级" prop="courseId"> </el-table-column>
+      <!--
+      <el-table-column label="班级" prop="courseId"> </el-table-column>-->
 
       <el-table-column label="时间" sortable prop="date"> </el-table-column>
 
@@ -85,7 +86,9 @@ export default {
     },
     getNoticeList() {
       this.axios
-        .get("http://139.196.181.186:8000/api/getNoticeList", {})
+        .get("/ann/api/getNoticeList", {
+          params: { id: sessionStorage.getItem("id") },
+        })
         .then((res) => {
           console.log("getNoticeList", res);
 
@@ -109,7 +112,7 @@ export default {
       })
         .then(() => {
           this.axios
-            .delete("/deleteNotice", {
+            .delete("/ann/api/deleteNotice", {
               data: {
                 id: this.noticeData[index].id,
                 title: this.noticeData[index].title,

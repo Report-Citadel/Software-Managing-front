@@ -18,13 +18,13 @@
         "
         style="width: 100%"
       >
-        <el-table-column prop="experiment_title" label="实验名称" sortable >
-        <template slot-scope="scope"
+        <el-table-column prop="experiment_title" label="实验名称" sortable>
+          <template slot-scope="scope"
             ><el-link @click="specialFunc(scope.row)">{{
               scope.row.experiment_title
             }}</el-link>
           </template>
-          </el-table-column>
+        </el-table-column>
         <el-table-column prop="end_time" label="截止日期" sortable />
         <el-table-column
           prop="status"
@@ -54,14 +54,10 @@
           <template #default="scope">
             <v-row>
               <v-col>
-                <v-btn small dark @click="handleGrade(scope.row)"
-                  >批改</v-btn
-                >
+                <v-btn small dark @click="handleGrade(scope.row)">批改</v-btn>
               </v-col>
               <v-col>
-                <v-btn small dark @click="uploadFile()"
-                >上传</v-btn
-                >
+                <v-btn small dark @click="uploadFile()">上传</v-btn>
               </v-col>
             </v-row>
           </template>
@@ -206,9 +202,7 @@ export default {
       return this.$confirm(`确定移除 ${file.name}？`);
     },
 
-    uploadFile(){
-
-    },
+    uploadFile() {},
     handleGrade(row) {
       switch (row.ex_id) {
         case 4:
