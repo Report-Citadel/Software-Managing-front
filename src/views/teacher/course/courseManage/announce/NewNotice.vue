@@ -43,10 +43,11 @@
 <script>
 //import showNotice from "./ShowNotice.vue";
 export default {
+  props: ["id"],
   data() {
     return {
+      c_id: this.id,
       notice: {
-        choice: [],
         title: "",
         content: "",
       },
@@ -61,13 +62,15 @@ export default {
       },
       list: [],
       rules: {
-        title: [{ required: true, message: "请输入公告信息", trigger: "blur" }],
+        title: [{ required: true, message: "请输入公告标题", trigger: "blur" }],
         content: [
           { required: true, message: "请输入公告内容", trigger: "blur" },
         ],
-        choice: [{ required: true, message: "请选择班级", trigger: "blur" }],
       },
     };
+  },
+  mounted() {
+    console.log("cid++++++++++++", this.c_id);
   },
   methods: {
     onSubmit(noticeForm) {
@@ -77,31 +80,26 @@ export default {
             confirmButtonText: "确定",
             cancelButtonText: "取消",
           }).then(() => {
-            for (this.i = 0; this.i < this.notice.choice.length; this.i++) {
-              console.log(this.i);
-              this.noticeInformation.title = this.notice.title;
-              this.noticeInformation.content = this.notice.content;
-              this.noticeInformation.date = this.date;
-              this.noticeInformation.publisherId = 1953372;
-              if (this.notice.choice[this.i] == "01班") {
-                this.noticeInformation.courseId = 48001978;
-              }
-              if (this.notice.choice[this.i] == "02班") {
-                this.noticeInformation.courseId = 48001979;
-              }
-              console.log(this.noticeInformation.courseId);
-              this.list.push(this.noticeInformation);
-            }
+            this.noticeInformation.title = this.notice.title;
+            this.noticeInformation.content = this.notice.content;
+            this.noticeInformation.date = this.date;
+            this.noticeInformation.publisherId = parseInt(
+              sessionStorage.getItem("id")
+            );
+            this.noticeInformation.courseId = this.c_id;
+
+            console.log("this.noticeInformation", this.noticeInformation);
+            this.list.push(this.noticeInformation);
             this.axios
-              .post("/ann/api/newNotice", this.list)
+              .post("/yxk/newNotice", this.list)
               .then((res) => {
-                console.log(res);
+                console.log("onSubmit", res);
                 this.$message({
                   type: "success",
                   message: "发布成功!",
                 });
                 this.$refs[noticeForm].resetFields();
-                this.list.splice(0, this.list.length);
+                //this.list.splice(0, this.list.length);
               })
               .catch((res) => {
                 console.log(res);

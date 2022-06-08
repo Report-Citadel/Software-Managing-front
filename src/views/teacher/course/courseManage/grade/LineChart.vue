@@ -50,7 +50,7 @@ export default {
 
   created() {},
   mounted() {
-    this.axios.get("http://139.196.181.186:8000/api/getCourse").then((res) => {
+    this.axios.get("").then((res) => {
       this.courses = res.data;
       for (let i = 0; i < this.courses.length; i++) {
         this.course_id[i] = this.courses[i].courseid;
@@ -106,7 +106,7 @@ export default {
   methods: {
     getAllScores(courseId) {
       this.axios
-        .get("http://139.196.181.186:8000/api/getAvgExperimentScore", {
+        .get("/yxk/getAvgExperimentScore", {
           params: { courseId: courseId },
         })
         .then((res) => {

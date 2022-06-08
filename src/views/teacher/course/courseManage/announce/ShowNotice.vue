@@ -67,8 +67,10 @@
 
 <script>
 export default {
+  props: ["id"],
   data() {
     return {
+      c_id: this.id,
       titleInformation: "",
       dialogVisible: false,
       noticeData: [],
@@ -78,6 +80,7 @@ export default {
     };
   },
   mounted: function () {
+    console.log("cid==============", this.c_id);
     this.getNoticeList();
   },
   methods: {
@@ -86,13 +89,19 @@ export default {
     },
     getNoticeList() {
       this.axios
-        .get("/ann/api/getNoticeList", {
-          params: { id: sessionStorage.getItem("id") },
+        .get("/yxk/getNoticeList", {
+          params: { id: parseInt(sessionStorage.getItem("id")) },
         })
         .then((res) => {
           console.log("getNoticeList", res);
-
+          //console.log("cid", this.c_id);
+          this.noticeData = [];
+          /*for (var i = 0; i < res.data.length; i++) {
+            if (res.data[i].courseId == this.c_id)
+              this.noticeData.push(res.data[i]);
+          }*/
           this.noticeData = res.data;
+          console.log("this.noticeData", this.noticeData);
         });
     },
     handleEdit(index, row) {
@@ -112,7 +121,7 @@ export default {
       })
         .then(() => {
           this.axios
-            .delete("/ann/api/deleteNotice", {
+            .delete("/yxk/deleteNotice", {
               data: {
                 id: this.noticeData[index].id,
                 title: this.noticeData[index].title,
@@ -124,13 +133,14 @@ export default {
             })
             .then((res) => {
               console.log(res);
-              this.$message({
-                type: "success",
-                message: "删除成功!",
-              });
+              if (res.status == 200) {
+                this.$message({
+                  type: "success",
+                  message: "删除成功!",
+                });
+              }
+              this.$delete(this.noticeData, index);
             });
-
-          this.$delete(this.noticeData, index);
         })
         .catch(() => {});
     },

@@ -110,11 +110,11 @@ const routes = [
       //   ]
       // },
 
-      {path: '/adminHome/accountAdd',component: () => import('../views/admin/userManage/accountAdd.vue')},
-      {path: '/adminHome/accountCheck',component: () => import('../views/admin/userManage/accountCheck.vue')},
-      {path: '/adminHome/accountInfo',component: () => import('../views/admin/userManage/accountInfo.vue')},
-      {path: '/adminHome/accountModify',component: () => import('../views/admin/userManage/accountModify.vue')},
-      {path: '/adminHome/accountCancel',component: () => import('../views/admin/userManage/accountCancel.vue')},
+      { path: '/adminHome/accountAdd', component: () => import('../views/admin/userManage/accountAdd.vue') },
+      { path: '/adminHome/accountCheck', component: () => import('../views/admin/userManage/accountCheck.vue') },
+      { path: '/adminHome/accountInfo', component: () => import('../views/admin/userManage/accountInfo.vue') },
+      { path: '/adminHome/accountModify', component: () => import('../views/admin/userManage/accountModify.vue') },
+      { path: '/adminHome/accountCancel', component: () => import('../views/admin/userManage/accountCancel.vue') },
     ]
   },
   {
@@ -139,7 +139,7 @@ const routes = [
         path: '/teacherHome/concreteCourse', component: TeaConcreteCourse, children: [
           { path: '/teacherHome/concreteCourse/Ann', component: () => import('../views/teacher/course/courseDetail/courseAnnounce.vue') },
           { path: '/teacherHome/concreteCourse/Peo', component: () => import('../views/teacher/course/courseDetail/coursePeople.vue') },
-          { path: '/teacherHome/concreteCourse/Perform', component: () => import('../views/teacher/course/courseManage/grade/managePerform.vue') },
+          { path: '/teacherHome/concreteCourse/Perform', component: () => import('../views/teacher/course/courseDetail/coursePerformance.vue') },
 
           { path: '/teacherHome/concreteCourse/File', component: () => import('../views/teacher/course/courseDetail/courseFile.vue') },
           { path: '/teacherHome/concreteCourse/Exper', component: () => import('../views/teacher/course/courseDetail/courseExperiment.vue') },

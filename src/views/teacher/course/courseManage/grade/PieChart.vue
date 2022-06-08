@@ -159,7 +159,7 @@ export default {
   methods: {
     getAttendance(course_id) {
       this.axios
-        .get("http://139.196.181.186:8000/api/getAttendanceScore", {
+        .get("/yxk/getAttendanceScore", {
           params: { courseid: course_id },
         })
         .then((res) => {
@@ -170,7 +170,7 @@ export default {
     },
     getTatol(course_id) {
       this.axios
-        .get("http://139.196.181.186:8000/api/getTotalScore", {
+        .get("/yxk/getTotalScore", {
           params: { courseid: course_id },
         })
         .then((res) => {

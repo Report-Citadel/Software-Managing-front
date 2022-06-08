@@ -8,15 +8,15 @@
         font-weight: bold;
       "
     >
-      {{ course_id }} {{ course_name }}
+      {{ course_id }}
     </div>
     <el-card>
       <el-tabs v-model="activeName">
         <el-tab-pane label="查看公告" name="show"
-          ><ShowNotice ref="showNotice"></ShowNotice
+          ><ShowNotice :id="c_id" ref="showNotice"></ShowNotice
         ></el-tab-pane>
         <el-tab-pane label="新增公告" name="add"
-          ><NewNotice></NewNotice
+          ><NewNotice :id="c_id"></NewNotice
         ></el-tab-pane>
       </el-tabs>
     </el-card>
@@ -34,8 +34,8 @@ export default {
   data() {
     return {
       activeName: "show",
-      course_id: "",
-      course_name: "",
+      c_id: "",
+      //course_name: "",
     };
   },
   methods: {
