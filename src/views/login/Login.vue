@@ -141,7 +141,7 @@ export default {
 
       ruleForm: {
         id: "10001",
-        password: "10001",
+        password: "123",
       },
       rules: {
         id: [{ validator: validatePass }],
