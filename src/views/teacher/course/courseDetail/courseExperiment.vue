@@ -36,18 +36,13 @@
               <v-col>
                 <v-btn small dark @click="handleGrade(scope.row)">批改 </v-btn>
               </v-col>
-              <v-col v-if="scope.row.file !==  null">
+              <v-col v-if="scope.row.file ===  null">
                 <v-btn small dark  @click="dialogFormVisible = true"
-                       :disabled="isnotOK"
-                >上传实验指导书
-                </v-btn
-                >
+                       :disabled="isnotOK">上传实验指导书
+                </v-btn>
               </v-col>
               <v-col v-else>
-                <v-btn small dark
-                >查看实验指导书
-                </v-btn
-                >
+                <v-btn small dark @click="downloadFile(scope.$index, scope.row)">查看实验指导书</v-btn>
               </v-col>
             </v-row>
           </template>
@@ -200,7 +195,12 @@ export default {
           });
       }
     },
+    downloadFile(index, row) {
+      console.log(row)
+      console.log("down")
 
+      //window.location.href=row.file
+    },
     handleFile() {
       this.dialogVisible = true;
     },
