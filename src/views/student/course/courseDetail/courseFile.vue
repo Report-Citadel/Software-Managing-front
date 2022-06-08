@@ -36,8 +36,7 @@
             >
               <template slot-scope="scope">
                 <el-button size="mini" @click="downloadFile(scope.$index, scope.row)" :disabled="isnotOK1">下载/预览</el-button>
-                <el-button size="mini" @click="dialogFormVisible = true;Fileform.experiment_id=scope.row.experiment_id"
-                           :disabled="isnotOK">重新上传</el-button>
+
               </template>
             </el-table-column>
           </el-table>

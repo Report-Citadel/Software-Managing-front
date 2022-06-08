@@ -36,6 +36,9 @@
               <v-col>
                 <v-btn small dark @click="handleGrade(scope.row)">参与 </v-btn>
               </v-col>
+              <v-col>
+                <v-btn small dark @click="dialogFormVisible=true;Fileform.experiment_id=scope.row.experiment_id">上传实验报告 </v-btn>
+              </v-col>
               <v-col v-if="scope.row.file ===  null">
                 暂无实验指导书
               </v-col>
@@ -47,10 +50,13 @@
         </el-table-column>
       </el-table>
 
-      <el-dialog title="上传实验指导书" :visible.sync="dialogFormVisible">
+      <el-dialog title="上传实验报告" :visible.sync="dialogFormVisible">
         <el-form :model="Fileform">
           <el-form-item label="请输入上传者" :label-width="formLabelWidth">
             <el-input v-model="Fileform.uploader" autocomplete="off"></el-input>
+          </el-form-item>
+          <el-form-item label="请输入文件名" :label-width="formLabelWidth">
+            <el-input v-model="Fileform.file_name" autocomplete="off"></el-input>
           </el-form-item>
           <el-form-item label="文件" size="mini">
             <el-upload
@@ -66,7 +72,7 @@
           </el-form-item>
         </el-form>
         <div slot="footer" class="dialog-footer">
-          <el-button @click="dialogFormVisible = false">取 消</el-button>
+          <el-button @click="uploadReport()">取 消</el-button>
           <el-button type="primary" @click="loadFile">确 定</el-button>
         </div>
       </el-dialog>
@@ -104,6 +110,7 @@ export default {
         name: "",
         experiment_id: "",
         uploader: "",
+        file_name:""
       },
       experimentList: [],
     };
@@ -166,7 +173,24 @@ export default {
           });
       location.reload()
     },
+    // eslint-disable-next-line no-unused-vars
+    async uploadReport(row){
+      let fd = new FormData();
+      fd.append("experiment_id", this.Fileform.experiment_id);
+      fd.append("class_id", this.$route.query.id);
+      fd.append("student_id",sessionStorage.getItem("id"));
+      fd.append("student_name",this.Fileform.uploader);
+      fd.append("file_name",this.Fileform.file_name);
 
+      this.fileList1.forEach(item => {
+        fd.append('file', item.raw)
+      })
+
+      axios.post("http://101.132.121.170:8018/course-server/report/upload",fd).then((res) => {
+        console.log(res);
+        this.$message.success("上传成功！")
+      });
+    },
     handleGrade(row) {
       switch (row.ex_id) {
         case 1:
