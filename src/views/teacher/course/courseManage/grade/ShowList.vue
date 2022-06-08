@@ -17,7 +17,7 @@
       <div style="paddind: 5%">
         <div>
           <el-row style="height: 500px">
-            <people v-bind:courseId="course_id"></people>
+            <People :id="c_id"></People>
           </el-row>
         </div>
       </div>

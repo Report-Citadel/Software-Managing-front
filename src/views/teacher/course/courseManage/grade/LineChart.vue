@@ -6,9 +6,11 @@
 import * as echarts from "echarts";
 export default {
   name: "LineChart",
-
+  props: ["id"],
   data() {
     return {
+      c_id: this.id,
+      scourse_id: 48001978,
       mychart1: null,
       course_id: [],
       courses: "",
@@ -50,14 +52,15 @@ export default {
 
   created() {},
   mounted() {
-    this.axios.get("").then((res) => {
+    /* this.axios.get("").then((res) => {
       this.courses = res.data;
       for (let i = 0; i < this.courses.length; i++) {
         this.course_id[i] = this.courses[i].courseid;
         console.log("sgdfkuaqcsbkjnm", this.course_id[i]);
         this.getAllScores(this.course_id[i]);
       }
-    });
+    });*/
+    this.course_id.push(this.scourse_id);
     setTimeout(() => {
       for (let j = 0; j < this.courseGrade[0].data.length; j++) {
         this.xlabel.push(this.courseGrade[0].data[j].name);

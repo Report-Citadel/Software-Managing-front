@@ -38,9 +38,11 @@
 <script>
 export default {
   name: "People",
-  props: ["courseId"],
+  props: ["id"],
   data() {
     return {
+      c_id: this.id,
+      courseId: 48001978,
       projectId: "",
       students: [],
       currentPage: 1, // 当前页码

@@ -2,8 +2,8 @@
   <div>
     <el-timeline>
       <el-timeline-item
-        v-for="data in annList"
-        :key="data.ann_id"
+        v-for="data in AnnList"
+        :key="data.id"
         placement="top"
         :timestamp="data.date"
       >
@@ -39,17 +39,18 @@ export default {
       annList: [
         {
           ann_id: 1,
-          title:"课程即将中期考核",
-          content:"大家注意时间",
-          date:"2020-12-1"
+          title: "课程即将中期考核",
+          content: "大家注意时间",
+          date: "2020-12-1",
         },
         {
           ann_id: 1,
-          title:"课程即将开始",
-          content:"大家注意时间",
-          date:"2020-11-1"
-        }
+          title: "课程即将开始",
+          content: "大家注意时间",
+          date: "2020-11-1",
+        },
       ],
+      AnnList: [],
       class_id: "123123",
     };
   },
@@ -60,14 +61,33 @@ export default {
       this.dialogVisible = true;
     },
     getAnnList() {
+      this.axios
+        .get("/yxk/getNoticeList", {
+          params: { id: 20001 },
+          crossDomain: true,
+        })
+        .then((response) => {
+          console.log("getAnnList", response);
+          this.AnnList = response.data;
+          /*for (var i = 0; i < this.AnnList.length; i++) {
+            this.AnnList[i].createTime = this.AnnList[i].createTime.slice(
+              0,
+              this.AnnList[i].createTime.indexOf(".")
+            );
+            this.AnnList[i].createTime = this.AnnList[i].createTime.replace(
+              "T",
+              " "
+            );
+          }*/
+        })
+        .catch(function () {});
     },
     getParams: function () {
-
       console.log("cid===" + this.class_id);
     },
   },
   mounted() {
-
+    this.getAnnList();
   },
 };
 </script>
