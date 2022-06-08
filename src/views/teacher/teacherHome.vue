@@ -43,7 +43,7 @@
               <el-menu-item-group>
 
                 <el-menu-item v-if="show" index="/teacherHome/manageCourse">课程管理</el-menu-item>
-                <el-menu-item v-if="show" index="/teacherHome/manageCourse2">我的班级</el-menu-item>
+                <el-menu-item index="/teacherHome/manageCourse2">我的班级</el-menu-item>
 
               </el-menu-item-group>
             </el-submenu>
