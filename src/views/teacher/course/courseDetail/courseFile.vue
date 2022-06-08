@@ -77,7 +77,11 @@ export default {
   async created() {
     let query = this.$route.query;
     console.log(query)
-    await axios.get('http://101.132.121.170:8018/course-server/experiment/get/all').then(res => {
+    await axios.get('http://101.132.121.170:8018/course-server/class/experiment',{
+      params:{
+        class_id:this.$route.query.id
+      }
+    }).then(res => {
       this.tableData =  res.data;
       console.log(res)
     })
