@@ -10,15 +10,6 @@
         :model="notice"
         label-width="80px"
       >
-        <el-form-item label="覆盖班级" name="choice" prop="choice">
-          <el-checkbox-group
-            v-model="notice.choice"
-            style="margin: auto; width: 50%"
-          >
-            <el-checkbox label="01班" name="choice"></el-checkbox>
-            <el-checkbox label="02班" name="choice"></el-checkbox>
-          </el-checkbox-group>
-        </el-form-item>
         <el-form-item label="公告名称" name="title" prop="title">
           <el-input
             v-model="notice.title"
@@ -102,7 +93,7 @@ export default {
               this.list.push(this.noticeInformation);
             }
             this.axios
-              .post("http://139.196.181.186:8000/api/newNotice", this.list)
+              .post("/ann/api/newNotice", this.list)
               .then((res) => {
                 console.log(res);
                 this.$message({
