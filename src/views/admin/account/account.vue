@@ -1,93 +1,245 @@
-<!-- 个人信息页面-->
 <template>
-  <el-container style="margin-top: 150px">
-    <el-aside width="200px"></el-aside>
-    <el-main class="back">
-      <el-card style="box-shadow: 7px 7px 7px rgba(0, 0, 0, 0.15)">
-        <el-descriptions
-          title="账户信息"
-          :column="2"
-          border
-          size="medium"
-          box-shadow="15px 15px 10px"
-        >
-          <el-descriptions-item>
-            <template slot="label"> 姓名 </template>
-            {{ name }}
-          </el-descriptions-item>
-          <el-descriptions-item>
-            <template slot="label"> 工号 </template>
-            {{ id }}
-          </el-descriptions-item>
+  <el-container style="margin-top: 20px">
+    <el-main>
+      <el-card style="margin: 0px 100px 0px 100px">
+        <div class="grid-content bg-purple-dark">
+          <p style="
+              margin: 0px 0px 0px 0px;
+              padding-top: 20px;
+              color: black;
+              font: 22px Microsoft YaHei;
+              text-align: center;
+            ">
+            个人信息
+          </p>
+          <el-form ref="tableData" style="margin: 40px 100px 0px 50px" :model="tableData" label-width="80px">
+            <el-form-item label="姓名" prop="name">
+              {{tableData.name}}
+            </el-form-item>
 
-          <el-descriptions-item>
-            <template slot="label"> 手机号 </template>
-            {{ phone_number }}
-          </el-descriptions-item>
-          <el-descriptions-item>
-            <template slot="label"> 邮箱 </template>
-            {{ email }}
-          </el-descriptions-item>
-        </el-descriptions>
+            <el-form-item label="工号" prop="id" >
+              {{tableData.id}}
+            </el-form-item>
+
+            <el-form-item label="邮箱" prop="email">
+              {{tableData.email}}
+            </el-form-item>
+            <el-form-item label="身份" prop="identityname">
+              {{identityname}}
+            </el-form-item>
+            <el-form-item label="年级" prop="grade" v-if="tableData.identity >= 4">
+              <el-input type="grade" v-model="tableData.grade"></el-input>
+            </el-form-item>
+            <el-form-item label="专业" prop="major" v-if="tableData.identity >= 4">
+              <el-input type="major" v-model="tableData.major"></el-input>
+            </el-form-item>
+            <el-form-item label="班级" prop="class_id" v-if="tableData.identity >= 4">
+              <el-input type="class_id" v-model="tableData.class_id"></el-input>
+            </el-form-item>
+
+            <el-form-item label="学院" prop="school" v-if="tableData.identity == 2 || tableData.identity == 3">
+              <el-input type="school" v-model="tableData.school"></el-input>
+            </el-form-item>
+            <el-form-item label="职称" prop="title" v-if="tableData.identity == 2 || tableData.identity == 3">
+              <el-input type="title" v-model="tableData.title"></el-input>
+            </el-form-item>
+
+          </el-form>
+        </div>
       </el-card>
     </el-main>
-    <el-aside width="200px"></el-aside>
   </el-container>
 </template>
 
-
 <script>
+import axios from "axios";
 export default {
   data() {
     return {
-      name: "",
-      id: "",
-      phone_number: "",
-      email: "",
-      is_active: "",
-      //role: "",
-      department: "",
-      major_id: "",
+      id: null,
+      role: null,
+      identityname: "",
+      tableData: {
+        name: "",
+        id: "",
+        gender: "",
+        phone_number: "",
+        email: "",
+        role: "",
+      },
     };
   },
   methods: {
     getParams: function () {
       // 取到路由带过来的参数
+      //var routerParams = this.$route.query.id;
+      // 将数据放在当前组件的数据内
 
-      this.id = sessionStorage.getItem("id");
+      this.id = sessionStorage.getItem("id")
+      this.role=sessionStorage.getItem("role")
     },
 
-    getAdminInfo() {},
+    getInfo() {
+      switch (this.role) {
+        case "1":
+          axios({
+            method: "GET",
+            baseURL: '/api',
+            url: "/user/getadmininfo",
+            params: {
+              id: this.id
+            }
+          }).then((res) => {
+            console.log(res.data.data);
+            this.tableData = res.data.data;
+            this.identityname = "管理员";
+          }).catch((err) => {
+            console.log(err);
+            this.$message({
+              message: "服务器错误",
+              type: "error",
+            });
+          })
+          break;
+        case "2":
+        case "3":
+          axios({
+            method: "GET",
+            baseURL: '/api',
+            url: "/user/getteacherinfo",
+            params: {
+              id: this.id
+            }
+          }).then((res) => {
+            console.log(res.data.data);
+            this.tableData = res.data.data;
+            if (this.tableData.identity == 2) {
+              this.identityname = "责任教师";
+            } else {
+              this.identityname = "普通教师";
+            }
+          }).catch((err) => {
+            console.log(err);
+            this.$message({
+              message: "服务器错误",
+              type: "error",
+            });
+          })
+          break;
 
-    modifyAccount() {
-      this.$router.push({
-        path: "/adminHome/modifyAccount",
-        query: {
-          info: this.$Base64.encode(JSON.stringify(this.id)),
-        },
-      });
+        default:
+          axios({
+            method: "GET",
+            baseURL: '/api',
+            url: "/user/getstudentinfo",
+            params: {
+              id: this.id
+            }
+          }).then((res) => {
+            console.log(res.data.data);
+            this.tableData = res.data.data;
+            if (this.tableData.identity == 4) {
+              this.identityname = "助教";
+            } else {
+              this.identityname = "学生";
+            }
+          }).catch((err) => {
+            console.log(err);
+            this.$message({
+              message: "服务器错误",
+              type: "error",
+            });
+          })
+          break;
+      }
+
+    },
+
+    checkResponse(response) {
+      if (response == "Success") this.$message("修改成功");
+      else this.$message("错误");
+    },
+
+    save() {
+      //保存修改
+      console.log("save")
+
+      switch (this.role) {
+        case "1":
+          axios({
+            method: "POST",
+            baseURL: '/api',
+            url: "/user/modifyadmininfo",
+            data: this.tableData
+          }).then(() => {
+            this.$message({
+              message: "修改成功",
+              type: "success",
+            });
+          }).catch((err) => {
+            console.log(err);
+            this.$message({
+              message: "服务器错误",
+              type: "error",
+            });
+          })
+          break;
+        case "2":
+        case "3":
+          axios({
+            method: "POST",
+            baseURL: '/api',
+            url: "/user/modifyteacherinfo",
+            data: this.tableData
+          }).then(() => {
+            this.$message({
+              message: "修改成功",
+              type: "success",
+            });
+          }).catch((err) => {
+            console.log(err);
+            this.$message({
+              message: "服务器错误",
+              type: "error",
+            });
+          })
+          break;
+
+        default:
+          axios({
+            method: "POST",
+            baseURL: '/api',
+            url: "/user/modifystudentinfo",
+            data: this.tableData
+          }).then(() => {
+            this.$message({
+              message: "修改成功",
+              type: "success",
+            });
+          }).catch((err) => {
+            console.log(err);
+            this.$message({
+              message: "服务器错误",
+              type: "error",
+            });
+          })
+          break;
+      }
+    },
+
+    back() {
+      this.$router.go(-1);
     },
   },
   mounted() {
     this.getParams();
-    this.getAdminInfo();
+
+    this.getInfo();
   },
 };
 </script>
 
-
-<style scoped>
-.back {
-  width: 700px;
-}
-.demo-border .text {
-  width: 15%;
-}
-
-.demo-border .line div {
-  width: 100%;
-  height: 0;
-}
+<style>
 .el-button--primary {
   color: white;
 }

@@ -79,13 +79,8 @@ export default {
       //var routerParams = this.$route.query.id;
       // 将数据放在当前组件的数据内
 
-      this.id = JSON.parse(
-        this.$Base64.decode(this.$route.query.info)
-      )["id"];
-      this.role = JSON.parse(
-        this.$Base64.decode(this.$route.query.info)
-      )["role"];
-      console.log("路有参数" + this.id);
+      this.id = sessionStorage.getItem("id")
+      this.role=sessionStorage.getItem("role")
     },
 
     getInfo() {
@@ -171,6 +166,8 @@ export default {
 
     save() {
       //保存修改
+      console.log("save")
+
       switch (this.role) {
         case "1":
           axios({
