@@ -196,10 +196,10 @@ export default {
       }
     },
     downloadFile(index, row) {
-      console.log(row)
-      console.log("down")
+      // console.log(row)
+      // console.log("down")
 
-      //window.location.href=row.file
+      window.location.href=row.file
     },
     handleFile() {
       this.dialogVisible = true;
