@@ -5,35 +5,22 @@
       <v-col v-for="index in courseData" :key="index.class_id">
         <v-card class="mx-auto" max-width="344">
           <v-img
-            src="https://cdn.vuetifyjs.com/images/cards/sunshine.jpg"
+              src="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fn.sinaimg.cn%2Fsinakd2021517s%2F199%2Fw600h399%2F20210517%2F8668-kpzzqna9149622.jpg&refer=http%3A%2F%2Fn.sinaimg.cn&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1657271598&t=012c43f35122b4a9b9c3a2442b6c8805"
             height="200px"
           ></v-img>
 
           <v-card-title>
-            <b>{{ index.course_name }} {{ index.class_id }}</b>
-            <v-spacer></v-spacer>
-            <br />
-            <p>{{ index.year }}年 {{ index.semester }}</p>
+            <b>{{ index.class_name }} {{ index.class_id }}</b>
+
           </v-card-title>
 
-          <v-card-subtitle> {{ index.place }}{{ index.time }}</v-card-subtitle>
-
           <v-card-actions>
-            <v-btn color="orange lighten-2" @click="toCourse(index)">
-              查看
-            </v-btn>
+            <el-button type="primary" @click="intoClass(index.class_id)">进入班级</el-button>
 
-            <v-spacer></v-spacer>
-
-            <v-btn icon @click="show = !show"> </v-btn>
           </v-card-actions>
 
           <v-expand-transition>
-            <div v-show="show">
-              <v-divider></v-divider>
 
-              <v-card-text> 课程简介 </v-card-text>
-            </div>
           </v-expand-transition>
         </v-card>
       </v-col>
@@ -42,17 +29,13 @@
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
   data() {
     return {
       show: false,
       courseData: [
-        {
-          class_id: 401902,
-          course_name: "软件工程",
-          year: 2021,
-          semester: "春季",
-        },
       ],
     };
   },
@@ -78,9 +61,28 @@ export default {
         this.courseData = response["data"];
       }
     },
+    intoClass(id){
+      this.$router.push({path:'/studentHome/concreteCourse',query: {id:id}})
+    }
   },
   mounted() {
-    this.getCourse();
+    // eslint-disable-next-line no-unused-vars
+    let classId;
+    axios.get("/api/user/getclass",{
+      params:{
+        id:sessionStorage.getItem("id")
+      }
+    }).then(res=>{
+      classId = res.data.msg
+
+      axios.get("http://101.132.121.170:8018/course-server/class/get/one",{
+        params:{
+          class_id:classId
+        }
+      }).then(res=>{
+        this.courseData.push(res.data)
+      })
+    })
   },
 };
 </script>

@@ -36,10 +36,33 @@
             >
               <template slot-scope="scope">
                 <el-button size="mini" @click="downloadFile(scope.$index, scope.row)" :disabled="isnotOK1">下载/预览</el-button>
+                <el-button size="mini" @click="dialogFormVisible = true;Fileform.experiment_id=scope.row.experiment_id"
+                           :disabled="isnotOK">重新上传</el-button>
               </template>
             </el-table-column>
           </el-table>
         </el-tab-pane>
+        <el-dialog title="上传实验指导书" :visible.sync="dialogFormVisible">
+          <el-form :model="Fileform">
+            <el-form-item label="请输入上传者" :label-width="formLabelWidth">
+              <el-input v-model="Fileform.uploader" autocomplete="off"></el-input>
+            </el-form-item>
+            <el-form-item label="文件" size="mini">
+              <el-upload ref="upfile"
+                         style="display: inline"
+                         :auto-upload="false"
+                         :on-change="handleChange1"
+                         :file-list="fileList1"
+                         action="#">
+                <i class="el-icon-plus avatar-uploader-icon"></i>
+              </el-upload>
+            </el-form-item>
+          </el-form>
+          <div slot="footer" class="dialog-footer">
+            <el-button @click="dialogFormVisible = false">取 消</el-button>
+            <el-button type="primary" @click="reloadFile">确 定</el-button>
+          </div>
+        </el-dialog>
       </el-tabs>
     </el-card>
   </div>
@@ -51,7 +74,11 @@ export default {
   async created() {
     let query = this.$route.query;
     console.log(query)
-    await axios.get('http://101.132.121.170:8018/course-server/experiment/get/all').then(res => {
+    await axios.get('http://101.132.121.170:8018/course-server/class/experiment',{
+      params:{
+        class_id:this.$route.query.id
+      }
+    }).then(res => {
       this.tableData =  res.data;
       console.log(res)
     })
@@ -103,6 +130,20 @@ export default {
     downloadFile(index, row) {
       console.log(row)
       window.location.href=row.file
+    },
+
+    async reloadFile(){
+      let fd = new FormData()
+      fd.append('experiment_id', this.Fileform.experiment_id)
+      fd.append('uploader',this.Fileform.uploader)
+      this.fileList1.forEach(item => {
+        fd.append('file', item.raw)
+      })
+      await axios.post('http://101.132.121.170:8018/course-server/experiment/upload',fd).then(res => {
+        console.log(res);
+        this.$message.success("上传成功")
+      })
+      location.reload()
     },
   }
 };
