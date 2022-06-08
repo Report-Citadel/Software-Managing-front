@@ -78,9 +78,6 @@
           <el-form-item label="请输入实验" :label-width="formLabelWidth">
             <el-input v-model="Fileform.experiment_id" autocomplete="off"></el-input>
           </el-form-item>
-          <el-form-item label="请输入实验指导书名称" :label-width="formLabelWidth">
-            <el-input v-model="Fileform.name" autocomplete="off"></el-input>
-          </el-form-item>
           <el-form-item label="请输入上传者" :label-width="formLabelWidth">
             <el-input v-model="Fileform.uploader" autocomplete="off"></el-input>
           </el-form-item>
