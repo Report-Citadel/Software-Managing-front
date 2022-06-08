@@ -200,6 +200,7 @@ export default {
       this.dialogVisible = true;
     },
     async getCourseEx() {
+
       await axios.get("http://101.132.121.170:8018/course-server/class/experiment",{
         params:{
           class_id:this.$route.query.id
