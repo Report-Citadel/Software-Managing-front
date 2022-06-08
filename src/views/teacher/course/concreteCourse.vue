@@ -65,13 +65,13 @@ export default {
   },
   methods: {
     getParams: function () {
-      this.c_id = this.$route.query.info;
+      this.c_id = this.$route.query.id;
     },
     handleSelect(index) {
       this.$router.push({
         path: index,
         query: {
-          info: this.c_id,
+          id: this.c_id,
         },
       });
     },
