@@ -188,13 +188,17 @@ export default {
   },
   created() {
     this.getsettings();
-    this.axios.get("http://139.196.181.186:8000/api/getCourse").then((res) => {
-      this.courses = res.data;
-      console.log(res.data);
-      this.course_id = this.courses[0].courseid;
-      this.chooseCourse(this.course_id);
-      this.value = this.courses[0].courseid;
-    });
+    this.axios
+      .get("http://139.196.181.186:8000/api/getCourse", {
+        params: { instructor: localStorage.getItem("id") },
+      })
+      .then((res) => {
+        this.courses = res.data;
+        console.log(res.data);
+        this.course_id = this.courses[0].courseid;
+        this.chooseCourse(this.course_id);
+        this.value = this.courses[0].courseid;
+      });
   },
   methods: {
     getsettings() {

@@ -58,7 +58,7 @@ const routes = [
           { path: '/studentHome/concreteCourse/DemandSupplyIntention', component: () => import('../components/rzc/auctionIntention.vue') },
           { path: '/studentHome/concreteCourse/DemandSupplyReport', component: () => import('../components/rzc/auctionReport.vue') },
           { path: '/teacherHome/concreteCourse/Exper/DemandSupplyManage', component: () => import('../components/rzc/auctionManagement.vue') },
-          
+
           //cyh盈亏平衡
           { path: '/studentHome/concreteCourse/BalanceCost', component: () => import('../components/cyh/BreakEventExp.vue') },
           // 不确定分析
@@ -132,9 +132,7 @@ const routes = [
       { path: '/teacherHome/manageCourse', component: () => import('../views/teacher/course/ManageCourse.vue') },
 
       //责任课程
-      { path: '/teacherHome/manageCourse2', component: () => import('../views/teacher/course/courseManage/manageCourse.vue') },
-      { path: '/teacherHome/manageCourse/Ann', component: () => import('../views/teacher/course/courseManage/announce/manageAnn.vue') },
-      { path: '/teacherHome/manageCourse/Perform', component: () => import('../views/teacher/course/courseManage/grade/managePerform.vue') },
+
 
 
       //课程
@@ -143,13 +141,13 @@ const routes = [
         path: '/teacherHome/concreteCourse', component: TeaConcreteCourse, children: [
           { path: '/teacherHome/concreteCourse/Ann', component: () => import('../views/teacher/course/courseDetail/courseAnnounce.vue') },
           { path: '/teacherHome/concreteCourse/Peo', component: () => import('../views/teacher/course/courseDetail/coursePeople.vue') },
-          { path: '/teacherHome/concreteCourse/Perform', component: () => import('../views/teacher/course/courseDetail/coursePerformance.vue') },
+          { path: '/teacherHome/concreteCourse/Perform', component: () => import('../views/teacher/course/courseManage/grade/managePerform.vue') },
 
           { path: '/teacherHome/concreteCourse/File', component: () => import('../views/teacher/course/courseDetail/courseFile.vue') },
           { path: '/teacherHome/concreteCourse/Exper', component: () => import('../views/teacher/course/courseDetail/courseExperiment.vue') },
 
           { path: '/teacherHome/concreteCourse/stuExperList', component: () => import('../views/teacher/course/experiment/stuExperList.vue') },
-          { path: '/studentHome/concreteCourse/BalanceCostExp', component: () => import('../components/cyh/CorrectReport')},
+          { path: '/studentHome/concreteCourse/BalanceCostExp', component: () => import('../components/cyh/CorrectReport') },
 
         ]
       },

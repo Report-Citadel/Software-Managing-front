@@ -2,9 +2,9 @@
   <div>
     <el-card>
       <el-table
-          ref="filterTable"
-          row-key="deadline"
-          :data="
+        ref="filterTable"
+        row-key="deadline"
+        :data="
           experimentList
             .filter(
               (data) =>
@@ -15,58 +15,55 @@
             )
             .slice((currentPage - 1) * pagesize, currentPage * pagesize)
         "
-          style="width: 100%"
+        style="width: 100%"
       >
         <el-table-column prop="experiment_title" label="实验名称" sortable>
-          <template slot-scope="scope"
-          >
-            <el-link @click="specialFunc(scope.row)">{{
-                scope.row.experiment_title
-              }}
+          <template slot-scope="scope">
+            <el-link @click="specialFunc(scope.row)"
+              >{{ scope.row.experiment_title }}
             </el-link>
           </template>
         </el-table-column>
-        <el-table-column prop="end_time" label="截止日期" sortable/>
+        <el-table-column prop="end_time" label="截止日期" sortable />
+
         <el-table-column
-            prop="status"
-            label="状态"
-            sortable
-            :filters="[
+          prop="status"
+          label="状态"
+          sortable
+          :filters="[
             { text: '未过期', value: '未过期' },
             { text: '已过期', value: '已过期' },
           ]"
-            :filter-method="filterTag"
-            filter-placement="bottom-end"
+          :filter-method="filterTag"
+          filter-placement="bottom-end"
         >
           <template slot-scope="scope">
             <el-tag
-                :type="scope.row.status === '未过期' ? 'primary' : 'success'"
-                disable-transitions
-            >{{ scope.row.status }}
-            </el-tag
-            >
+              :type="scope.row.status === '未过期' ? 'primary' : 'success'"
+              disable-transitions
+              >{{ scope.row.status }}
+            </el-tag>
           </template>
         </el-table-column>
-        <el-table-column prop="weight" label="权重" sortable/>
+        <el-table-column prop="weight" label="权重" sortable />
 
         <el-table-column>
           <template #header>
-            <el-input v-model="search" placeholder="请输入实验名称"/>
+            <el-input v-model="search" placeholder="请输入实验名称" />
           </template>
           <template #default="scope">
             <v-row>
               <v-col>
-                <v-btn small dark @click="handleGrade(scope.row)"
-                >批改
-                </v-btn
-                >
+                <v-btn small dark @click="handleGrade(scope.row)">批改 </v-btn>
               </v-col>
               <v-col>
-                <v-btn small dark  @click="dialogFormVisible = true"
-                       :disabled="isnotOK"
-                >上传
-                </v-btn
-                >
+                <v-btn
+                  small
+                  dark
+                  @click="dialogFormVisible = true"
+                  :disabled="isnotOK"
+                  >上传
+                </v-btn>
               </v-col>
             </v-row>
           </template>
@@ -76,18 +73,23 @@
       <el-dialog title="上传实验指导书" :visible.sync="dialogFormVisible">
         <el-form :model="Fileform">
           <el-form-item label="请输入实验" :label-width="formLabelWidth">
-            <el-input v-model="Fileform.experiment_id" autocomplete="off"></el-input>
+            <el-input
+              v-model="Fileform.experiment_id"
+              autocomplete="off"
+            ></el-input>
           </el-form-item>
           <el-form-item label="请输入上传者" :label-width="formLabelWidth">
             <el-input v-model="Fileform.uploader" autocomplete="off"></el-input>
           </el-form-item>
           <el-form-item label="文件" size="mini">
-            <el-upload ref="upfile"
-                       style="display: inline"
-                       :auto-upload="false"
-                       :on-change="handleChange1"
-                       :file-list="fileList1"
-                       action="#">
+            <el-upload
+              ref="upfile"
+              style="display: inline"
+              :auto-upload="false"
+              :on-change="handleChange1"
+              :file-list="fileList1"
+              action="#"
+            >
               <i class="el-icon-plus avatar-uploader-icon"></i>
             </el-upload>
           </el-form-item>
@@ -99,13 +101,13 @@
       </el-dialog>
 
       <el-pagination
-          @size-change="handleSizeChange"
-          @current-change="handleCurrentChange"
-          :current-page="currentPage"
-          :page-size="pagesize"
-          layout="total,  prev, pager, next, jumper"
-          :total="experimentList.length"
-          filterState
+        @size-change="handleSizeChange"
+        @current-change="handleCurrentChange"
+        :current-page="currentPage"
+        :page-size="pagesize"
+        layout="total,  prev, pager, next, jumper"
+        :total="experimentList.length"
+        filterState
       >
       </el-pagination>
     </el-card>
@@ -126,11 +128,11 @@ export default {
       currentPage: 1,
       pagesize: 9,
       fileList: [],
-      fileList1:[],
+      fileList1: [],
       Fileform: {
-        name: '',
-        experiment_id:'',
-        uploader:'',
+        name: "",
+        experiment_id: "",
+        uploader: "",
       },
       experimentList: [
         {
@@ -246,23 +248,25 @@ export default {
       return this.$confirm(`确定移除 ${file.name}？`);
     },
 
-    handleChange1 (file, fileList) {
-      this.fileList1 = fileList
+    handleChange1(file, fileList) {
+      this.fileList1 = fileList;
     },
 
-    loadFile(){
-      let fd = new FormData()
-      fd.append('experiment_id', this.Fileform.experiment_id)
-      fd.append('name', this.Fileform.name)
-      fd.append('uploader',this.Fileform.uploader)
-      this.fileList1.forEach(item => {
-        fd.append('file', item.raw)
-      })
-      axios.post('http://101.132.121.170:8018/course-server/experiment/upload',fd).then(res => {
-        console.log(res);
-      })
-      this.dialogFormVisible = false
+    loadFile() {
+      let fd = new FormData();
+      fd.append("experiment_id", this.Fileform.experiment_id);
+      fd.append("uploader", this.Fileform.uploader);
+      this.fileList1.forEach((item) => {
+        fd.append("file", item.raw);
+      });
+      axios
+        .post("http://101.132.121.170:8018/course-server/experiment/upload", fd)
+        .then((res) => {
+          console.log(res);
+        });
+      this.dialogFormVisible = false;
     },
+
     handleGrade(row) {
       switch (row.ex_id) {
         case 4:
@@ -289,13 +293,9 @@ export default {
       this.dialogVisible = true;
     },
 
-    getCourseEx() {
-    },
+    getCourseEx() {},
     getParams: function () {
-      this.c_id = JSON.parse(this.$Base64.decode(this.$route.query.info))[
-          "class_id"
-          ];
-      console.log("cid===" + this.c_id);
+      this.c_id = this.$route.query.id;
     },
     specialFunc(row) {
       switch (row.ex_id) {
