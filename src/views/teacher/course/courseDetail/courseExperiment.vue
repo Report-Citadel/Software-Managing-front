@@ -37,7 +37,7 @@
                 <v-btn small dark @click="handleGrade(scope.row)">批改 </v-btn>
               </v-col>
               <v-col v-if="scope.row.file ===  null">
-                <v-btn small dark  @click="dialogFormVisible = true"
+                <v-btn small dark  @click="dialogFormVisible = true;Fileform.experiment_id = scope.row.experiment_id"
                        :disabled="isnotOK">上传实验指导书
                 </v-btn>
               </v-col>
@@ -51,12 +51,6 @@
 
       <el-dialog title="上传实验指导书" :visible.sync="dialogFormVisible">
         <el-form :model="Fileform">
-          <el-form-item label="请输入实验" :label-width="formLabelWidth">
-            <el-input
-              v-model="Fileform.experiment_id"
-              autocomplete="off"
-            ></el-input>
-          </el-form-item>
           <el-form-item label="请输入上传者" :label-width="formLabelWidth">
             <el-input v-model="Fileform.uploader" autocomplete="off"></el-input>
           </el-form-item>
@@ -159,19 +153,20 @@ export default {
       this.fileList1 = fileList;
     },
 
-    loadFile() {
+    async loadFile() {
       let fd = new FormData();
       fd.append("experiment_id", this.Fileform.experiment_id);
       fd.append("uploader", this.Fileform.uploader);
       this.fileList1.forEach((item) => {
         fd.append("file", item.raw);
       });
-      axios
+      await axios
         .post("http://101.132.121.170:8018/course-server/experiment/upload", fd)
         .then((res) => {
           console.log(res);
+          this.$message.success("上传成功！")
         });
-      this.dialogFormVisible = false;
+      location.reload()
     },
 
     handleGrade(row) {
