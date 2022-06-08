@@ -81,7 +81,7 @@ export default {
       course_name: "",
       ex_id: "",
       currentPage: 1,
-      pagesize: 9,
+      pagesize: 10,
       tableData: [
         {
           ex_id: 1,
@@ -151,6 +151,14 @@ export default {
           ex_id: 9,
           end_time: "2021-12-2 12:30:21",
           experiment_title: "多人博弈",
+          is_submit: false,
+          status: "未过期",
+          score: 98,
+        },
+        {
+          ex_id: 10,
+          end_time: "2021-12-2 12:30:21",
+          experiment_title: "蒙特卡洛分析",
           is_submit: false,
           status: "未过期",
           score: 98,
@@ -245,6 +253,15 @@ export default {
         case 6:
           this.$router.push({
             path: "/studentHome/concreteCourse/EconomicLife",
+            query: {
+              id: row.ex_id,
+              title: row.experiment_title,
+            },
+          });
+          break;
+        case 10:
+          this.$router.push({
+            path: "/studentHome/concreteCourse/montecarlo",
             query: {
               id: row.ex_id,
               title: row.experiment_title,
