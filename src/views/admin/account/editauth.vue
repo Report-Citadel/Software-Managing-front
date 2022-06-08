@@ -1,45 +1,46 @@
 <template>
-  <div style="height: 100%">
-    <el-card style="height: 100%">
+  <div style="height: 100%;margin-top: 50px">
+    <el-card style="height: 100%;">
       <div slot="header" class="clearfix">
         <span><b>权限管理</b></span>
       </div>
-      <el-form ref="ruleForm" :rules="rules" :model="ruleForm" label-width="100px" style="width: 500px"
-        :hide-required-asterisk="true">
-        <el-form-item label="ID：">
-          <el-input v-model="id"></el-input>
-        </el-form-item>
-        <el-form-item>
-          <el-button type="primary" @click="get_auth">确认</el-button>
-        </el-form-item>
-        <el-form-item label=" 账号类型：" prop="id">
-          <el-input v-model="accountType"></el-input>
-        </el-form-item>
-        <!-- <el-form-item label="权限范围：">
-          <el-select v-model="ClassValue" filterable placeholder="请选择" @change="handelScopeChange">
-            <el-option v-for="item in classes" :key="item.value" :label="item.label" :value="item.value">
-            </el-option>
-          </el-select>
-        </el-form-item> -->
-        <el-form-item>
-          <el-checkbox :indeterminate="isIndeterminate" v-model="checkAll" @change="handleCheckAllChange">全选
-          </el-checkbox>
-          <div style="margin: 15px 0"></div>
-          <el-checkbox-group v-model="checkedAuthorities" @change="handleCheckedCitiesChange">
-            <el-checkbox v-for="city in authorities" :label="city" :key="city">{{ city }}</el-checkbox>
-          </el-checkbox-group>
-        </el-form-item>
-      </el-form>
-      <el-row style="width: 500px">
-        <el-col :span="3" :offset="8">
-          <el-button type="primary" @click="submitForm()">提交</el-button>
-        </el-col>
-        <el-col :span="3" :offset="2">
-          <router-link to="/admin/user-management">
-            <el-button>取消</el-button>
-          </router-link>
-        </el-col>
-      </el-row>
+      <div style="  display: flex;justify-content: center;" >
+        <el-form ref="ruleForm" :rules="rules" :model="ruleForm" label-width="100px" style="width: 500px"
+          :hide-required-asterisk="true">
+          <el-form-item label="ID：">
+            <el-input v-model="id"></el-input>
+          </el-form-item>
+          <el-form-item>
+            <el-button type="primary" @click="get_auth">确认</el-button>
+          </el-form-item>
+          <el-form-item label=" 账号类型：" prop="id">
+            <el-input v-model="accountType"></el-input>
+          </el-form-item>
+          <!-- <el-form-item label="权限范围：">
+            <el-select v-model="ClassValue" filterable placeholder="请选择" @change="handelScopeChange">
+              <el-option v-for="item in classes" :key="item.value" :label="item.label" :value="item.value">
+              </el-option>
+            </el-select>
+          </el-form-item> -->
+          <el-form-item>
+            <el-checkbox :indeterminate="isIndeterminate" v-model="checkAll" @change="handleCheckAllChange">全选
+            </el-checkbox>
+            <div style="margin: 15px 0"></div>
+            <el-checkbox-group v-model="checkedAuthorities" @change="handleCheckedCitiesChange">
+              <el-checkbox v-for="city in authorities" :label="city" :key="city">{{ city }}</el-checkbox>
+            </el-checkbox-group>
+          </el-form-item>
+          <el-col :span="3" :offset="8">
+            <el-button type="primary" @click="submitForm()">提交</el-button>
+          </el-col>
+          <el-col :span="3" :offset="2">
+            <router-link to="/admin/user-management">
+              <el-button>取消</el-button>
+            </router-link>
+          </el-col>
+        </el-form>
+      </div>
+
     </el-card>
   </div>
 </template>

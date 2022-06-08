@@ -142,8 +142,7 @@ export default {
     getAnnList() {},
 
     getParams: function () {
-      this.id = sessionStorage.getItem("id");
-      this.c_id = this.$route.query.info;
+      this.c_id = this.$route.query.id;
     },
   },
   mounted() {

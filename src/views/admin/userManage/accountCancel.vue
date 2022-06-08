@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-scrollbar>
-      <el-card>
+      <el-card style="margin-top: 100px">
         <el-table ref="multipleTable" :data="
           tableData.slice((currentPage - 1) * pagesize, currentPage * pagesize)
         " style="width: 100%">

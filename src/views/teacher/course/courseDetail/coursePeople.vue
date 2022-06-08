@@ -22,9 +22,7 @@ export default {
   },
   methods: {
     getParams: function () {
-      this.c_id = JSON.parse(this.$Base64.decode(this.$route.query.info))[
-        "class_id"
-      ];
+      this.c_id = this.$route.query.id
     },
   },
 

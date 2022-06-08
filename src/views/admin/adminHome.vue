@@ -23,7 +23,7 @@
                 >
               </el-menu-item-group>
             </el-submenu> 
-            <el-menu-item index="/adminHome/userManage/accountAdd" v-if="auth_create_account">
+            <el-menu-item index="/adminHome/accountAdd" v-if="auth_create_account">
               <i class="el-icon-user"></i>
               <span slot="title">创建账户</span>
             </el-menu-item>
@@ -36,11 +36,11 @@
               <i class="el-icon-postcard"></i>
               <span slot="title">创建账户</span>
             </el-menu-item> -->
-            <el-menu-item index="/adminHome/userManage/accountCancel" v-if="auth_delete_account">
+            <el-menu-item index="/adminHome/accountCancel" v-if="auth_delete_account">
               <i class="el-icon-postcard"></i>
               <span slot="title">删除账户</span>
             </el-menu-item>
-            <el-menu-item index="/adminHome/userManage/accountCheck" v-if="auth_edit_info">
+            <el-menu-item index="/adminHome/accountCheck" v-if="auth_edit_info">
               <i class="el-icon-postcard"></i>
               <span slot="title">修改账户信息</span>
             </el-menu-item>
@@ -116,7 +116,7 @@ export default {
   methods: {
     accountinfo(){
       this.$router.push({
-        path: "/adminHome/userManage/accountInfo",
+        path: "/adminHome/account",
         query: {
           info: this.$Base64.encode(
             JSON.stringify({ id: sessionStorage.getItem("id"), role: sessionStorage.getItem("role") })
@@ -126,7 +126,7 @@ export default {
     },
     modifyAccount() {
       this.$router.push({
-        path: "/adminHome/userManage/accountModify",
+        path: "/adminHome/modifyAccount",
         query: {
           info: this.$Base64.encode(
             JSON.stringify({ id: sessionStorage.getItem("id"), role: sessionStorage.getItem("role")  })

@@ -1,5 +1,5 @@
 <template>
-  <el-container style="margin-top: 20px">
+  <el-container style="margin-top: 150px">
     <el-main>
       <el-card style="
           box-shadow: 7px 7px 7px rgba(0, 0, 0, 0.15);
