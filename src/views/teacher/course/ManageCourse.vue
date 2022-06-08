@@ -25,19 +25,18 @@
             }} {{a.teacher_name}}</el-descriptions-item>
           </el-descriptions>
           <el-button
+              type="text"
+              style="float: right; margin-top: -20px"
+              @click="addStuVisible = true;selectClassId=a.class_id"
+          >新增学生</el-button>
+          <el-button
             type="text"
             style="float: right; margin-top: -20px"
             @click="deleteclass(a.class_id)"
             :disabled="isnotOK1"
-            >删除</el-button
-          >
+            >删除</el-button>
         </el-card>
-        <el-dialog title="班级信息" :visible.sync="dialogFormVisible">
-          <div>
-            <el-button type="text" @click="lookclass(a.class_id)"
-              >查看班级所有学生信息</el-button
-            >
-          </div>
+        <el-dialog title="人员管理" :visible.sync="dialogFormVisible">
           <el-table
             :data="
               tableDatastu.filter(
@@ -48,18 +47,10 @@
             "
             style="width: 100%"
           >
-            <el-table-column label="学号" prop="student_id"> </el-table-column>
-            <el-table-column label="姓名" prop="student_name">
-            </el-table-column>
-            <el-table-column align="right">
-              <template slot="header">
-                <el-input
-                  v-model.lazy="search"
-                  size="mini"
-                  placeholder="输入关键字搜索"
-                />
-              </template>
-            </el-table-column>
+            <el-table-column prop="id" label="学号" sortable />
+            <el-table-column prop="name" label="姓名" sortable />
+            <el-table-column prop="grade" label="年级" sortable />
+            <el-table-column prop="major" label="专业" sortable />
           </el-table>
         </el-dialog>
       </div>
@@ -136,28 +127,6 @@
             </el-checkbox-group>
           </div>
           <div>
-            <el-upload
-              ref="input"
-              action="/"
-              style="margin: 10px"
-              :show-file-list="false"
-              :auto-upload="false"
-              :on-change="importExcel"
-              type="file"
-            >
-              <el-button slot="trigger" size="small" type="text"
-                >上传文件</el-button
-              >
-              <el-button
-                @click="tableVisible = true"
-                size="small"
-                type="text"
-                style="margin-left: 10px"
-                >查看学生</el-button
-              >
-              <el-button @click="exportToExcel" size="small" type="text"
-                >导出</el-button
-              >
               <el-button
                 @click="submit"
                 size="small"
@@ -165,7 +134,6 @@
                 :disabled="isnotOK"
                 >OK</el-button
               >
-            </el-upload>
           </div>
         </div>
 <!--        <el-dialog title="班级信息" :visible.sync="tableVisible">-->
@@ -182,6 +150,28 @@
 <!--        </el-dialog>-->
       </el-card>
     </div>
+    <el-dialog title="添加学生" :visible.sync="addStuVisible">
+      <el-select
+          v-model="selectId"
+          style="margin: 10px"
+          size="small"
+          filterable
+          clearable
+          placeholder="请选择学生"
+      >
+        <el-option
+            v-for="item in stuList"
+            :key="item.id"
+            :label="item.id + item.name"
+            :value="item.id"
+        ></el-option>
+      </el-select>
+
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="dialogFormVisible = false">取 消</el-button>
+        <el-button type="primary" @click="addStu">确 定</el-button>
+      </div>
+    </el-dialog>
   </div>
 </template>
 
@@ -198,6 +188,7 @@ export default {
       isnotOK: false,
       isnotOK1: false,
       tableVisible: false,
+      addStuVisible:false,
       dialogFormVisible: false,
       newclass: [
         {
@@ -220,6 +211,9 @@ export default {
       classaddta: "",
       classdeleteta: "",
       search: "",
+      stuList:[],
+      selectId:"",
+      selectClassId:""
     };
   },
   async created() {
@@ -237,15 +231,29 @@ export default {
         else if(res.data.data[i].identity == 4){
           this.options2.push(res.data.data[i])
         }
+        else if(res.data.data[i].identity == 5){
+          this.stuList.push(res.data.data[i])
+        }
       }
     })
-    console.log(this.options1)
-    console.log(this.options2)
   },
 
   methods: {
     contains(subs, str) {
       return str.indexOf(subs) >= 0 ? true : false;
+    },
+
+    async addStu(){
+      await axios.post("/api/user/joinclass",{
+        class_id:this.selectClassId,
+        id:this.selectId
+      }).then(res=>{
+        console.log(res)
+        this.$message.success("添加成功")
+      })
+      this.addStuVisible=false
+      this.selectClassId=""
+      this.selectId=""
     },
     importExcel(file) {
       const types = file.name.split(".")[1];
@@ -414,29 +422,17 @@ export default {
         });
       location.reload()
     },
-    dialogvisiblea(class_id) {
+    async dialogvisiblea(class_id) {
       this.dialogFormVisible = true;
-      var params = {
-        class_id: class_id,
-      };
-      axios
-        .get(
-          "http://101.132.121.170:8090/class/ta/get" +
-            "?class_id=" +
-            params.class_id
-        )
-        .then((res) => {
-          this.owntas = [];
-          console.log(res);
-          var item = res.data.ta_name.split(",");
-          console.log(item);
-          for (let i = 0; i < item.length; i++) {
-            this.owntas.push({
-              ta_id: item[i],
-              ta_name: item[i],
-            });
-          }
-        });
+      await axios.get("/api/user/getstudentbyclassid",{
+        params:{
+          classId:class_id
+        }
+      }).then(res=>{
+        console.log(res)
+        this.tableDatastu=res.data.data
+      })
+
     },
     addta(class_id) {
       console.log(class_id);
