@@ -85,12 +85,6 @@
               autocomplete="off"
             ></el-input>
           </el-form-item>
-          <el-form-item
-            label="请输入实验指导书名称"
-            :label-width="formLabelWidth"
-          >
-            <el-input v-model="Fileform.name" autocomplete="off"></el-input>
-          </el-form-item>
           <el-form-item label="请输入上传者" :label-width="formLabelWidth">
             <el-input v-model="Fileform.uploader" autocomplete="off"></el-input>
           </el-form-item>
@@ -268,7 +262,6 @@ export default {
     loadFile() {
       let fd = new FormData();
       fd.append("experiment_id", this.Fileform.experiment_id);
-      fd.append("name", this.Fileform.name);
       fd.append("uploader", this.Fileform.uploader);
       this.fileList1.forEach((item) => {
         fd.append("file", item.raw);

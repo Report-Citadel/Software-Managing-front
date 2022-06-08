@@ -828,7 +828,6 @@
 </template>
 
 <script>
-import storage from "good-storage";
 import axios from "axios";
 import VeLine from 'v-charts/lib/line'
 import htmlToPdf from "../../components/Utils/htmlToPdf";
@@ -837,34 +836,25 @@ import htmlToPdf from "../../components/Utils/htmlToPdf";
 export default {
   components: {VeLine},
   async created() {
-    // console.log("方案数目"+this.newform.plan)
-    //let length=this.newform.plan
+    const tmp=localStorage.getItem('storage');
+    if(tmp==2){
+      this.newform.plan=3;
+      this.newform.state=2;
 
-    // this.chartData={
-    //   columns: this.columnsList,
-    //   rows: this.VeLineList
-    // }
-
-    var params1 = {
-      type: '学生',
-    }
-    axios.get('http://101.132.121.170:8090/permission/get' + '?role=' + params1.type).then(res => {
-      if (this.contains("上传实验报告", res.data.permission)) {
-        this.isnotOK1 = false
-      } else {
-        this.isnotOK1 = true
+      for (var j = 1; j <= 3; j++) {
+        this.tableData.push({
+          plan: '方案' + j,
+          stateone: 20+j*100,
+          statetwo: 30+j*100,
+        })
       }
-    })
-    var params = {
-      course_id: 1,
-      project_id: 8,
-      user_id: storage.get('user_id', 1)
+      // this.tableData[0].stateone=120;
+      // this.tableData[0].statetwo=130;
+      // this.tableData[1].stateone=220;
+      // this.tableData[1].statetwo=230;
+      // this.tableData[2].stateone=320;
+      // this.tableData[2].statetwo=330;
     }
-    await axios.get('http://101.132.121.170:8090/uncertainty/get' + '?course_id=' + params.course_id + '&project_id=' + params.project_id).then(res => {
-      console.log(res)
-    })
-
-
   },
   data() {
     return {
@@ -975,40 +965,11 @@ export default {
   },
 
   methods: {
-    // getTableOne(){
-    //   let tableone = new String();
-    //   for (let i = 0; i < this.newform.plan; i++) {
-    //     for (let j = 0; j < this.newform.state; j++) {
-    //       let tmp = this.tableData[i].name.toString();
-    //       tableone += tmp + ";";
-    //     }
-    //   }
-    // },
-
     async submitResult() {
-      var params = {
-        student_id: "10005",
-        table_1: String,
-        table_2: String,
-        table_3: String,
-        table_4: String,
-        table_5: String,
-        table_6: String,
-        table_7: String,
-        table_8: String,
-        conclusion: this.summary,
-        length: this.newform.plan,
-        columns: this.newform.state,
-      };
-      await axios
-          .post("/class/course-server/uncertainty/load", params)
-          .then((res) => {
-            console.log(res);
-            this.$alert("保存成功！", "提示", {
-              confirmButtonText: "确定",
-            });
-          });
-
+      localStorage.setItem('storage', 2);
+      this.$alert("保存成功！", "提示", {
+        confirmButtonText: "确定",
+      });
     },
     handleChange3(file, fileList) {
       this.fileList3 = fileList
@@ -1037,16 +998,18 @@ export default {
 
       let fd = new FormData()
       fd.append('experiment_id', 2)
-      fd.append('uploader', "TEST")
+      fd.append('class_id', "420120120")
+      fd.append('student_name', "test学生")
+      fd.append('student_id', "10005")
+      fd.append('report_name', "test实验报告")
 
       this.fileList3.forEach(item => {
         fd.append('file', item.raw)
       })
       fd.forEach((value, key) => { console.log(`key ${key}: value ${value}`); })
-      axios.post('http://101.132.121.170:8018/course-server/experiment/upload', fd).then(res => {
+      axios.post('http://101.132.121.170:8018/course-server/report/upload', fd).then(res => {
         console.log(res)
       })
-
 
       this.dialogVisibleaa = false
     },

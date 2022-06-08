@@ -17,10 +17,7 @@
       >
         <el-table-column prop="student_id" label="学号" sortable />
         <el-table-column prop="student_name" label="姓名" sortable />
-<!--        <el-table-column prop="status" label="是否提交" sortable />-->
         <el-table-column prop="time" label="提交日期" sortable />
-        <el-table-column prop="score" label="分数" sortable />
-
         <el-table-column>
           <template #header>
             <el-input v-model="search" placeholder="请输入" />
@@ -28,11 +25,10 @@
           <template #default="scope">
             <v-row>
               <v-col cols="4">
-                <v-btn small dark @click="checkExperiment(scope.row)"
+                <v-btn small dark @click="checkExperiment(scope.$index, scope.row)"
                   >查看</v-btn
                 >
               </v-col>
-
               <v-col cols="4">
                 <v-btn small dark @click="gradeExperiment(scope.row)"
                   >打分</v-btn
@@ -106,7 +102,10 @@ export default {
     },
     giveScoreDown() {},
 
-    checkExperiment() {},
+    checkExperiment(index, row) {
+      console.log(row)
+      window.location.href=row.file
+    },
 
     getStuEx() {},
     getParams: function () {

@@ -66,7 +66,6 @@ const routes = [
           //经济寿命周期
           { path: '/studentHome/concreteCourse/EconomicLife', component: () => import('../components/economicLifeCycle/EconomyLifeExp.vue') },
           { path: '/experiment/uncertainty-analysis', component: () => import('../views/Experiments/UncertiantyAnalysis') },
-
           // yxb蒙特卡洛分析
           { path: '/studentHome/concreteCourse/montecarlo', component: () => import('../components/montecarlo.vue') },
         ]

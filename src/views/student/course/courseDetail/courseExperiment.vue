@@ -211,6 +211,16 @@ export default {
             },
           });
           break;
+        case 2:
+          localStorage.setItem('storage', 1);
+          this.$router.push({
+            path: "/experiment/uncertainty-analysis",
+            query: {
+              id: row.ex_id,
+              title: row.experiment_title,
+            },
+          });
+          break;
         case 4:
           this.$router.push({
             path: "/studentHome/concreteCourse/BalanceCost",

@@ -350,7 +350,7 @@ export default {
       };
       axios
         .get(
-          "http://101.132.121.170:8090/class/get" +
+          "http://101.132.121.170:8018/class/get" +
             "?class_id=" +
             params.class_id
         )
