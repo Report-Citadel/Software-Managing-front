@@ -37,14 +37,13 @@ export default {
   },
   methods: {
     getParams: function () {
-      this.class_id = this.$route.query.class_id;
-      this.course_name = this.$route.query.course_name;
+      this.c_id = this.$route.query.id;
     },
     handleSelect(index) {
       this.$router.push({
         path: index,
         query: {
-          class_id: this.class_id,
+          id: this.c_id,
         },
       });
     },

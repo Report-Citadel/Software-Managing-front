@@ -1,76 +1,70 @@
 <template>
-  <el-table
-    :data="
-      stuList.filter(
-        (data) =>
-          !searchP ||
-          data.name.toLowerCase().includes(searchP.toLowerCase()) ||
-          data.id.toLowerCase().includes(searchP.toLowerCase()) ||
-          data.role.toLowerCase().includes(searchP.toLowerCase())
-      )
-    "
-    style="width: 100%"
-  >
-    <el-table-column prop="s_id" label="学号" sortable />
-    <el-table-column prop="name" label="姓名" sortable />
-    <el-table-column prop="role" label="身份" sortable />
+  <div>
 
-  </el-table>
+
+    <el-table :data="studentData" style="width: 100%">
+      <el-table-column prop="id" label="学号" sortable />
+      <el-table-column prop="name" label="姓名" sortable />
+      <el-table-column prop="grade" label="年级" sortable />
+      <el-table-column prop="major" label="专业" sortable />
+
+    </el-table>
+
+  </div>
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
   data() {
     return {
-      activeName: "first",
-      searchP: "",
-      searchG: "",
-      class_id: "",
-      stuList: [],
-      groupData: [
-        {
-          leader: "组长",
-          member: [
-            {
-              name: "1",
-            },
-            {
-              name: "2",
-            },
-          ],
-        },
-        {
-          leader: "组长",
-          member: [
-            {
-              name: "1",
-            },
-            {
-              name: "2",
-            },
-          ],
-        },
-      ],
+      id: "",
+      c_id: "",
+      selectId:"",
+      dialogFormVisible:false,
+      stuList:[],
+      studentData:[]
     };
   },
   methods: {
-    handleClick(tab, event) {
-      console.log(tab, event);
-    },
-    filterIdentity(value, row, column) {
-      const property = column["property"];
-      return row[property] === value;
-    },
-    getStuList() {
-
-    },
     getParams: function () {
-
+      this.c_id = this.$route.query.id
     },
+    async getPeople(){
+      await axios.get("/api/user/getstudentbyclassid",{
+        params:{
+          classId:this.$route.query.id
+        }
+      }).then(res=>{
+        console.log(res)
+        this.studentData=res.data.data
+      })
+    },
+    async add(){
+      await axios.post("/api/user/joinclass",{
+        class_id:this.$route.query.id,
+        id:this.selectId
+      }).then(res=>{
+        console.log(res)
+        this.$message.success("添加成功")
+      })
+      location.reload()
+    }
   },
-  mounted() {
+  async mounted() {
+    this.getParams()
+    this.getPeople()
+    await axios.get("/api/user/getallusers").then(res=>{
+      console.log(res.data.data)
+      for(var i=0; i<res.data.data.length; i++){
+        if(res.data.data[i].identity == 5){
+          this.stuList.push(res.data.data[i])
+        }
+      }
+    })
+  }
 
-  },
 };
 </script>
 
